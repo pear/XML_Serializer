@@ -1,6 +1,23 @@
 <?PHP
     error_reporting(E_ALL);
-    require_once 'XML/Unserializer.php';
+    require_once '../Unserializer.php';
+
+   /**
+    * class for the RDF docuemnt
+    *
+    *
+    */
+    class rdf
+    {
+        var $channel;
+        var $item;
+
+        function getItems($amount)
+        {
+            return array_splice($this->item,0,$amount);
+        }
+    }
+
 
    /**
     * class that is used for a channel in the RSS file
@@ -10,18 +27,10 @@
     */
     class channel
     {
-        var $items = array();
-
         function getTitle()
         {
             return  $this->title;
         }
-
-        function getItems($amount)
-        {
-            return array_splice($this->item,0,$amount);
-        }
-
     }
     
    /**
@@ -40,13 +49,17 @@
 
 
     $options = array(
-                     "complexType" => "object"
+                     "complexType" => "object",
+                     "tagMap"      => array(
+                                                "rdf:RDF"   => "rdf",
+                                                "rdf:Seq"   => "Sequence"
+                                            )
                     );
     
     //  be careful to always use the ampersand in front of the new operator 
     $unserializer = &new XML_Unserializer($options);
 
-    $status = $unserializer->unserialize("http://pear.php.net/rss.php",true);    
+    $status = $unserializer->unserialize("http://pear.php.net/feeds/latest.rss",true);    
 
     if (PEAR::isError($status)) {
         echo    "Error: " . $status->getMessage();
@@ -57,11 +70,8 @@
         
         echo "Title of the channel: ".$rss->channel->getTitle()."<br>";
 
-        $items = $rss->channel->getItems(3);
+        $items = $rss->getItems(3);
         
-        echo	"<pre>";
-        print_r( $items );
-        echo	"</pre>";
         foreach ($items as $item) {
             echo    "Title : ".$item->getTitle()."<br>";
         }

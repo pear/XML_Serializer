@@ -108,7 +108,8 @@ class XML_Unserializer extends XML_Parser {
                          "parseAttributes"   => false,                  // parse the attributes of the tag into an array
                          "attributesArray"   => false,                  // parse them into sperate array (specify name of array here)
                          "prependAttributes" => "",                     // prepend attribute names with this string
-                         "contentName"       => "_content"              // put cdata found in a tag that has been converted to a complex type in this key
+                         "contentName"       => "_content",             // put cdata found in a tag that has been converted to a complex type in this key
+                         "tagMap"            => array()                 // use this to map tagnames
                         );
 
    /**
@@ -289,6 +290,10 @@ class XML_Unserializer extends XML_Parser {
         $this->_depth++;
         $this->_dataStack[$this->_depth] = null;
 
+        if (is_array($this->options["tagMap"]) && isset($this->options["tagMap"][$element])) {
+            $element = $this->options["tagMap"][$element];
+        }
+        
         $val = array(
                      "name"         => $element,
                      "value"        => null,
@@ -402,7 +407,7 @@ class XML_Unserializer extends XML_Parser {
         $parent = array_pop($this->_valStack);
         if ($parent === null) {
             $this->_unserializedData = $value["value"];
-            $this->_root = $element;
+            $this->_root = $value["name"];
             return true;
         } else {
             // parent has to be an array
