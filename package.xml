@@ -7,7 +7,10 @@
 This class helps you generating any XML document you require without the need for DOM.
 Furthermore this package can be used as a replacement to serialize() und unserialize() as it comes with a matching XML_Unserializer that is able to create PHP data strcutures (like arrays and objects) from XML documents, if type hints are available.
 If you use the XML_Unserialzer on standard XML files, it will try to guess how it has to be unserialized. In most cases it does exactly what you expect it to do.
-Try reading a RSS file with XML_Unserializer and you have the  whole RSS file in a structured array or even a collection of objects, similar to XML_RSS.</description>
+Try reading a RSS file with XML_Unserializer and you have the  whole RSS file in a structured array or even a collection of objects, similar to XML_RSS.
+
+Since version 0.8 the package is able to treat XML documents like the simplexml extension of PHP 5.
+</description>
   <maintainers>
     <maintainer>
       <user>schst</user>
@@ -17,39 +20,62 @@ Try reading a RSS file with XML_Unserializer and you have the  whole RSS file in
     </maintainer>
   </maintainers>
   <release>
-    <version>0.6</version>
-    <date>2003-08-21</date>
+    <version>0.8</version>
+    <date>2003-09-23</date>
     <license>PHP License</license>
     <state>beta</state>
-    <notes>Unserializer is able to return the name of the root tag,
-added 'complexType' option to XML_Unserializer,
-added possibility to create nested objects from any XML file,
-tagname is used as classname if no other class is specified,
-added 'overrideOptions' option that can be used to restore the default options for a serialization,
-added 'keyAttribute' option to XML_Unserializer,
-added Todo list</notes>
+    <notes>XML_Serializer:
+* added option: scalarAsAttribute to create tags with attributes from an array or object,
+* added option: prependAttributes to enable a prepend string for attributes (ensure they are different from type hints),
+* added option: attributeIndent to allow multiline tags, if a tag has several attributes; this makes it easier to read (requested by Yavor Shahpasov),
+* now requires XML_Util 0.4.1 or newer,
+* added option: mode =&gt; simplexml, allows you to serialize indexed arrays like simpleXML of PHP5 does: tags use name of the parent structure and are in the same depth (this is still in alpha state, not thoroughly tested)
+
+XML_Unserializer:
+* added option: parseAttributes which allows you to parse tags with attributes,
+* added option: attributesArray to specify the name of the array in which attributes should be stored,
+* added option: prependAttributes to specify a prepend string for the generated array keys,
+* added option: contentName to specify the key for the content of a tag that contains also attributes
+* added option: tagMap, to change the names of the tags while parsing
+
+Both:
+* removed bug that occured when instantiating w/o options (reported by Alan Knowles),
+* added options: keyAttribute, typeAttribute and classAtribute to allow user to specify attribute names for typehints,
+* added resetOptions(),
+* added setOption(),
+* added option: overrideOptions that allows you to reset to defaults for one call of serialize or unserialize,
+* added some very small docs to defaultOptions arrays</notes>
     <deps>
       <dep type="pkg" rel="ge" version="0.4.1">XML_Util</dep>
       <dep type="pkg" rel="has">XML_Parser</dep>
     </deps>
     <provides type="class" name="XML_Serializer" extends="PEAR" />
     <provides type="function" name="XML_Serializer::apiVersion" />
+    <provides type="function" name="XML_Serializer::resetOptions" />
+    <provides type="function" name="XML_Serializer::setOption" />
     <provides type="function" name="XML_Serializer::serialize" />
     <provides type="function" name="XML_Serializer::getSerializedData" />
     <provides type="class" name="XML_Unserializer" extends="XML_Parser" />
     <provides type="function" name="XML_Unserializer::apiVersion" />
+    <provides type="function" name="XML_Unserializer::resetOptions" />
+    <provides type="function" name="XML_Unserializer::setOption" />
     <provides type="function" name="XML_Unserializer::unserialize" />
     <provides type="function" name="XML_Unserializer::getUnserializedData" />
     <provides type="function" name="XML_Unserializer::getRootName" />
     <filelist>
-      <file role="doc" baseinstalldir="XML" md5sum="175ec54a502b04dae6c49e1e5be419b9" name="doc/todo.txt"/>
-      <file role="doc" baseinstalldir="XML" md5sum="7167c4c6bbe5e473c24ab14ee5789199" name="examples/serializeObject.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="42270d467e913693b41bc0a7c3b2dc93" name="examples/serializeRDF.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="57136753b50a909ae9c35487f834462c" name="examples/unserializeAnyXML.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="f593a0b13da85a9bc137d44e5847b1ef" name="examples/unserializeObject.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="24082066bbd6f96582d62746bed646b6" name="examples/unserializeRDF.php"/>
-      <file role="php" baseinstalldir="XML" md5sum="0a1d7aff5074294a4d01ae7030e1f4db" name="Serializer.php"/>
-      <file role="php" baseinstalldir="XML" md5sum="52525a6e83e817f5257e603a3cf7a54f" name="Unserializer.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="e3f338ff4a22cd188bad999338900a17" name="doc/todo.txt"/>
+      <file role="doc" baseinstalldir="XML" md5sum="e9eabbdfdcfc442be88d446648206c3c" name="examples/example.xml"/>
+      <file role="doc" baseinstalldir="XML" md5sum="aefe2b603937cbb619872b1eff9b149b" name="examples/serializeIndexedArray.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="462ed0f95dd6f9948044ed267d9f2ca2" name="examples/serializeObject.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="6effc0e7ebd875409e839d899bff9ebb" name="examples/serializeRDF.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="c301e3dfee0899abfbd5017049864a19" name="examples/serializeWithAttributes.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="5bebe2bcb9ca5888b79a22b32aa22e41" name="examples/serializeWithIndentedAttributes.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="bc008e2fb7ec949732e2d0db71f758bd" name="examples/unserializeAnyXML.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="1f4d25e75944f47ce9e415e07c4a3b73" name="examples/unserializeObject.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="21aa48a0e1ba4651a0360679efa22f08" name="examples/unserializeRDF.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="bcf1a95eff1cc55f66b48c7ae35d9d0b" name="examples/unserializeWithAttributes.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="b19c01481d7e3ca2955452e71e4777b9" name="Serializer.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="8bf6460689c043a8b6faf8da289a8976" name="Unserializer.php"/>
     </filelist>
   </release>
   <changelog>
@@ -90,6 +116,33 @@ tagname is used as classname if no other class is specified,
 added 'overrideOptions' option that can be used to restore the default options for a serialization,
 added 'keyAttribute' option to XML_Unserializer,
 added Todo list</notes>
+    </release>
+    <release>
+      <version>0.8</version>
+      <date>2003-09-23</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>XML_Serializer:
+* added option: scalarAsAttribute to create tags with attributes from an array or object,
+* added option: prependAttributes to enable a prepend string for attributes (ensure they are different from type hints),
+* added option: attributeIndent to allow multiline tags, if a tag has several attributes; this makes it easier to read (requested by Yavor Shahpasov),
+* now requires XML_Util 0.4.1 or newer,
+* added option: mode =&gt; simplexml, allows you to serialize indexed arrays like simpleXML of PHP5 does: tags use name of the parent structure and are in the same depth (this is still in alpha state, not thoroughly tested)
+
+XML_Unserializer:
+* added option: parseAttributes which allows you to parse tags with attributes,
+* added option: attributesArray to specify the name of the array in which attributes should be stored,
+* added option: prependAttributes to specify a prepend string for the generated array keys,
+* added option: contentName to specify the key for the content of a tag that contains also attributes
+* added option: tagMap, to change the names of the tags while parsing
+
+Both:
+* removed bug that occured when instantiating w/o options (reported by Alan Knowles),
+* added options: keyAttribute, typeAttribute and classAtribute to allow user to specify attribute names for typehints,
+* added resetOptions(),
+* added setOption(),
+* added option: overrideOptions that allows you to reset to defaults for one call of serialize or unserialize,
+* added some very small docs to defaultOptions arrays</notes>
     </release>
   </changelog>
 </package>
