@@ -18,7 +18,7 @@ require_once 'PEAR/PackageFileManager.php';
 /**
  * current version
  */
-$version = '0.15.0';
+$version = '0.16.0';
 
 /**
  * current state
@@ -30,12 +30,8 @@ $state = 'beta';
  */
 $notes = <<<EOT
 XML_Serializer:
-- added option to return the result directly from serialize()
+- implement Request #3762: added new ignoreNull option to ignore properties that are set to null when serializing objects or arrays
 XML_Unserializer:
-- added option to return the result directly from unserialize(),
-- added defaultClass option
-- added tagAsClass option (fixes Bug #3303)
-- fixed bug (tag name was not used as classname when tag was empty)
 EOT;
 
 /**
