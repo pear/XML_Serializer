@@ -83,7 +83,7 @@ $package->addMaintainer('schst', 'lead', 'Stephan Schmidt', 'schst@php-tools.net
 
 $package->addDependency('PEAR', '', 'has', 'pkg', false);
 $package->addDependency('XML_Parser', '1.2.1', 'ge', 'pkg', false);
-$package->addDependency('XML_Util', '1.1.0', 'ge', 'pkg', false);
+$package->addDependency('XML_Util', '1.1.1', 'ge', 'pkg', false);
 
 if (isset($_GET['make']) || (isset($_SERVER['argv'][1]) && $_SERVER['argv'][1] == 'make')) {
     $result = $package->writePackageFile();
