@@ -18,7 +18,7 @@ require_once 'PEAR/PackageFileManager.php';
 /**
  * current version
  */
-$version = '0.14.1';
+$version = '0.15.0';
 
 /**
  * current state
@@ -29,8 +29,13 @@ $state = 'beta';
  * release notes
  */
 $notes = <<<EOT
-Bugfix release:
-- XML_Unserializer now again extends PEAR to use PEAR error management
+XML_Serializer:
+- added option to return the result directly from serialize()
+XML_Unserializer:
+- added option to return the result directly from unserialize(),
+- added defaultClass option
+- added tagAsClass option (fixes Bug #3303)
+- fixed bug (tag name was not used as classname when tag was empty)
 EOT;
 
 /**
@@ -73,6 +78,8 @@ if (PEAR::isError($result)) {
 }
 
 $package->addMaintainer('schst', 'lead', 'Stephan Schmidt', 'schst@php-tools.net');
+
+$package->detectDependencies();
 
 $package->addDependency('PEAR', '', 'has', 'pkg', false);
 $package->addDependency('XML_Parser', '1.2.1', 'ge', 'pkg', false);
