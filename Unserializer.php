@@ -191,7 +191,7 @@ class XML_Unserializer extends XML_Parser {
     */
     function apiVersion()
     {
-        return '0.12';
+        return '0.13';
     }
 
    /**
@@ -290,42 +290,42 @@ class XML_Unserializer extends XML_Parser {
     }
 
    /**
-    *   get the result of the serialization
+    * get the result of the serialization
     *
-    *   @access public
-    *   @return string  $serializedData
+    * @access public
+    * @return string  $serializedData
     */
-        function getUnserializedData()
-        {
-            if ($this->_root === null ) {
-                return  $this->raiseError('No unserialized data available. Use XML_Unserializer::unserialize() first.', XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION);
-            }
-            return $this->_unserializedData;
+    function getUnserializedData()
+    {
+        if ($this->_root === null ) {
+            return  $this->raiseError('No unserialized data available. Use XML_Unserializer::unserialize() first.', XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION);
         }
+        return $this->_unserializedData;
+    }
 
    /**
-    *   get the name of the root tag
+    * get the name of the root tag
     *
-    *   @access public
-    *   @return string  $rootName
+    * @access public
+    * @return string  $rootName
     */
-        function getRootName()
-        {
-            if ($this->_root === null ) {
-                return  $this->raiseError('No unserialized data available. Use XML_Unserializer::unserialize() first.', XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION);
-            }
-            return $this->_root;
+    function getRootName()
+    {
+        if ($this->_root === null ) {
+            return  $this->raiseError('No unserialized data available. Use XML_Unserializer::unserialize() first.', XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION);
         }
+        return $this->_root;
+    }
 
-    /**
-     * Start element handler for XML parser
-     *
-     * @access private
-     * @param  object $parser  XML parser object
-     * @param  string $element XML element
-     * @param  array  $attribs attributes of XML tag
-     * @return void
-     */
+   /**
+    * Start element handler for XML parser
+    *
+    * @access private
+    * @param  object $parser  XML parser object
+    * @param  string $element XML element
+    * @param  array  $attribs attributes of XML tag
+    * @return void
+    */
     function startHandler($parser, $element, $attribs)
     {
         if (isset($attribs[$this->options['typeAttribute']])) {
@@ -358,8 +358,20 @@ class XML_Unserializer extends XML_Parser {
             }
         }
 
-        if (isset($attribs[$this->options['keyAttribute']])) {
-            $val['name'] = $attribs[$this->options['keyAttribute']];
+        $keyAttr = false;
+        
+        if (is_string($this->options['keyAttribute'])) {
+        	$keyAttr = $this->options['keyAttribute'];
+        } elseif (is_array($this->options['keyAttribute'])) {
+            if (isset($this->options['keyAttribute'][$element])) {
+            	$keyAttr = $this->options['keyAttribute'][$element];
+            } elseif (isset($this->options['keyAttribute']['__default'])) {
+            	$keyAttr = $this->options['keyAttribute']['__default'];
+            }
+        }
+        
+        if ($keyAttr !== false && isset($attribs[$keyAttr])) {
+            $val['name'] = $attribs[$keyAttr];
         }
 
         if (isset($attribs[$this->options['classAttribute']])) {
@@ -369,14 +381,14 @@ class XML_Unserializer extends XML_Parser {
         array_push($this->_valStack, $val);
     }
 
-    /**
-     * End element handler for XML parser
-     *
-     * @access private
-     * @param  object XML parser object
-     * @param  string
-     * @return void
-     */
+   /**
+    * End element handler for XML parser
+    *
+    * @access private
+    * @param  object XML parser object
+    * @param  string
+    * @return void
+    */
     function endHandler($parser, $element)
     {
         $value = array_pop($this->_valStack);
@@ -502,14 +514,14 @@ class XML_Unserializer extends XML_Parser {
         $this->_depth--;
     }
 
-    /**
-     * Handler for character data
-     *
-     * @access private
-     * @param  object XML parser object
-     * @param  string CDATA
-     * @return void
-     */
+   /**
+    * Handler for character data
+    *
+    * @access private
+    * @param  object XML parser object
+    * @param  string CDATA
+    * @return void
+    */
     function cdataHandler($parser, $cdata)
     {
         $this->_dataStack[$this->_depth] .= $cdata;
