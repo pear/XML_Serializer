@@ -14,8 +14,9 @@
     $options = array(
                         "indent"         => "    ",
                         "linebreak"      => "\n",
-						"tagName"	=> "rdf:RDF",
-                        "mode"      => "simplexml"
+						"rootName"       => "rdf:RDF",
+                        "rootAttributes" => array("version" => "0.91"),
+                        "mode"           => "simplexml"
                     );
     
     $serializer = new XML_Serializer($options);

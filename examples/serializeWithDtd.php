@@ -22,10 +22,6 @@
 
     $foo    =   PEAR::raiseError("Just a test", 1234);    
     
-    $bar    =   array(
-                        "foo" => "bar"
-                    );
-    
     $result = $serializer->serialize($foo);
     
     if( $result === true ) {

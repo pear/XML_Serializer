@@ -11,12 +11,13 @@
     require_once 'XML/Serializer.php';
 
     $options = array(
-                        "indent"    => "    ",
-                        "linebreak" => "\n",
-                        "typeHints" => false,
-                        "addDecl"   => true,
-                        "encoding"  => "UTF-8",
-						"tagName"	=> "rdf:RDF",
+                        "indent"         => "    ",
+                        "linebreak"      => "\n",
+                        "typeHints"      => false,
+                        "addDecl"        => true,
+                        "encoding"       => "UTF-8",
+						"rootName"       => "rdf:RDF",
+                        "rootAttributes" => array("version" => "0.91"),
 						"defaultTagName" => "item"
                     );
     

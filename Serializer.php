@@ -70,7 +70,7 @@ define("XML_SERIALIZER_ERROR_NO_SERIALIZATION", 51);
  *   $options = array(
  *                     "indent"         => "\t",        // indent with tabs
  *                     "linebreak"      => "\n",        // use UNIX line breaks
- *                     "tagName"        => "rdf:RDF",   // root tag
+ *                     "rootName"       => "rdf:RDF",   // root tag
  *                     "defaultTagName" => "item"       // tag for values with numeric keys
  *   );
  *
@@ -120,8 +120,9 @@ class XML_Serializer extends PEAR {
                          "prependAttributes"  => "",                    // prepend string for attributes
                          "indentAttributes"   => false,                 // indent the attributes, if set to '_auto', it will indent attributes so they all start at the same column
                          "mode"               => 'default',             // use 'simplexml' to use parent name as tagname if transforming an indexed array
-                         "addDoctype"         => true,                  // add a doctype declaration
-                         "doctype"            => null                   // supply a string or an array with id and uri ({@see XML_Util::getDoctypeDeclaration()}
+                         "addDoctype"         => false,                 // add a doctype declaration
+                         "doctype"            => null,                  // supply a string or an array with id and uri ({@see XML_Util::getDoctypeDeclaration()}
+                         "rootAttributes"     => array()                // attributes of the root tag
                         );
 
    /**
@@ -202,7 +203,7 @@ class XML_Serializer extends PEAR {
     * @param    mixed    $data data to serialize
     * @return   boolean  true on success, pear error on failure
     */
-    function serialize( $data, $options = null )
+    function serialize($data, $options = null)
     {
         // if options have been specified, use them instead
         // of the previously defined ones
@@ -218,31 +219,37 @@ class XML_Serializer extends PEAR {
             $optionsBak = null;
         }
         
+        // maintain BC
+        if (isset($this->options["tagName"])) {
+            $this->options["rootName"] = $this->options["tagName"];
+        }
+        
         //  start depth is zero
         $this->_tagDepth = 0;
 
         $this->_serializedData = "";
         // serialize an array
         if (is_array($data)) {
-            if (isset($this->options["tagName"])) {
-                $tagName = $this->options["tagName"];
+            if (isset($this->options["rootName"])) {
+                $tagName = $this->options["rootName"];
             } else {
                 $tagName = "array";
             }
 
-            $this->_serializedData .= $this->_serializeArray($data, $tagName);
+            $this->_serializedData .= $this->_serializeArray($data, $tagName, $this->options["rootAttributes"]);
         }
         // serialize an object
         elseif (is_object($data)) {
-            $this->_serializedData .= $this->_serializeObject($data);
-            if (isset($this->options["tagName"])) {
-                $tagName = $this->options["tagName"];
+            if (isset($this->options["rootName"])) {
+                $tagName = $this->options["rootName"];
             } else {
                 $tagName = get_class($data);
             }
+            $this->_serializedData .= $this->_serializeObject($data, $tagName, $this->options["rootAttributes"]);
         }
         
-        if ($this->options["addDoctype"]) {
+        // add doctype declaration
+        if ($this->options["addDoctype"] === true) {
             $this->_serializedData = XML_Util::getDoctypeDeclaration($tagName, $this->options["doctype"])
                                    . $this->options["linebreak"]
                                    . $this->_serializedData;
