@@ -25,8 +25,8 @@
     
     $foo = new stdClass();
     $foo->bar = new stdClass();
-    $foo->bar->test = 'TEST';
-    $foo->bar->value = 'Hähnchenflügel';
+    $foo->bar->test = 'This is a test.';
+    $foo->bar->value = 'This is a value.';
     
     $serializer = &new XML_Serializer($options);
     
