@@ -127,7 +127,8 @@ class XML_Serializer extends PEAR
                          'rootAttributes'     => array(),               // attributes of the root tag
                          'attributesArray'    => null,                  // all values in this key will be treated as attributes
                          'contentName'        => null,                  // this value will be used directly as content, instead of creating a new tag, may only be used in conjuction with attributesArray
-                         'tagMap'              => array()
+                         'tagMap'             => array(),               // tag names that will be changed
+                         'encodeFunction'     => null 
                         );
 
    /**
@@ -285,8 +286,7 @@ class XML_Serializer extends PEAR
                                    . $this->options['linebreak']
                                    . $this->_serializedData;
         }
-        
-        
+
         if ($optionsBak !== null) {
             $this->options = $optionsBak;
         }
@@ -398,12 +398,14 @@ class XML_Serializer extends PEAR
         }
         
         if ($this->options['scalarAsAttributes'] === true) {
+            $this->expectError('*');
             foreach ($array as $key => $value) {
                 if (is_scalar($value) && (XML_Util::isValidName($key) === true)) {
                     unset($array[$key]);
                     $attributes[$this->options['prependAttributes'].$key] = $value;
                 }
             }
+            $this->popExpect();
         }
 
         // check for empty array => create empty tag
@@ -427,10 +429,10 @@ class XML_Serializer extends PEAR
                     $key = $this->options['tagMap'][$key];
                 }
 
-                //    copy key
+                // copy key
                 $origKey    =    $key;
                 $this->expectError('*');
-                //    key cannot be used as tagname => use default tag
+                // key cannot be used as tagname => use default tag
                 $valid = XML_Util::isValidName($key);
                 $this->popExpect();
                 if (PEAR::isError($valid)) {
@@ -554,6 +556,10 @@ class XML_Serializer extends PEAR
         }
     
         if (is_scalar($tag['content']) || is_null($tag['content'])) {
+            if ($this->options['encodeFunction']) {
+            	$tag['content'] = call_user_func($this->options['encodeFunction'], $tag['content']);
+            	$tag['attributes'] = array_map($this->options['encodeFunction'], $tag['attributes']);
+            }
             $tag = XML_Util::createTagFromArray($tag, $replaceEntities, $multiline, $indent, $this->options['linebreak']);
         } elseif (is_array($tag['content'])) {
             $tag    =   $this->_serializeArray($tag['content'], $tag['qname'], $tag['attributes']);
@@ -561,6 +567,10 @@ class XML_Serializer extends PEAR
             $tag    =   $this->_serializeObject($tag['content'], $tag['qname'], $tag['attributes']);
         } elseif (is_resource($tag['content'])) {
             settype($tag['content'], 'string');
+            if ($this->options['encodeFunction']) {
+            	$tag['content'] = call_user_func($this->options['encodeFunction'], $tag['content']);
+            	$tag['attributes'] = array_map($this->options['encodeFunction'], $tag['attributes']);
+            }
             $tag    =   XML_Util::createTagFromArray($tag, $replaceEntities);
         }
         return  $tag;

@@ -118,7 +118,8 @@ class XML_Unserializer extends XML_Parser {
                          'contentName'       => '_content',             // put cdata found in a tag that has been converted to a complex type in this key
                          'tagMap'            => array(),                // use this to map tagnames
                          'forceEnum'         => array(),                // these tags will always be an indexed array
-                         'encoding'          => null                    // specify the encoding character of the document to parse
+                         'encoding'          => null,                   // specify the encoding character of the document to parse
+                         'decodeFunction'    => null                    // function used to decode data
                         );
 
    /**
@@ -334,6 +335,11 @@ class XML_Unserializer extends XML_Parser {
             $type = 'string';
         }
 
+        if ($this->options['decodeFunction'] !== null) {
+            $element = call_user_func($this->options['decodeFunction'], $element);
+            $attribs = array_map($this->options['decodeFunction'], $attribs);
+        }
+        
         $this->_depth++;
         $this->_dataStack[$this->_depth] = null;
 
