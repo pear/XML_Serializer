@@ -346,11 +346,12 @@ class XML_Serializer extends PEAR {
     */
     function _serializeArray(&$array, $tagName = null, $attributes = array())
     {
+        $_content = null;
+        
         /**
          * check for special attributes
          */
         if ($this->options['attributesArray'] !== null) {
-            $_content = null;
             if (isset($array[$this->options['attributesArray']])) {
                 $attributes = $array[$this->options['attributesArray']];
                 unset($array[$this->options['attributesArray']]);
