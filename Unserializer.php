@@ -101,14 +101,14 @@ class XML_Unserializer extends XML_Parser {
     * @var array $_defaultOptions
     */
     var $_defaultOptions = array(
-                         "complexType"       => "array",
-                         "keyAttribute"      => "_originalKey", 
-                         "typeAttribute"     => "_type",
-                         "classAttribute"    => "_class",
-                         "parseAttributes"   => false,
-                         "attributesArray"   => false,
-                         "prependAttributes" => "",
-                         "contentName"       => "_content"
+                         "complexType"       => "array",                // complex types will be converted to arrays, if no type hint is given
+                         "keyAttribute"      => "_originalKey",         // get array key/property name from this attribute
+                         "typeAttribute"     => "_type",                // get type from this attribute
+                         "classAttribute"    => "_class",               // get class from this attribute (if not given, use tag name)
+                         "parseAttributes"   => false,                  // parse the attributes of the tag into an array
+                         "attributesArray"   => false,                  // parse them into sperate array (specify name of array here)
+                         "prependAttributes" => "",                     // prepend attribute names with this string
+                         "contentName"       => "_content"              // put cdata found in a tag that has been converted to a complex type in this key
                         );
 
    /**

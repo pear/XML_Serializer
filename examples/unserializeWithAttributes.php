@@ -1,10 +1,10 @@
 <?PHP
     error_reporting(E_ALL);
-    require_once '../Unserializer.php';
+    require_once 'XML/Unserializer.php';
 
     $options = array(
                         "parseAttributes"   =>  true,
-                        "attributesArray"   =>  "_attributes"
+                        "attributesArray"   =>  false
 //                        "prependAttributes" =>  "att_"
                     );
     

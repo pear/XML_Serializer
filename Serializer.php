@@ -112,14 +112,16 @@ class XML_Serializer extends PEAR {
     * @var array $_defaultOptions
     */
     var $_defaultOptions = array(
-                         "indent"         => "",
-                         "linebreak"      => "",
-                         "typeHints"      => false,
-                         "addDecl"        => false,
-                         "defaultTagName" => "XML_Serializer_Tag",
-                         "keyAttribute"   => "_originalKey",
-                         "typeAttribute"  => "_type",
-                         "classAttribute" => "_class"
+                         "indent"             => "",                    // string used for indentation
+                         "linebreak"          => "\n",                  // string used for newlines
+                         "typeHints"          => false,                 // automatically add type hin attributes
+                         "addDecl"            => false,                 // add an XML declaration
+                         "defaultTagName"     => "XML_Serializer_Tag",  // tag used for indexed arrays or invalid names
+                         "keyAttribute"       => "_originalKey",        // attribute where original key is stored
+                         "typeAttribute"      => "_type",               // attribute for type (only if typeHints => true)
+                         "classAttribute"     => "_class",              // attribute for class of objects (only if typeHints => true)
+						 "scalarAsAttributes" => false,                 // scalar values (strings, ints,..) will be serialized as attribute
+                         "prependAttributes"  => "",                    // prepend string for attributes
                         );
 
    /**
@@ -257,6 +259,15 @@ class XML_Serializer extends PEAR {
     {
         $this->_tagDepth++;
 
+		if ($this->options["scalarAsAttributes"] === true) {
+	        foreach ($array as $key => $value) {
+				if (is_scalar($value)) {
+					unset($array[$key]);
+					$attributes[$this->options["prependAttributes"].$key] = $value;
+				}
+			}
+		}
+		
         $tmp = $this->options["linebreak"];
         foreach ($array as $key => $value) {
 			//	do indentation
@@ -292,6 +303,10 @@ class XML_Serializer extends PEAR {
             $tmp .= str_repeat($this->options["indent"], $this->_tagDepth);
         }
 
+		if (trim($tmp) === '') {
+			$tmp = null;
+		}
+		
         $tag = array(
                         "qname"      => $tagName,
                         "content"    => $tmp,
@@ -303,7 +318,7 @@ class XML_Serializer extends PEAR {
                 $tag["attributes"][$this->options["typeAttribute"]] = "array";
             }
         }
-                    
+
         $string = $this->_createXMLTag($tag, false);
         return $string;
     }
