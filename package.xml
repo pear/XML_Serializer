@@ -19,11 +19,13 @@ Since version 0.8 the package is able to treat XML documents like the simplexml 
     </maintainer>
   </maintainers>
   <release>
-    <version>0.9.2</version>
-    <date>2004-04-23</date>
+    <version>0.10.0</version>
+    <date>2004-05-24</date>
     <license>PHP License</license>
     <state>beta</state>
-    <notes>fixed invalid multiple call to XML_Parser constructor</notes>
+    <notes>- fixed bug #1478 (Array to string conversion)
+- fixed bug #170 (RDF examples produce incorrect code)
+- added new options to XML_Serializer: attributesArray and contentName to match XML_Unserializer</notes>
     <deps>
       <dep type="pkg" rel="ge" version="0.4.2" optional="no">XML_Util</dep>
       <dep type="pkg" rel="ge" version="1.1.0" optional="no">XML_Parser</dep>
@@ -40,6 +42,7 @@ Since version 0.8 the package is able to treat XML documents like the simplexml 
         <file role="doc" name="serializeObject.php"/>
         <file role="doc" name="serializeRDF.php"/>
         <file role="doc" name="serializeWithAttributes.php"/>
+        <file role="doc" name="serializeWithAttributes2.php"/>
         <file role="doc" name="serializeWithDtd.php"/>
         <file role="doc" name="serializeWithIndentedAttributes.php"/>
         <file role="doc" name="unserializeAnyXML.php"/>
@@ -159,6 +162,15 @@ XML_Unserializer:
       <license>PHP License</license>
       <state>beta</state>
       <notes>fixed invalid multiple call to XML_Parser constructor</notes>
+    </release>
+    <release>
+      <version>0.10.0</version>
+      <date>2004-05-24</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>- fixed bug #1478 (Array to string conversion)
+- fixed bug #170 (RDF examples produce incorrect code)
+- added new options to XML_Serializer: attributesArray and contentName to match XML_Unserializer</notes>
     </release>
   </changelog>
 </package>
