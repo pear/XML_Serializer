@@ -18,7 +18,7 @@ require_once 'PEAR/PackageFileManager.php';
 /**
  * current version
  */
-$version = '0.13.1';
+$version = '0.14.0';
 
 /**
  * current state
@@ -30,8 +30,14 @@ $state = 'beta';
  */
 $notes = <<<EOT
 Serializer:
-- fixed error handling (suppress error handling, when XML_Util returns an error) (patch by Lukas Smith)
-- replaced some left-over tabs with spaces
+- new option 'encodeFunction' to apply a PHP function to character data and attributes before serializing the data
+Unserializer:
+- Does no longer extend XML_Parser (allows to change encoding at runtime), this could break some scripts
+- new option 'targetEncoding' to specify the target encoding for character data
+- new option 'decodeFunction' to apply a PHP function on character data and attributes while unserializing the document
+- some tiny whitespace fixes
+Global:
+- new requires XML_Parser 1.2.2 and XML_Util 1.1.0
 EOT;
 
 /**
@@ -76,8 +82,8 @@ if (PEAR::isError($result)) {
 $package->addMaintainer('schst', 'lead', 'Stephan Schmidt', 'schst@php-tools.net');
 
 $package->addDependency('PEAR', '', 'has', 'pkg', false);
-$package->addDependency('XML_Parser', '1.1.0', 'ge', 'pkg', false);
-$package->addDependency('XML_Util', '0.4.2', 'ge', 'pkg', false);
+$package->addDependency('XML_Parser', '1.2.1', 'ge', 'pkg', false);
+$package->addDependency('XML_Util', '1.1.0', 'ge', 'pkg', false);
 
 if (isset($_GET['make']) || (isset($_SERVER['argv'][1]) && $_SERVER['argv'][1] == 'make')) {
     $result = $package->writePackageFile();
