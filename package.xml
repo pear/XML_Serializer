@@ -56,6 +56,7 @@ Global:
         <file role="doc" name="serializeWithIndentedAttributes.php"/>
         <file role="doc" name="serializeWithTagMap.php"/>
         <file role="doc" name="unserializeAnyXML.php"/>
+        <file role="doc" name="unserializeEncoded.php"/>
         <file role="doc" name="unserializeEnum.php"/>
         <file role="doc" name="unserializeObject.php"/>
         <file role="doc" name="unserializeRDF.php"/>
