@@ -18,7 +18,7 @@ require_once 'PEAR/PackageFileManager.php';
 /**
  * current version
  */
-$version = '0.11.0';
+$version = '0.11.1';
 
 /**
  * current state
@@ -30,13 +30,7 @@ $state = 'beta';
  */
 $notes = <<<EOT
 Serializer:
-- Request #2019 (use classname as tagname in indexed arrays)
-- replaced double quotes with single quotes
-- some CS fixes
-
-Unserializer:
-- added new option 'forceEnum'
-- replaced double quotes with single quotes
+- fixed bug with default line endings
 EOT;
 
 /**
