@@ -7,7 +7,7 @@
  * @author Stephan Schmidt <schst@php.net>
  */
 
-    require_once 'XML/Serializer.php';
+    require_once '../Serializer.php';
 
     // this is just to get a nested object
     $pearError = PEAR::raiseError('This is just an error object',123);
@@ -20,10 +20,13 @@
                     );
     
     $foo    =   new stdClass;
-    
     $foo->value = "My value";
     $foo->error = $pearError;
     $foo->xml   = "cool";
+
+    $foo->obj	= new stdClass;
+    $foo->arr   = array();
+    $foo->zero  = 0;
     
     $serializer = new XML_Serializer($options);
     

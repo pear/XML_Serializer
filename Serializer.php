@@ -364,6 +364,11 @@ class XML_Serializer extends PEAR {
 				}
 			}
 		}
+
+        // check for empty array => create empty tag
+        if (empty($array)) {
+        
+        }
 		
         $tmp = $this->options["linebreak"];
         foreach ($array as $key => $value) {
@@ -410,7 +415,6 @@ class XML_Serializer extends PEAR {
                         "content"    => $tmp,
                         "attributes" => $attributes
                     );
-        
         if ($this->options["typeHints"] === true) {
             if (!isset($tag["attributes"][$this->options["typeAttribute"]])) {
                 $tag["attributes"][$this->options["typeAttribute"]] = "array";
@@ -484,7 +488,11 @@ class XML_Serializer extends PEAR {
             $indent    = false;
         }
     
-        if (is_scalar($tag["content"]) || empty($tag["content"])) {
+        if ((string)$tag["content"] == '') {
+            $tag["content"] =   '';
+        }    
+    
+        if (is_scalar($tag["content"])) {
             $tag = XML_Util::createTagFromArray($tag, $replaceEntities, $multiline, $indent, $this->options["linebreak"]);
         } elseif (is_array($tag["content"])) {
             $tag    =   $this->_serializeArray($tag["content"], $tag["qname"], $tag["attributes"]);
