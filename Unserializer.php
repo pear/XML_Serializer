@@ -259,8 +259,7 @@ class XML_Unserializer extends PEAR
             } else {
                 $this->options = array_merge($this->options, $options);
             }
-        }
-        else {
+        } else {
             $optionsBak = null;
         }
 
@@ -310,7 +309,7 @@ class XML_Unserializer extends PEAR
     */
     function getUnserializedData()
     {
-        if ($this->_root === null ) {
+        if ($this->_root === null) {
             return  $this->raiseError('No unserialized data available. Use XML_Unserializer::unserialize() first.', XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION);
         }
         return $this->_unserializedData;
@@ -324,7 +323,7 @@ class XML_Unserializer extends PEAR
     */
     function getRootName()
     {
-        if ($this->_root === null ) {
+        if ($this->_root === null) {
             return  $this->raiseError('No unserialized data available. Use XML_Unserializer::unserialize() first.', XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION);
         }
         return $this->_root;
@@ -419,7 +418,7 @@ class XML_Unserializer extends PEAR
              * unserialize an object
              */
             case 'object':
-                if(isset($value['class'])) {
+                if (isset($value['class'])) {
                     $classname  = $value['class'];
                 } else {
                     $classname = '';
@@ -439,7 +438,7 @@ class XML_Unserializer extends PEAR
                 }
 
                 // set properties
-                foreach($value['children'] as $prop => $propVal) {
+                foreach ($value['children'] as $prop => $propVal) {
                     // check whether there is a special method to set this property
                     $setMethod = 'set'.$prop;
                     if (method_exists($value['value'], $setMethod)) {
