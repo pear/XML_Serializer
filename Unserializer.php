@@ -372,7 +372,11 @@ class XML_Unserializer extends XML_Parser {
              * unserialize an object
              */
             case "object":
-                $classname  = $value["class"];
+                if(isset($value['class'])) {
+                    $classname  = $value["class"];
+                } else {
+                    $classname = '';
+                }
                 if (is_array($this->options["tagMap"]) && isset($this->options["tagMap"][$classname])) {
                     $classname = $this->options["tagMap"][$classname];
                 }
