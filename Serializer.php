@@ -96,7 +96,7 @@ define("XML_SERIALIZER_ERROR_NO_SERIALIZATION", 51);
  *
  * @category XML
  * @package  XML_Serializer
- * @version  0.8
+ * @version  0.8.1
  * @author   Stephan Schmidt <schst@php.net>
  * @uses     XML_Util
  */

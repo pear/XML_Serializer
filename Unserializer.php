@@ -96,7 +96,7 @@ define("XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION", 151);
  *
  * @category XML
  * @package  XML_Serializer
- * @version  0.8
+ * @version  0.8.1
  * @author   Stephan Schmidt <schst@php-tools.net>
  * @uses     XML_Parser
  */
