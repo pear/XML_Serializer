@@ -31,7 +31,7 @@ require_once 'XML/Parser.php';
 /**
  * error code for no serialization done
  */
-define("XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION", 151);
+define('XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION', 151);
 
 /**
  * XML_Unserializer
@@ -108,15 +108,16 @@ class XML_Unserializer extends XML_Parser {
     * @var array $_defaultOptions
     */
     var $_defaultOptions = array(
-                         "complexType"       => "array",                // complex types will be converted to arrays, if no type hint is given
-                         "keyAttribute"      => "_originalKey",         // get array key/property name from this attribute
-                         "typeAttribute"     => "_type",                // get type from this attribute
-                         "classAttribute"    => "_class",               // get class from this attribute (if not given, use tag name)
-                         "parseAttributes"   => false,                  // parse the attributes of the tag into an array
-                         "attributesArray"   => false,                  // parse them into sperate array (specify name of array here)
-                         "prependAttributes" => "",                     // prepend attribute names with this string
-                         "contentName"       => "_content",             // put cdata found in a tag that has been converted to a complex type in this key
-                         "tagMap"            => array()                 // use this to map tagnames
+                         'complexType'       => 'array',                // complex types will be converted to arrays, if no type hint is given
+                         'keyAttribute'      => '_originalKey',         // get array key/property name from this attribute
+                         'typeAttribute'     => '_type',                // get type from this attribute
+                         'classAttribute'    => '_class',               // get class from this attribute (if not given, use tag name)
+                         'parseAttributes'   => false,                  // parse the attributes of the tag into an array
+                         'attributesArray'   => false,                  // parse them into sperate array (specify name of array here)
+                         'prependAttributes' => '',                     // prepend attribute names with this string
+                         'contentName'       => '_content',             // put cdata found in a tag that has been converted to a complex type in this key
+                         'tagMap'            => array()                 // use this to map tagnames
+                         
                         );
 
    /**
@@ -171,7 +172,7 @@ class XML_Unserializer extends XML_Parser {
     function XML_Unserializer($options = null)
     {
         // reset parser and properties
-        $this->XML_Parser(null,"event");
+        $this->XML_Parser(null,'event');
 
         if (is_array($options)) {
             $this->options = array_merge($this->_defaultOptions, $options);
@@ -189,7 +190,7 @@ class XML_Unserializer extends XML_Parser {
     */
     function apiVersion()
     {
-        return "0.9";
+        return '0.9';
     }
 
    /**
@@ -247,7 +248,7 @@ class XML_Unserializer extends XML_Parser {
         // of the previously defined ones
         if (is_array($options)) {
             $optionsBak = $this->options;
-            if (isset($options["overrideOptions"]) && $options["overrideOptions"] == true) {
+            if (isset($options['overrideOptions']) && $options['overrideOptions'] == true) {
                 $this->options = array_merge($this->_defaultOptions, $options);
             } else {
                 $this->options = array_merge($this->options, $options);
@@ -296,7 +297,7 @@ class XML_Unserializer extends XML_Parser {
         function getUnserializedData()
         {
             if ($this->_root === null ) {
-                return  $this->raiseError("No unserialized data available. Use XML_Unserializer::unserialize() first.", XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION);
+                return  $this->raiseError('No unserialized data available. Use XML_Unserializer::unserialize() first.', XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION);
             }
             return $this->_unserializedData;
         }
@@ -310,7 +311,7 @@ class XML_Unserializer extends XML_Parser {
         function getRootName()
         {
             if ($this->_root === null ) {
-                return  $this->raiseError("No unserialized data available. Use XML_Unserializer::unserialize() first.", XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION);
+                return  $this->raiseError('No unserialized data available. Use XML_Unserializer::unserialize() first.', XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION);
             }
             return $this->_root;
         }
@@ -326,42 +327,42 @@ class XML_Unserializer extends XML_Parser {
      */
     function startHandler($parser, $element, $attribs)
     {
-        if (isset($attribs[$this->options["typeAttribute"]])) {
-            $type = $attribs[$this->options["typeAttribute"]];
+        if (isset($attribs[$this->options['typeAttribute']])) {
+            $type = $attribs[$this->options['typeAttribute']];
         } else {
-            $type = "string";
+            $type = 'string';
         }
 
         $this->_depth++;
         $this->_dataStack[$this->_depth] = null;
 
         $val = array(
-                     "name"         => $element,
-                     "value"        => null,
-                     "type"         => $type,
-                     "childrenKeys" => array(),
-                     "aggregKeys"   => array()
+                     'name'         => $element,
+                     'value'        => null,
+                     'type'         => $type,
+                     'childrenKeys' => array(),
+                     'aggregKeys'   => array()
                     );
 
-        if ($this->options["parseAttributes"] == true && (count($attribs) > 0)) {
-            $val["children"] = array();
-            $val["type"] = $this->options["complexType"];
+        if ($this->options['parseAttributes'] == true && (count($attribs) > 0)) {
+            $val['children'] = array();
+            $val['type'] = $this->options['complexType'];
 
-            if ($this->options["attributesArray"] != false) {
-                $val["children"][$this->options["attributesArray"]] = $attribs;
+            if ($this->options['attributesArray'] != false) {
+                $val['children'][$this->options['attributesArray']] = $attribs;
             } else {
                 foreach ($attribs as $attrib => $value) {
-                    $val["children"][$this->options["prependAttributes"].$attrib] = $value;
+                    $val['children'][$this->options['prependAttributes'].$attrib] = $value;
                 }
             }
         }
 
-        if (isset($attribs[$this->options["keyAttribute"]])) {
-            $val["name"] = $attribs[$this->options["keyAttribute"]];
+        if (isset($attribs[$this->options['keyAttribute']])) {
+            $val['name'] = $attribs[$this->options['keyAttribute']];
         }
 
-        if (isset($attribs[$this->options["classAttribute"]])) {
-            $val["class"] = $attribs[$this->options["classAttribute"]];
+        if (isset($attribs[$this->options['classAttribute']])) {
+            $val['class'] = $attribs[$this->options['classAttribute']];
         }
 
         array_push($this->_valStack, $val);
@@ -381,114 +382,114 @@ class XML_Unserializer extends XML_Parser {
         $data  = trim($this->_dataStack[$this->_depth]);
 
         // adjust type of the value
-        switch(strtolower($value["type"])) {
+        switch(strtolower($value['type'])) {
             /*
              * unserialize an object
              */
-            case "object":
+            case 'object':
                 if(isset($value['class'])) {
-                    $classname  = $value["class"];
+                    $classname  = $value['class'];
                 } else {
                     $classname = '';
                 }
-                if (is_array($this->options["tagMap"]) && isset($this->options["tagMap"][$classname])) {
-                    $classname = $this->options["tagMap"][$classname];
+                if (is_array($this->options['tagMap']) && isset($this->options['tagMap'][$classname])) {
+                    $classname = $this->options['tagMap'][$classname];
                 }
 
                 // instantiate the class
                 if (class_exists($classname)) {
-                    $value["value"] = &new $classname;
+                    $value['value'] = &new $classname;
                 } else {
-                    $value["value"] = &new stdClass;
+                    $value['value'] = &new stdClass;
                 }
                 if ($data !== '') {
-                    $value["children"][$this->options["contentName"]] = $data;
+                    $value['children'][$this->options['contentName']] = $data;
                 }
 
                 // set properties
-                foreach($value["children"] as $prop => $propVal) {
+                foreach($value['children'] as $prop => $propVal) {
                     // check whether there is a special method to set this property
-                    $setMethod = "set".$prop;
-                    if (method_exists($value["value"], $setMethod)) {
-                        call_user_func(array(&$value["value"], $setMethod), $propVal);
+                    $setMethod = 'set'.$prop;
+                    if (method_exists($value['value'], $setMethod)) {
+                        call_user_func(array(&$value['value'], $setMethod), $propVal);
                     } else {
-                        $value["value"]->$prop = $propVal;
+                        $value['value']->$prop = $propVal;
                     }
                 }
                 //  check for magic function
-                if (method_exists($value["value"], "__wakeup")) {
-                    $value["value"]->__wakeup();
+                if (method_exists($value['value'], '__wakeup')) {
+                    $value['value']->__wakeup();
                 }
                 break;
 
             /*
              * unserialize an array
              */
-            case "array":
+            case 'array':
                 if ($data !== '') {
-                    $value["children"][$this->options["contentName"]] = $data;
+                    $value['children'][$this->options['contentName']] = $data;
                 }
                 if (isset($value['children'])) {
-                    $value["value"] = $value["children"];
+                    $value['value'] = $value['children'];
                 } else {
-                    $value["value"] = array();
+                    $value['value'] = array();
                 }
                 break;
 
             /*
              * unserialize a null value
              */
-            case "null":
+            case 'null':
                 $data = null;
                 break;
 
             /*
              * unserialize a resource => this is not possible :-(
              */
-            case "resource":
-                $value["value"] = $data;
+            case 'resource':
+                $value['value'] = $data;
                 break;
 
             /*
              * unserialize any scalar value
              */
             default:
-                settype($data, $value["type"]);
-                $value["value"] = $data;
+                settype($data, $value['type']);
+                $value['value'] = $data;
                 break;
         }
         $parent = array_pop($this->_valStack);
         if ($parent === null) {
-            $this->_unserializedData = &$value["value"];
-            $this->_root = &$value["name"];
+            $this->_unserializedData = &$value['value'];
+            $this->_root = &$value['name'];
             return true;
         } else {
             // parent has to be an array
-            if (!isset($parent["children"]) || !is_array($parent["children"])) {
-                $parent["children"] = array();
-                if (!in_array($parent["type"], array("array", "object"))) {
-                    $parent["type"] = $this->options["complexType"];
-                    if ($this->options["complexType"] == "object") {
-                        $parent["class"] = $parent["name"];
+            if (!isset($parent['children']) || !is_array($parent['children'])) {
+                $parent['children'] = array();
+                if (!in_array($parent['type'], array('array', 'object'))) {
+                    $parent['type'] = $this->options['complexType'];
+                    if ($this->options['complexType'] == 'object') {
+                        $parent['class'] = $parent['name'];
                     }
                 }
             }
 
-            if (!empty($value["name"])) {
+            if (!empty($value['name'])) {
                 // there already has been a tag with this name
-                if (in_array($value["name"], $parent["childrenKeys"])) {
+                if (in_array($value['name'], $parent['childrenKeys'])) {
                     // no aggregate has been created for this tag
-                    if (!in_array($value["name"], $parent["aggregKeys"])) {
-                        $parent["children"][$value["name"]] = array($parent["children"][$value["name"]]);
-                        array_push($parent["aggregKeys"], $value["name"]);
+                    if (!in_array($value['name'], $parent['aggregKeys'])) {
+                        $parent['children'][$value['name']] = array($parent['children'][$value['name']]);
+                        array_push($parent['aggregKeys'], $value['name']);
                     }
-                    array_push($parent["children"][$value["name"]], $value["value"]);
+                    array_push($parent['children'][$value['name']], $value['value']);
                 } else {
-                    $parent["children"][$value["name"]] = &$value["value"];
-                    array_push($parent["childrenKeys"], $value["name"]);
+                    $parent['children'][$value['name']] = &$value['value'];
+                    array_push($parent['childrenKeys'], $value['name']);
                 }
             } else {
-                array_push($parent["children"],$value["value"]);
+                array_push($parent['children'],$value['value']);
             }
             array_push($this->_valStack, $parent);
         }
