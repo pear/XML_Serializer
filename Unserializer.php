@@ -101,10 +101,14 @@ class XML_Unserializer extends XML_Parser {
     * @var array $_defaultOptions
     */
     var $_defaultOptions = array(
-                         "complexType"    => "array",
-                         "keyAttribute"   => "_originalKey", 
-                         "typeAttribute"  => "_type",
-                         "classAttribute" => "_class"
+                         "complexType"       => "array",
+                         "keyAttribute"      => "_originalKey", 
+                         "typeAttribute"     => "_type",
+                         "classAttribute"    => "_class",
+                         "parseAttributes"   => false,
+                         "attributesArray"   => false,
+                         "prependAttributes" => "",
+                         "contentName"       => "_content"
                         );
 
    /**
@@ -276,20 +280,37 @@ class XML_Unserializer extends XML_Parser {
      */
     function startHandler($parser, $element, $attribs)
     {
-        if (!isset($attribs[$this->options["typeAttribute"]])) {
-            $attribs[$this->options["typeAttribute"]] = "string";
+        if (isset($attribs[$this->options["typeAttribute"]])) {
+            $type = $attribs[$this->options["typeAttribute"]];
+        } else {
+            $type = "string";
         }
+        
         $this->_depth++;
         $this->_dataStack[$this->_depth] = null;
 
         $val = array(
                      "name"         => $element,
                      "value"        => null,
-                     "type"         => $attribs[$this->options["typeAttribute"]],
+                     "type"         => $type,
                      "childrenKeys" => array(),
                      "aggregKeys"   => array()
                     );
 
+        if ($this->options["parseAttributes"] == true && (count($attribs) > 0)) {
+            $val["children"] = array();
+            $val["type"] = $this->options["complexType"];
+
+            if ($this->options["attributesArray"] != false) {
+                $val["children"][$this->options["attributesArray"]] = $attribs;
+            } else {
+                foreach ($attribs as $attrib => $value) {
+                    $val["children"][$this->options["prependAttributes"].$attrib] = $value;
+                }
+            }
+        }
+
+        
         if (isset($attribs[$this->options["keyAttribute"]])) {
             $val["name"] = $attribs[$this->options["keyAttribute"]];
         }
@@ -314,6 +335,7 @@ class XML_Unserializer extends XML_Parser {
         $value = array_pop($this->_valStack); 
         $data  = trim($this->_dataStack[$this->_depth]);
 
+        
         // adjust type of the value
         switch(strtolower($value["type"])) {
             /*
@@ -328,6 +350,10 @@ class XML_Unserializer extends XML_Parser {
                     $value["value"] = new stdClass;
                 }
 
+                if ($data !== '') {
+                    $value["children"][$this->options["contentName"]] = $data;
+                }
+                
                 // set properties
                 foreach($value["children"] as $prop => $propVal) {
                     $value["value"]->$prop = $propVal;
@@ -344,6 +370,10 @@ class XML_Unserializer extends XML_Parser {
              * unserialize an array
              */
             case "array":
+                if ($data !== '') {
+                    $value["children"][$this->options["contentName"]] = $data;
+                }
+
                 $value["value"] = $value["children"];
                 break;
 
@@ -420,6 +450,5 @@ class XML_Unserializer extends XML_Parser {
     {
         $this->_dataStack[$this->_depth] .= $cdata;
     }
-
 }
 ?>

@@ -1,0 +1,5 @@
+<xml>
+    <test foo="bar">
+        <tag>test</tag>
+    </test>
+</xml>
