@@ -22,3 +22,4 @@ TODO XML_Unserializer:
 - namespace support
 - custom unserialization for objects (static unserialize() or fromXML() methods)
 - unserialize references using id/idref
+- implement callback mechanism

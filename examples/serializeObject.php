@@ -7,7 +7,7 @@
  * @author Stephan Schmidt <schst@php.net>
  */
 
-    require_once '../Serializer.php';
+    require_once 'XML/Serializer.php';
 
     // this is just to get a nested object
     $pearError = PEAR::raiseError('This is just an error object',123);

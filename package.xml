@@ -19,18 +19,11 @@ Since version 0.8 the package is able to treat XML documents like the simplexml 
     </maintainer>
   </maintainers>
   <release>
-    <version>0.9</version>
-    <date>2003-10-13</date>
+    <version>0.9.1</version>
+    <date>2003-10-26</date>
     <license>PHP License</license>
     <state>beta</state>
-    <notes>XML_Serializer:
-+ added support for doctype declaration (requested by Lapo 'Raist' Luchini),
-* changed tagName option to rootName option (tagName is still supported but deprecated),
-+ added rootAttributes option (thanks to Lapo 'Raist' Luchini),
-+ added rootName option for serializing objects
-
-XML_Unserializer:
-* removed bug with unserializing aggregated objects</notes>
+    <notes>fixed bug #105</notes>
     <deps>
       <dep type="pkg" rel="ge" version="0.4.1">XML_Util</dep>
       <dep type="pkg" rel="has">XML_Parser</dep>
@@ -49,10 +42,10 @@ XML_Unserializer:
     <provides type="function" name="XML_Unserializer::getUnserializedData" />
     <provides type="function" name="XML_Unserializer::getRootName" />
     <filelist>
-      <file role="doc" baseinstalldir="XML" md5sum="e3f338ff4a22cd188bad999338900a17" name="doc/todo.txt"/>
+      <file role="doc" baseinstalldir="XML" md5sum="5715d23f0125e0c0ce23e9c3670565aa" name="doc/todo.txt"/>
       <file role="doc" baseinstalldir="XML" md5sum="e9eabbdfdcfc442be88d446648206c3c" name="examples/example.xml"/>
       <file role="doc" baseinstalldir="XML" md5sum="fbe6b72ad3f0faf855bbc6adf3fc9990" name="examples/serializeIndexedArray.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="462ed0f95dd6f9948044ed267d9f2ca2" name="examples/serializeObject.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="501899ed838441d12fb8bd1495d6bb96" name="examples/serializeObject.php"/>
       <file role="doc" baseinstalldir="XML" md5sum="94cec5d98ba262f9332d22c929272f87" name="examples/serializeRDF.php"/>
       <file role="doc" baseinstalldir="XML" md5sum="c301e3dfee0899abfbd5017049864a19" name="examples/serializeWithAttributes.php"/>
       <file role="doc" baseinstalldir="XML" md5sum="09d739357fbba5e29d017c2dba21b8d6" name="examples/serializeWithDtd.php"/>
@@ -61,8 +54,8 @@ XML_Unserializer:
       <file role="doc" baseinstalldir="XML" md5sum="1f4d25e75944f47ce9e415e07c4a3b73" name="examples/unserializeObject.php"/>
       <file role="doc" baseinstalldir="XML" md5sum="a6d8093c5be25c635d168b4268c2ac4c" name="examples/unserializeRDF.php"/>
       <file role="doc" baseinstalldir="XML" md5sum="bcf1a95eff1cc55f66b48c7ae35d9d0b" name="examples/unserializeWithAttributes.php"/>
-      <file role="php" baseinstalldir="XML" md5sum="fd27f459ee03150c2254544af5156948" name="Serializer.php"/>
-      <file role="php" baseinstalldir="XML" md5sum="b85d22426e26e996dce642e798c87884" name="Unserializer.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="d4a034471af42df299b950dcd929c113" name="Serializer.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="d8da21a6f9ced2e34608075c4ac92c3f" name="Unserializer.php"/>
     </filelist>
   </release>
   <changelog>
@@ -158,6 +151,13 @@ XML_Unserializer:
 
 XML_Unserializer:
 * removed bug with unserializing aggregated objects</notes>
+    </release>
+    <release>
+      <version>0.9.1</version>
+      <date>2003-10-26</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>fixed bug #105</notes>
     </release>
   </changelog>
 </package>
