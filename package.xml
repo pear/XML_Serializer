@@ -5,57 +5,51 @@
   <summary>Swiss-army knive for reading and writing XML files. Creates XML files from data structures and vice versa.</summary>
   <description>XML_Serializer serializes complex data structures like arrays or object as XML documents.
 This class helps you generating any XML document you require without the need for DOM.
-Furthermore this package can be used as a replacement to serialize() und unserialize() as it comes with a matching XML_Unserializer that is able to create PHP data strcutures (like arrays and objects) from XML documents, if type hints are available.
+Furthermore this package can be used as a replacement to serialize() and unserialize() as it comes with a matching XML_Unserializer that is able to create PHP data strcutures (like arrays and objects) from XML documents, if type hints are available.
 If you use the XML_Unserialzer on standard XML files, it will try to guess how it has to be unserialized. In most cases it does exactly what you expect it to do.
-Try reading a RSS file with XML_Unserializer and you have the  whole RSS file in a structured array or even a collection of objects, similar to XML_RSS.
+Try reading a RSS file with XML_Unserializer and you have the whole RSS file in a structured array or even a collection of objects, similar to XML_RSS.
 
 Since version 0.8 the package is able to treat XML documents like the simplexml extension of PHP 5.</description>
   <maintainers>
     <maintainer>
       <user>schst</user>
       <name>Stephan Schmidt</name>
-      <email>schst@php.net</email>
+      <email>schst@php-tools.net</email>
       <role>lead</role>
     </maintainer>
   </maintainers>
   <release>
-    <version>0.9.1</version>
-    <date>2003-10-26</date>
+    <version>0.9.2</version>
+    <date>2004-04-23</date>
     <license>PHP License</license>
     <state>beta</state>
-    <notes>fixed bug #105</notes>
+    <notes>fixed invalid multiple call to XML_Parser constructor</notes>
     <deps>
-      <dep type="pkg" rel="ge" version="0.4.1">XML_Util</dep>
-      <dep type="pkg" rel="has">XML_Parser</dep>
+      <dep type="pkg" rel="ge" version="0.4.2" optional="no">XML_Util</dep>
+      <dep type="pkg" rel="ge" version="1.1.0" optional="no">XML_Parser</dep>
+      <dep type="pkg" rel="has" optional="no">PEAR</dep>
     </deps>
-    <provides type="class" name="XML_Serializer" extends="PEAR" />
-    <provides type="function" name="XML_Serializer::apiVersion" />
-    <provides type="function" name="XML_Serializer::resetOptions" />
-    <provides type="function" name="XML_Serializer::setOption" />
-    <provides type="function" name="XML_Serializer::serialize" />
-    <provides type="function" name="XML_Serializer::getSerializedData" />
-    <provides type="class" name="XML_Unserializer" extends="XML_Parser" />
-    <provides type="function" name="XML_Unserializer::apiVersion" />
-    <provides type="function" name="XML_Unserializer::resetOptions" />
-    <provides type="function" name="XML_Unserializer::setOption" />
-    <provides type="function" name="XML_Unserializer::unserialize" />
-    <provides type="function" name="XML_Unserializer::getUnserializedData" />
-    <provides type="function" name="XML_Unserializer::getRootName" />
     <filelist>
-      <file role="doc" baseinstalldir="XML" md5sum="5715d23f0125e0c0ce23e9c3670565aa" name="doc/todo.txt"/>
-      <file role="doc" baseinstalldir="XML" md5sum="e9eabbdfdcfc442be88d446648206c3c" name="examples/example.xml"/>
-      <file role="doc" baseinstalldir="XML" md5sum="fbe6b72ad3f0faf855bbc6adf3fc9990" name="examples/serializeIndexedArray.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="501899ed838441d12fb8bd1495d6bb96" name="examples/serializeObject.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="94cec5d98ba262f9332d22c929272f87" name="examples/serializeRDF.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="c301e3dfee0899abfbd5017049864a19" name="examples/serializeWithAttributes.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="09d739357fbba5e29d017c2dba21b8d6" name="examples/serializeWithDtd.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="5bebe2bcb9ca5888b79a22b32aa22e41" name="examples/serializeWithIndentedAttributes.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="bb153dd8f553dd137978b6e6f55bf569" name="examples/unserializeAnyXML.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="1f4d25e75944f47ce9e415e07c4a3b73" name="examples/unserializeObject.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="a6d8093c5be25c635d168b4268c2ac4c" name="examples/unserializeRDF.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="bcf1a95eff1cc55f66b48c7ae35d9d0b" name="examples/unserializeWithAttributes.php"/>
-      <file role="php" baseinstalldir="XML" md5sum="d4a034471af42df299b950dcd929c113" name="Serializer.php"/>
-      <file role="php" baseinstalldir="XML" md5sum="d8da21a6f9ced2e34608075c4ac92c3f" name="Unserializer.php"/>
+      <dir baseinstalldir="XML" name="/">
+       <dir name="doc">
+        <file role="data" name="todo.txt"/>
+       </dir> <!-- doc -->
+       <dir name="examples">
+        <file role="doc" name="example.xml"/>
+        <file role="doc" name="serializeIndexedArray.php"/>
+        <file role="doc" name="serializeObject.php"/>
+        <file role="doc" name="serializeRDF.php"/>
+        <file role="doc" name="serializeWithAttributes.php"/>
+        <file role="doc" name="serializeWithDtd.php"/>
+        <file role="doc" name="serializeWithIndentedAttributes.php"/>
+        <file role="doc" name="unserializeAnyXML.php"/>
+        <file role="doc" name="unserializeObject.php"/>
+        <file role="doc" name="unserializeRDF.php"/>
+        <file role="doc" name="unserializeWithAttributes.php"/>
+       </dir> <!-- examples -->
+       <file role="php" name="Serializer.php"/>
+       <file role="php" name="Unserializer.php"/>
+      </dir> <!-- / -->
     </filelist>
   </release>
   <changelog>
@@ -158,6 +152,13 @@ XML_Unserializer:
       <license>PHP License</license>
       <state>beta</state>
       <notes>fixed bug #105</notes>
+    </release>
+    <release>
+      <version>0.9.2</version>
+      <date>2004-04-23</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>fixed invalid multiple call to XML_Parser constructor</notes>
     </release>
   </changelog>
 </package>
