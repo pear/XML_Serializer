@@ -19,54 +19,44 @@ Since version 0.8 the package is able to treat XML documents like the simplexml 
     </maintainer>
   </maintainers>
   <release>
-    <version>0.11.1</version>
-    <date>2004-08-25</date>
+    <version>0.12.0</version>
+    <date>2004-11-03</date>
     <license>PHP License</license>
     <state>beta</state>
     <notes>Serializer:
-- fixed bug with default line endings</notes>
+- added new option tagMap (requested by Toby)
+Unserializer:
+- added encoding option (thanks to mc[at]glouglou[dot]net)</notes>
     <deps>
       <dep type="pkg" rel="ge" version="0.4.2" optional="no">XML_Util</dep>
       <dep type="pkg" rel="ge" version="1.1.0" optional="no">XML_Parser</dep>
       <dep type="pkg" rel="has" optional="no">PEAR</dep>
     </deps>
-    <provides type="class" name="XML_Serializer" extends="PEAR" />
-    <provides type="function" name="XML_Serializer::apiVersion" />
-    <provides type="function" name="XML_Serializer::resetOptions" />
-    <provides type="function" name="XML_Serializer::setOption" />
-    <provides type="function" name="XML_Serializer::setOptions" />
-    <provides type="function" name="XML_Serializer::serialize" />
-    <provides type="function" name="XML_Serializer::getSerializedData" />
-    <provides type="class" name="XML_Unserializer" extends="XML_Parser" />
-    <provides type="function" name="XML_Unserializer::apiVersion" />
-    <provides type="function" name="XML_Unserializer::resetOptions" />
-    <provides type="function" name="XML_Unserializer::setOption" />
-    <provides type="function" name="XML_Unserializer::setOptions" />
-    <provides type="function" name="XML_Unserializer::unserialize" />
-    <provides type="function" name="XML_Unserializer::getUnserializedData" />
-    <provides type="function" name="XML_Unserializer::getRootName" />
-    <provides type="function" name="XML_Unserializer::startHandler" />
-    <provides type="function" name="XML_Unserializer::endHandler" />
-    <provides type="function" name="XML_Unserializer::cdataHandler" />
     <filelist>
-      <file role="data" baseinstalldir="XML" md5sum="94b6430d469c935aa398185f4346fc3f" name="doc/todo.txt"/>
-      <file role="doc" baseinstalldir="XML" md5sum="e9eabbdfdcfc442be88d446648206c3c" name="examples/example.xml"/>
-      <file role="doc" baseinstalldir="XML" md5sum="f01d0852bc57bbe873a59da2535c0818" name="examples/serializeArrayWithObjects.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="0f2ec73fb8cad2bdaa8958f8c75f2544" name="examples/serializeEmptyArray.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="d956dc15f08a4fb8ea301fca1b09e90f" name="examples/serializeIndexedArray.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="aa6d4f229aa87354b1c078f91156f5b7" name="examples/serializeObject.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="7a90c462e03e288a75423a1ced4642f3" name="examples/serializeRDF.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="f509afa024e0454d627153e54f0b9ec8" name="examples/serializeWithAttributes.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="20f92c39706caae8db9b88667d0757fe" name="examples/serializeWithAttributes2.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="d20caa0cca96ce5afa0e54b654b40bf1" name="examples/serializeWithDtd.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="c6d966fc7173eb38a94a534024067bb0" name="examples/serializeWithIndentedAttributes.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="b2c893783ae9ca9804eed4fdb6851f74" name="examples/unserializeAnyXML.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="2ac56910b59cc8f69e6a20bf9851774a" name="examples/unserializeEnum.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="cc6b33b4f0f7b84a771d2cb506f83b2f" name="examples/unserializeObject.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="0d094fbd7787b073b910b21d6dfd19ee" name="examples/unserializeRDF.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="4b20ba86c0afbbb4b0e873b7a4ddd324" name="examples/unserializeWithAttributes.php"/>
-      <file role="php" baseinstalldir="XML" md5sum="752486d3240624b648c6b1aa7f34ca2b" name="Serializer.php"/>
-      <file role="php" baseinstalldir="XML" md5sum="5c31c38ce311280c50d84b5a47434f25" name="Unserializer.php"/>
+      <dir baseinstalldir="XML" name="/">
+       <dir name="doc">
+        <file role="data" name="todo.txt"/>
+       </dir> <!-- doc -->
+       <dir name="examples">
+        <file role="doc" name="example.xml"/>
+        <file role="doc" name="serializeArrayWithObjects.php"/>
+        <file role="doc" name="serializeEmptyArray.php"/>
+        <file role="doc" name="serializeIndexedArray.php"/>
+        <file role="doc" name="serializeObject.php"/>
+        <file role="doc" name="serializeRDF.php"/>
+        <file role="doc" name="serializeWithAttributes.php"/>
+        <file role="doc" name="serializeWithAttributes2.php"/>
+        <file role="doc" name="serializeWithDtd.php"/>
+        <file role="doc" name="serializeWithIndentedAttributes.php"/>
+        <file role="doc" name="unserializeAnyXML.php"/>
+        <file role="doc" name="unserializeEnum.php"/>
+        <file role="doc" name="unserializeObject.php"/>
+        <file role="doc" name="unserializeRDF.php"/>
+        <file role="doc" name="unserializeWithAttributes.php"/>
+       </dir> <!-- examples -->
+       <file role="php" name="Serializer.php"/>
+       <file role="php" name="Unserializer.php"/>
+      </dir> <!-- / -->
     </filelist>
   </release>
   <changelog>
@@ -214,6 +204,16 @@ Unserializer:
       <state>beta</state>
       <notes>Serializer:
 - fixed bug with default line endings</notes>
+    </release>
+    <release>
+      <version>0.12.0</version>
+      <date>2004-11-03</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Serializer:
+- added new option tagMap (requested by Toby)
+Unserializer:
+- added encoding option (thanks to mc[at]glouglou[dot]net)</notes>
     </release>
   </changelog>
 </package>

@@ -96,7 +96,7 @@ define('XML_SERIALIZER_ERROR_NO_SERIALIZATION', 51);
  *
  * @category XML
  * @package  XML_Serializer
- * @version  0.9.1
+ * @version  0.12.0
  * @author   Stephan Schmidt <schst@php.net>
  * @uses     XML_Util
  */
@@ -126,7 +126,8 @@ class XML_Serializer extends PEAR
                          'rootName'           => null,                  // name of the root tag
                          'rootAttributes'     => array(),               // attributes of the root tag
                          'attributesArray'    => null,                  // all values in this key will be treated as attributes
-                         'contentName'        => null                   // this value will be used directly as content, instead of creating a new tag, may only be used in conjuction with attributesArray
+                         'contentName'        => null,                  // this value will be used directly as content, instead of creating a new tag, may only be used in conjuction with attributesArray
+                         'tagMap'			  => array()
                         );
 
    /**
@@ -173,7 +174,7 @@ class XML_Serializer extends PEAR
     */
     function apiVersion()
     {
-		return '0.9';
+		return '0.12';
     }
 
    /**
@@ -421,7 +422,11 @@ class XML_Serializer extends PEAR
                 if ($this->options['indent']!==null && $this->_tagDepth>0) {
                     $tmp .= str_repeat($this->options['indent'], $this->_tagDepth);
                 }
-    
+
+                if (isset($this->options['tagMap'][$key])) {
+                	$key = $this->options['tagMap'][$key];
+                }
+
     			//	copy key
     			$origKey	=	$key;
     			//	key cannot be used as tagname => use default tag

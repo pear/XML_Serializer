@@ -18,7 +18,7 @@ require_once 'PEAR/PackageFileManager.php';
 /**
  * current version
  */
-$version = '0.11.1';
+$version = '0.12.0';
 
 /**
  * current state
@@ -30,7 +30,9 @@ $state = 'beta';
  */
 $notes = <<<EOT
 Serializer:
-- fixed bug with default line endings
+- added new option tagMap (requested by Toby)
+Unserializer:
+- added encoding option (thanks to mc[at]glouglou[dot]net)
 EOT;
 
 /**
