@@ -122,6 +122,7 @@ class XML_Serializer extends PEAR {
                          "mode"               => 'default',             // use 'simplexml' to use parent name as tagname if transforming an indexed array
                          "addDoctype"         => false,                 // add a doctype declaration
                          "doctype"            => null,                  // supply a string or an array with id and uri ({@see XML_Util::getDoctypeDeclaration()}
+                         "rootName"           => null,                  // name of the root tag
                          "rootAttributes"     => array()                // attributes of the root tag
                         );
 
@@ -330,6 +331,10 @@ class XML_Serializer extends PEAR {
     */
     function _serializeArray(&$array, $tagName = null, $attributes = array())
     {
+        /*
+        * if mode is set to simpleXML, check whether
+        * the array is associative or indexed
+        */
         if (is_array($array) && $this->options["mode"] == "simplexml") {
             $indexed = true;
             foreach ($array as $key => $val) {
