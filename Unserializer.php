@@ -170,6 +170,9 @@ class XML_Unserializer extends XML_Parser {
     */
     function XML_Unserializer($options = null)
     {
+        // reset parser and properties
+        $this->XML_Parser(null,"event");
+
         if (is_array($options)) {
             $this->options = array_merge($this->_defaultOptions, $options);
         } else {
@@ -224,8 +227,6 @@ class XML_Unserializer extends XML_Parser {
     */
     function unserialize($data, $isFile = false, $options = null)
     {
-        // reset parser and properties
-        $this->XML_Parser(null,"event");
         $this->_unserializedData = null;
         $this->_root = null;
 
