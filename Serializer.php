@@ -119,7 +119,7 @@ define('XML_SERIALIZER_ENTITIES_HTML', XML_UTIL_ENTITIES_HTML);
  *
  * @category XML
  * @package  XML_Serializer
- * @version  0.14.0
+ * @version  0.14.1
  * @author   Stephan Schmidt <schst@php.net>
  * @uses     XML_Util
  */

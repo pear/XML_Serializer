@@ -19,21 +19,14 @@ Since version 0.8 the package is able to treat XML documents like the simplexml 
     </maintainer>
   </maintainers>
   <release>
-    <version>0.14.0</version>
-    <date>2004-12-22</date>
+    <version>0.14.1</version>
+    <date>2004-12-27</date>
     <license>PHP License</license>
     <state>beta</state>
-    <notes>Serializer:
-- new option 'encodeFunction' to apply a PHP function to character data and attributes before serializing the data
-Unserializer:
-- Does no longer extend XML_Parser (allows to change encoding at runtime), this could break some scripts
-- new option 'targetEncoding' to specify the target encoding for character data
-- new option 'decodeFunction' to apply a PHP function on character data and attributes while unserializing the document
-- some tiny whitespace fixes
-Global:
-- new requires XML_Parser 1.2.2 and XML_Util 1.1.0</notes>
+    <notes>Bugfix release:
+- XML_Unserializer now again extends PEAR to use PEAR error management</notes>
     <deps>
-      <dep type="pkg" rel="ge" version="1.1.0" optional="no">XML_Util</dep>
+      <dep type="pkg" rel="ge" version="1.1.1" optional="no">XML_Util</dep>
       <dep type="pkg" rel="ge" version="1.2.1" optional="no">XML_Parser</dep>
       <dep type="pkg" rel="has" optional="no">PEAR</dep>
     </deps>
@@ -54,6 +47,7 @@ Global:
         <file role="doc" name="serializeWithAttributes2.php"/>
         <file role="doc" name="serializeWithDtd.php"/>
         <file role="doc" name="serializeWithIndentedAttributes.php"/>
+        <file role="doc" name="serializeWithNamespace.php"/>
         <file role="doc" name="serializeWithTagMap.php"/>
         <file role="doc" name="unserializeAnyXML.php"/>
         <file role="doc" name="unserializeEncoded.php"/>
@@ -256,6 +250,14 @@ Unserializer:
 - some tiny whitespace fixes
 Global:
 - new requires XML_Parser 1.2.2 and XML_Util 1.1.0</notes>
+    </release>
+    <release>
+      <version>0.14.1</version>
+      <date>2004-12-27</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Bugfix release:
+- XML_Unserializer now again extends PEAR to use PEAR error management</notes>
     </release>
   </changelog>
 </package>

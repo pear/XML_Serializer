@@ -18,7 +18,7 @@ require_once 'PEAR/PackageFileManager.php';
 /**
  * current version
  */
-$version = '0.14.0';
+$version = '0.14.1';
 
 /**
  * current state
@@ -29,15 +29,8 @@ $state = 'beta';
  * release notes
  */
 $notes = <<<EOT
-Serializer:
-- new option 'encodeFunction' to apply a PHP function to character data and attributes before serializing the data
-Unserializer:
-- Does no longer extend XML_Parser (allows to change encoding at runtime), this could break some scripts
-- new option 'targetEncoding' to specify the target encoding for character data
-- new option 'decodeFunction' to apply a PHP function on character data and attributes while unserializing the document
-- some tiny whitespace fixes
-Global:
-- new requires XML_Parser 1.2.2 and XML_Util 1.1.0
+Bugfix release:
+- XML_Unserializer now again extends PEAR to use PEAR error management
 EOT;
 
 /**
