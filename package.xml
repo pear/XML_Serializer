@@ -19,14 +19,13 @@ Since version 0.8 the package is able to treat XML documents like the simplexml 
     </maintainer>
   </maintainers>
   <release>
-    <version>0.13.0</version>
-    <date>2004-11-06</date>
+    <version>0.13.1</version>
+    <date>2004-11-26</date>
     <license>PHP License</license>
     <state>beta</state>
     <notes>Serializer:
-- fixed bug #2688: in simplexml mode $array needs to be non-empty (thanks to demian[at]phpkitchen[dot]com and derek[at]hostbaby[dot]com)
-Unserializer:
-- implemented Request #2650: Multiple key attributes</notes>
+- fixed error handling (suppress error handling, when XML_Util returns an error) (patch by Lukas Smith)
+- replaced some left-over tabs with spaces</notes>
     <deps>
       <dep type="pkg" rel="ge" version="0.4.2" optional="no">XML_Util</dep>
       <dep type="pkg" rel="ge" version="1.1.0" optional="no">XML_Parser</dep>
@@ -225,6 +224,15 @@ Unserializer:
 - fixed bug #2688: in simplexml mode $array needs to be non-empty (thanks to demian[at]phpkitchen[dot]com and derek[at]hostbaby[dot]com)
 Unserializer:
 - implemented Request #2650: Multiple key attributes</notes>
+    </release>
+    <release>
+      <version>0.13.1</version>
+      <date>2004-11-26</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Serializer:
+- fixed error handling (suppress error handling, when XML_Util returns an error) (patch by Lukas Smith)
+- replaced some left-over tabs with spaces</notes>
     </release>
   </changelog>
 </package>

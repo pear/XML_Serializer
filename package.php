@@ -18,7 +18,7 @@ require_once 'PEAR/PackageFileManager.php';
 /**
  * current version
  */
-$version = '0.13.0';
+$version = '0.13.1';
 
 /**
  * current state
@@ -30,9 +30,8 @@ $state = 'beta';
  */
 $notes = <<<EOT
 Serializer:
-- fixed bug #2688: in simplexml mode \$array needs to be non-empty (thanks to demian[at]phpkitchen[dot]com and derek[at]hostbaby[dot]com)
-Unserializer:
-- implemented Request #2650: Multiple key attributes
+- fixed error handling (suppress error handling, when XML_Util returns an error) (patch by Lukas Smith)
+- replaced some left-over tabs with spaces
 EOT;
 
 /**
