@@ -18,7 +18,7 @@ require_once 'PEAR/PackageFileManager.php';
 /**
  * current version
  */
-$version = '0.12.0';
+$version = '0.13.0';
 
 /**
  * current state
@@ -30,9 +30,9 @@ $state = 'beta';
  */
 $notes = <<<EOT
 Serializer:
-- added new option tagMap (requested by Toby)
+- fixed bug #2688: in simplexml mode \$array needs to be non-empty (thanks to demian[at]phpkitchen[dot]com and derek[at]hostbaby[dot]com)
 Unserializer:
-- added encoding option (thanks to mc[at]glouglou[dot]net)
+- implemented Request #2650: Multiple key attributes
 EOT;
 
 /**
