@@ -113,6 +113,7 @@ class XML_Serializer extends PEAR
                          'typeHints'          => false,                 // automatically add type hin attributes
                          'addDecl'            => false,                 // add an XML declaration
                          'defaultTagName'     => 'XML_Serializer_Tag',  // tag used for indexed arrays or invalid names
+                         'classAsTagName'     => false,                 // use classname for objects in indexed arrays
                          'keyAttribute'       => '_originalKey',        // attribute where original key is stored
                          'typeAttribute'      => '_type',               // attribute for type (only if typeHints => true)
                          'classAttribute'     => '_class',              // attribute for class of objects (only if typeHints => true)
@@ -380,7 +381,7 @@ class XML_Serializer extends PEAR
                 }
             }
 
-            if ($indexed) {
+            if ($indexed && $this->options['mode'] == 'simplexml') {
                 $string = '';
                 foreach ($array as $key => $val) {
                     $string .= $this->_serializeValue( $val, $tagName, $attributes);
@@ -426,7 +427,11 @@ class XML_Serializer extends PEAR
     			//	key cannot be used as tagname => use default tag
                 $valid = XML_Util::isValidName($key);
     	        if (PEAR::isError($valid)) {
-        	        $key = $this->options['defaultTagName'];
+    	            if ($this->options['classAsTagName'] && is_object($value)) {
+    	                $key = get_class($value);
+    	            } else {
+            	        $key = $this->options['defaultTagName'];
+    	            }
            	 	}
                 $atts = array();
                 if ($this->options['typeHints'] === true) {
