@@ -19,18 +19,18 @@ Since version 0.8 the package is able to treat XML documents like the simplexml 
     </maintainer>
   </maintainers>
   <release>
-    <version>0.8.1</version>
-    <date>2003-09-23</date>
+    <version>0.9</version>
+    <date>2003-10-13</date>
     <license>PHP License</license>
     <state>beta</state>
-    <notes>Bugfix release
-                                        
-XML_Serializer:
-* removed bug when using mode =&gt; simplexml and indexed arrays contained only scalar values,
-* removed bug with missing _originalKey attribute when serializing objects
+    <notes>XML_Serializer:
++ added support for doctype declaration (requested by Lapo 'Raist' Luchini),
+* changed tagName option to rootName option (tagName is still supported but deprecated),
++ added rootAttributes option (thanks to Lapo 'Raist' Luchini),
++ added rootName option for serializing objects
 
 XML_Unserializer:
-* added check for set{$propName} method to use methods to set properties in Unserializer instead of direct access</notes>
+* removed bug with unserializing aggregated objects</notes>
     <deps>
       <dep type="pkg" rel="ge" version="0.4.1">XML_Util</dep>
       <dep type="pkg" rel="has">XML_Parser</dep>
@@ -51,17 +51,18 @@ XML_Unserializer:
     <filelist>
       <file role="doc" baseinstalldir="XML" md5sum="e3f338ff4a22cd188bad999338900a17" name="doc/todo.txt"/>
       <file role="doc" baseinstalldir="XML" md5sum="e9eabbdfdcfc442be88d446648206c3c" name="examples/example.xml"/>
-      <file role="doc" baseinstalldir="XML" md5sum="aefe2b603937cbb619872b1eff9b149b" name="examples/serializeIndexedArray.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="fbe6b72ad3f0faf855bbc6adf3fc9990" name="examples/serializeIndexedArray.php"/>
       <file role="doc" baseinstalldir="XML" md5sum="462ed0f95dd6f9948044ed267d9f2ca2" name="examples/serializeObject.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="6effc0e7ebd875409e839d899bff9ebb" name="examples/serializeRDF.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="94cec5d98ba262f9332d22c929272f87" name="examples/serializeRDF.php"/>
       <file role="doc" baseinstalldir="XML" md5sum="c301e3dfee0899abfbd5017049864a19" name="examples/serializeWithAttributes.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="09d739357fbba5e29d017c2dba21b8d6" name="examples/serializeWithDtd.php"/>
       <file role="doc" baseinstalldir="XML" md5sum="5bebe2bcb9ca5888b79a22b32aa22e41" name="examples/serializeWithIndentedAttributes.php"/>
       <file role="doc" baseinstalldir="XML" md5sum="bb153dd8f553dd137978b6e6f55bf569" name="examples/unserializeAnyXML.php"/>
       <file role="doc" baseinstalldir="XML" md5sum="1f4d25e75944f47ce9e415e07c4a3b73" name="examples/unserializeObject.php"/>
-      <file role="doc" baseinstalldir="XML" md5sum="21aa48a0e1ba4651a0360679efa22f08" name="examples/unserializeRDF.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="a6d8093c5be25c635d168b4268c2ac4c" name="examples/unserializeRDF.php"/>
       <file role="doc" baseinstalldir="XML" md5sum="bcf1a95eff1cc55f66b48c7ae35d9d0b" name="examples/unserializeWithAttributes.php"/>
-      <file role="php" baseinstalldir="XML" md5sum="68817e99f643668f5011adca7ae21c68" name="Serializer.php"/>
-      <file role="php" baseinstalldir="XML" md5sum="a224a6c476e7ce7103837cf9acdfc973" name="Unserializer.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="fd27f459ee03150c2254544af5156948" name="Serializer.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="b85d22426e26e996dce642e798c87884" name="Unserializer.php"/>
     </filelist>
   </release>
   <changelog>
@@ -143,6 +144,20 @@ XML_Serializer:
 
 XML_Unserializer:
 * added check for set{$propName} method to use methods to set properties in Unserializer instead of direct access</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2003-10-13</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>XML_Serializer:
++ added support for doctype declaration (requested by Lapo 'Raist' Luchini),
+* changed tagName option to rootName option (tagName is still supported but deprecated),
++ added rootAttributes option (thanks to Lapo 'Raist' Luchini),
++ added rootName option for serializing objects
+
+XML_Unserializer:
+* removed bug with unserializing aggregated objects</notes>
     </release>
   </changelog>
 </package>
