@@ -373,7 +373,7 @@ class XML_Serializer extends PEAR
         * if mode is set to simpleXML, check whether
         * the array is associative or indexed
         */
-        if (is_array($array) && $this->options['mode'] == 'simplexml') {
+        if (is_array($array) && !empty($array) && $this->options['mode'] == 'simplexml') {
             $indexed = true;
             foreach ($array as $key => $val) {
                 if (!is_int($key)) {
