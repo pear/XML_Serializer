@@ -1,4 +1,14 @@
 <?PHP
+/**
+ * This example shows how XML_Serializer and XML_Unserializer
+ * work together.
+ *
+ * A structure is serialized and later it's unserialized from the
+ * resulting XML document.
+ *
+ * @author  Stephan Schmidt <schst@php.net>
+ */
+
     require_once 'XML/Serializer.php';
     require_once 'XML/Unserializer.php';
     // this is just to get a nested object

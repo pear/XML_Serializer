@@ -1,11 +1,17 @@
 <?PHP
-    error_reporting(E_ALL);
+/**
+ * This example shows how to parse attributes from
+ * XML tags.
+ *
+ * @author  Stephan Schmidt <schst@php.net>
+ * @uses    example.xml
+ */
+
     require_once 'XML/Unserializer.php';
 
     $options = array(
                         "parseAttributes"   =>  true,
                         "attributesArray"   =>  false
-//                        "prependAttributes" =>  "att_"
                     );
     
     //  be careful to always use the ampersand in front of the new operator 
@@ -14,10 +20,6 @@
     // userialize the document
     $status = $unserializer->unserialize("example.xml", true);    
 
-    echo	"<pre>";
-    print_r($status);
-    echo	"</pre>";
-    
     if (PEAR::isError($status)) {
         echo    "Error: " . $status->getMessage();
     } else {

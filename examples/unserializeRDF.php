@@ -1,13 +1,21 @@
 <?PHP
-    error_reporting(E_ALL);
-    require_once '../Unserializer.php';
+/**
+ * This example shows how to create any object
+ * from an XML document. In this case we get
+ * some aggregated objects for channel and items
+ * from an RSS feed.
+ *
+ * @author  Stephan Schmidt <schst@php.net>
+ */
+
+    require_once 'XML/Unserializer.php';
 
    /**
     * class for the RDF docuemnt
     *
     *
     */
-    class rdf
+    class rdfDocument
     {
         var $channel;
         var $item;
@@ -51,8 +59,7 @@
     $options = array(
                      "complexType" => "object",
                      "tagMap"      => array(
-                                                "rdf:RDF"   => "rdf",
-                                                "rdf:Seq"   => "Sequence"
+                                                "rdf:RDF"   => "rdfDocument",   // this is used to specify a classname for the root tag
                                             )
                     );
     
@@ -66,14 +73,20 @@
     } else {
         $rss = $unserializer->getUnserializedData();
 
-        echo "Root Tagname: ".$unserializer->getRootName()."<br>";
+        echo "This has been returned by XML_Unserializer:<br>";
+        
+        echo "<pre>";
+        print_r( $rss );
+        echo "</pre>";
+
+        echo "<br><br>Root Tagname: ".$unserializer->getRootName()."<br>";
         
         echo "Title of the channel: ".$rss->channel->getTitle()."<br>";
 
         $items = $rss->getItems(3);
-        
+        echo "<br>Titles of the last three releases:<br>";
         foreach ($items as $item) {
-            echo    "Title : ".$item->getTitle()."<br>";
+            echo "Title : ".$item->getTitle()."<br>";
         }
     }
 ?>

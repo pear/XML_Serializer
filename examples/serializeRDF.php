@@ -1,4 +1,13 @@
 <?PHP
+/**
+ * This example shows how to create an RDF document
+ * with a few lines of code.
+ * This can also be done with mode => simplexml
+ *
+ * @author Stephan Schmidt <schst@php.net>
+ * @see    serializeIndexedArray.php
+ */
+
     require_once 'XML/Serializer.php';
 
     $options = array(

@@ -1,4 +1,12 @@
 <?PHP
+/**
+ * This is just a basic example that shows
+ * how objects can be serialized so they can
+ * be fully restored later.
+ *
+ * @author Stephan Schmidt <schst@php.net>
+ */
+
     require_once 'XML/Serializer.php';
 
     // this is just to get a nested object

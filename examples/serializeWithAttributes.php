@@ -5,7 +5,9 @@
  * This example demonstrates, how XML_Serializer is able
  * to serialize scalar values as an attribute instead of a nested tag.
  *
- * @author  Stephan Schmidt 
+ * The same structure like in serializeObject.php is serialized.
+ *
+ * @author  Stephan Schmidt <schst@php.net>
  */
 
     require_once 'XML/Serializer.php';
@@ -20,16 +22,15 @@
     // this is just to get a nested object
     $pearError = PEAR::raiseError('This is just an error object',123);
 	
-	$value	=	array(
-						"foo"	=>	array(
-											"argh" => "bar"
-										),
-						"err"   => $pearError
-					);
+    $foo    =   new stdClass;
+    
+    $foo->value = "My value";
+    $foo->error = $pearError;
+    $foo->xml   = "cool";
     
     $serializer = new XML_Serializer($options);
     
-    $result = $serializer->serialize($value);
+    $result = $serializer->serialize($foo);
     
     if( $result === true ) {
 		$xml = $serializer->getSerializedData();

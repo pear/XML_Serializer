@@ -1,12 +1,19 @@
 <?PHP
-    require_once '../Serializer.php';
+/**
+ * This example demonstrates the use of
+ * mode => simplexml
+ *
+ * It can be used to serialize an indexed array
+ * like ext/simplexml does, by using the name
+ * of the parent tag, while omitting this tag.
+ *
+ * @author Stephan Schmidt <schst@php.net>
+ */
+    require_once 'XML/Serializer.php';
 
     $options = array(
-                        "indent"    => "    ",
-                        "linebreak" => "\n",
-                        "typeHints" => false,
-                        "addDecl"   => true,
-                        "encoding"  => "UTF-8",
+                        "indent"         => "    ",
+                        "linebreak"      => "\n",
 						"tagName"	=> "rdf:RDF",
                         "mode"      => "simplexml"
                     );
