@@ -428,8 +428,11 @@ class XML_Unserializer extends XML_Parser {
                 if ($data !== '') {
                     $value["children"][$this->options["contentName"]] = $data;
                 }
-
-                $value["value"] = $value["children"];
+                if (isset($value['children'])) {
+                    $value["value"] = $value["children"];
+                } else {
+                    $value["value"] = array();
+                }
                 break;
 
             /*
