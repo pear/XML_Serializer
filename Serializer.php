@@ -119,7 +119,9 @@ class XML_Serializer extends PEAR {
 						 "scalarAsAttributes" => false,                 // scalar values (strings, ints,..) will be serialized as attribute
                          "prependAttributes"  => "",                    // prepend string for attributes
                          "indentAttributes"   => false,                 // indent the attributes, if set to '_auto', it will indent attributes so they all start at the same column
-                         "mode"               => 'default'              // use 'simplexml' to use parent name as tagname if transforming an indexed array
+                         "mode"               => 'default',             // use 'simplexml' to use parent name as tagname if transforming an indexed array
+                         "addDoctype"         => true,                  // add a doctype declaration
+                         "doctype"            => null                   // supply a string or an array with id and uri ({@see XML_Util::getDoctypeDeclaration()}
                         );
 
    /**
@@ -220,17 +222,6 @@ class XML_Serializer extends PEAR {
         $this->_tagDepth = 0;
 
         $this->_serializedData = "";
-        //  build xml declaration
-        if ($this->options["addDecl"]) {
-            $atts = array();
-            if (isset($this->options["encoding"]) ) {
-                $encoding = $this->options["encoding"];
-            } else {
-                $encoding = null;
-            }
-            $this->_serializedData .= XML_Util::getXMLDeclaration("1.0", $encoding);
-            $this->_serializedData .= $this->options["linebreak"];
-        }
         // serialize an array
         if (is_array($data)) {
             if (isset($this->options["tagName"])) {
@@ -244,7 +235,32 @@ class XML_Serializer extends PEAR {
         // serialize an object
         elseif (is_object($data)) {
             $this->_serializedData .= $this->_serializeObject($data);
+            if (isset($this->options["tagName"])) {
+                $tagName = $this->options["tagName"];
+            } else {
+                $tagName = get_class($data);
+            }
         }
+        
+        if ($this->options["addDoctype"]) {
+            $this->_serializedData = XML_Util::getDoctypeDeclaration($tagName, $this->options["doctype"])
+                                   . $this->options["linebreak"]
+                                   . $this->_serializedData;
+        }
+
+        //  build xml declaration
+        if ($this->options["addDecl"]) {
+            $atts = array();
+            if (isset($this->options["encoding"]) ) {
+                $encoding = $this->options["encoding"];
+            } else {
+                $encoding = null;
+            }
+            $this->_serializedData = XML_Util::getXMLDeclaration("1.0", $encoding)
+                                   . $this->options["linebreak"]
+                                   . $this->_serializedData;
+        }
+        
         
 		if ($optionsBak !== null) {
 			$this->options = $optionsBak;
