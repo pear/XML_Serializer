@@ -10,7 +10,7 @@
     // this is a simple XML document
     $xml = '<users>' .
            '  <user handle="schst">Stephan Schmidt</user>' .
-           '  <user handle="mj">Martin Jansen</user>'
+           '  <user handle="mj">Martin Jansen</user>' .
            '</users>';
 
     require_once 'XML/Unserializer.php';
