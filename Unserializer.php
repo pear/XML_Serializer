@@ -113,6 +113,8 @@ class XML_Unserializer extends PEAR
                          'keyAttribute'      => '_originalKey',         // get array key/property name from this attribute
                          'typeAttribute'     => '_type',                // get type from this attribute
                          'classAttribute'    => '_class',               // get class from this attribute (if not given, use tag name)
+                         'tagAsClass'        => true,                   // use the tagname as the classname
+                         'defaultClass'      => 'stdClass',             // name of the class that is used to create objects
                          'parseAttributes'   => false,                  // parse the attributes of the tag into an array
                          'attributesArray'   => false,                  // parse them into sperate array (specify name of array here)
                          'prependAttributes' => '',                     // prepend attribute names with this string
@@ -363,7 +365,8 @@ class XML_Unserializer extends PEAR
 
         if ($this->options['parseAttributes'] == true && (count($attribs) > 0)) {
             $val['children'] = array();
-            $val['type'] = $this->options['complexType'];
+            $val['type']  = $this->options['complexType'];
+            $val['class'] = $element;
 
             if ($this->options['attributesArray'] != false) {
                 $val['children'][$this->options['attributesArray']] = $attribs;
@@ -426,10 +429,10 @@ class XML_Unserializer extends PEAR
                 }
 
                 // instantiate the class
-                if (class_exists($classname)) {
+                if ($this->options['tagAsClass'] === true && class_exists($classname)) {
                     $value['value'] = &new $classname;
                 } else {
-                    $value['value'] = &new stdClass;
+                    $value['value'] = &new $this->options['defaultClass'];
                 }
                 if ($data !== '') {
                     $value['children'][$this->options['contentName']] = $data;
