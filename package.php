@@ -18,7 +18,7 @@ require_once 'PEAR/PackageFileManager.php';
 /**
  * current version
  */
-$version = '0.10.1';
+$version = '0.11.0';
 
 /**
  * current state
@@ -29,7 +29,14 @@ $state = 'beta';
  * release notes
  */
 $notes = <<<EOT
-fixed bug #1846 (unserialization bug with empty arrays)
+Serializer:
+- Request #2019 (use classname as tagname in indexed arrays)
+- replaced double quotes with single quotes
+- some CS fixes
+
+Unserializer:
+- added new option 'forceEnum'
+- replaced double quotes with single quotes
 EOT;
 
 /**
