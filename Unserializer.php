@@ -47,10 +47,10 @@ define("XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION", 151);
  * <code>
  * require_once 'XML/Unserializer.php';
  *
- * //  be careful to always use the ampersand in front of the new operator 
+ * //  be careful to always use the ampersand in front of the new operator
  * $unserializer = &new XML_Unserializer();
  *
- * $unserializer->unserialize($xml);    
+ * $unserializer->unserialize($xml);
  *
  * $data = $unserializer->getUnserializedData();
  * <code>
@@ -67,7 +67,7 @@ define("XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION", 151);
  * $options = array('complexType' => 'object');
  * $unserializer = &new XML_Unserializer($options);
  *
- * $unserializer->unserialize('http://pear.php.net/rss.php');    
+ * $unserializer->unserialize('http://pear.php.net/rss.php');
  *
  * $rss = $unserializer->getUnserializedData();
  * echo $rss->channel->item[3]->title;
@@ -89,7 +89,7 @@ define("XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION", 151);
  * $options = array('keyAttribute' => 'handle');
  * $unserializer = &new XML_Unserializer($options);
  *
- * $unserializer->unserialize($xml, false);    
+ * $unserializer->unserialize($xml, false);
  *
  * $users = $unserializer->getUnserializedData();
  * </code>
@@ -212,7 +212,7 @@ class XML_Unserializer extends XML_Parser {
     {
         $this->options[$name] = $value;
     }
-    
+
    /**
     * unserialize data
     *
@@ -228,7 +228,7 @@ class XML_Unserializer extends XML_Parser {
         $this->XML_Parser(null,"event");
         $this->_unserializedData = null;
         $this->_root = null;
-        
+
         // if options have been specified, use them instead
         // of the previously defined ones
         if (is_array($options)) {
@@ -261,15 +261,15 @@ class XML_Unserializer extends XML_Parser {
            $this->setInput($data);
            $result = $this->parse();
         }
-        
+
         if ($optionsBak !== null) {
             $this->options = $optionsBak;
         }
-        
+
         if (PEAR::isError($result)) {
             return $result;
         }
-        
+
         return  true;
     }
 
@@ -286,7 +286,7 @@ class XML_Unserializer extends XML_Parser {
             }
             return $this->_unserializedData;
         }
-    
+
    /**
     *   get the name of the root tag
     *
@@ -300,7 +300,7 @@ class XML_Unserializer extends XML_Parser {
             }
             return $this->_root;
         }
-    
+
     /**
      * Start element handler for XML parser
      *
@@ -317,7 +317,7 @@ class XML_Unserializer extends XML_Parser {
         } else {
             $type = "string";
         }
-        
+
         $this->_depth++;
         $this->_dataStack[$this->_depth] = null;
 
@@ -341,7 +341,7 @@ class XML_Unserializer extends XML_Parser {
                 }
             }
         }
-        
+
         if (isset($attribs[$this->options["keyAttribute"]])) {
             $val["name"] = $attribs[$this->options["keyAttribute"]];
         }
@@ -363,9 +363,9 @@ class XML_Unserializer extends XML_Parser {
      */
     function endHandler($parser, $element)
     {
-        $value = array_pop($this->_valStack); 
+        $value = array_pop($this->_valStack);
         $data  = trim($this->_dataStack[$this->_depth]);
-        
+
         // adjust type of the value
         switch(strtolower($value["type"])) {
             /*
@@ -380,7 +380,7 @@ class XML_Unserializer extends XML_Parser {
                 if (is_array($this->options["tagMap"]) && isset($this->options["tagMap"][$classname])) {
                     $classname = $this->options["tagMap"][$classname];
                 }
-                
+
                 // instantiate the class
                 if (class_exists($classname)) {
                     $value["value"] = &new $classname;
@@ -390,7 +390,7 @@ class XML_Unserializer extends XML_Parser {
                 if ($data !== '') {
                     $value["children"][$this->options["contentName"]] = $data;
                 }
-                
+
                 // set properties
                 foreach($value["children"] as $prop => $propVal) {
                     // check whether there is a special method to set this property
@@ -406,7 +406,7 @@ class XML_Unserializer extends XML_Parser {
                     $value["value"]->__wakeup();
                 }
                 break;
-                
+
             /*
              * unserialize an array
              */
@@ -424,14 +424,14 @@ class XML_Unserializer extends XML_Parser {
             case "null":
                 $data = null;
                 break;
-                
+
             /*
              * unserialize a resource => this is not possible :-(
              */
             case "resource":
                 $value["value"] = $data;
                 break;
-                
+
             /*
              * unserialize any scalar value
              */
@@ -456,7 +456,7 @@ class XML_Unserializer extends XML_Parser {
                     }
                 }
             }
-            
+
             if (!empty($value["name"])) {
                 // there already has been a tag with this name
                 if (in_array($value["name"], $parent["childrenKeys"])) {
@@ -475,7 +475,7 @@ class XML_Unserializer extends XML_Parser {
             }
             array_push($this->_valStack, $parent);
         }
-        
+
         $this->_depth--;
     }
 
