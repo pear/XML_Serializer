@@ -748,7 +748,7 @@ class XML_Serializer extends PEAR
                 }
 
                 // copy key
-                $origKey    =    $key;
+                $origKey = $key;
                 $this->expectError('*');
                 // key cannot be used as tagname => use default tag
                 $valid = XML_Util::isValidName($key);
@@ -759,7 +759,7 @@ class XML_Serializer extends PEAR
                     } else {
                         $key = $this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG];
                     }
-                    }
+                }
                 $atts = array();
                 if ($this->options[XML_SERIALIZER_OPTION_TYPEHINTS] === true) {
                     $atts[$this->options[XML_SERIALIZER_OPTION_ATTRIBUTE_TYPE]] = gettype($value);
@@ -787,9 +787,9 @@ class XML_Serializer extends PEAR
             }
             
             $tag = array(
-                            'qname'      => $tagName,
-                            'content'    => $tmp,
-                            'attributes' => $attributes
+                          'qname'      => $tagName,
+                          'content'    => $tmp,
+                          'attributes' => $attributes
                         );
         }
         if ($this->options[XML_SERIALIZER_OPTION_TYPEHINTS] === true) {
