@@ -96,7 +96,7 @@ define('XML_SERIALIZER_ERROR_NO_SERIALIZATION', 51);
  *
  * @category XML
  * @package  XML_Serializer
- * @version  0.13.0
+ * @version  0.14.0
  * @author   Stephan Schmidt <schst@php.net>
  * @uses     XML_Util
  */
@@ -175,7 +175,7 @@ class XML_Serializer extends PEAR
     */
     function apiVersion()
     {
-        return '0.13';
+        return '0.14';
     }
 
    /**
@@ -557,7 +557,9 @@ class XML_Serializer extends PEAR
     
         if (is_scalar($tag['content']) || is_null($tag['content'])) {
             if ($this->options['encodeFunction']) {
-            	$tag['content'] = call_user_func($this->options['encodeFunction'], $tag['content']);
+                if ($replaceEntities === true) {
+                	$tag['content'] = call_user_func($this->options['encodeFunction'], $tag['content']);
+                }
             	$tag['attributes'] = array_map($this->options['encodeFunction'], $tag['attributes']);
             }
             $tag = XML_Util::createTagFromArray($tag, $replaceEntities, $multiline, $indent, $this->options['linebreak']);
@@ -568,7 +570,9 @@ class XML_Serializer extends PEAR
         } elseif (is_resource($tag['content'])) {
             settype($tag['content'], 'string');
             if ($this->options['encodeFunction']) {
-            	$tag['content'] = call_user_func($this->options['encodeFunction'], $tag['content']);
+            	if ($replaceEntities === true) {
+                    $tag['content'] = call_user_func($this->options['encodeFunction'], $tag['content']);
+            	}
             	$tag['attributes'] = array_map($this->options['encodeFunction'], $tag['attributes']);
             }
             $tag    =   XML_Util::createTagFromArray($tag, $replaceEntities);
