@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>XML_Serializer</name>
+  <summary>Swiss-army knive for reading and writing XML files. Creates XML files from data structures and vice versa.</summary>
+  <description>XML_Serializer serializes complex data structures like arrays or object as XML documents.
+This class helps you generating any XML document you require without the need for DOM.
+Furthermore this package can be used as a replacement to serialize() und unserialize() as it comes with a matching XML_Unserializer that is able to create PHP data strcutures (like arrays and objects) from XML documents, if type hints are available.
+If you use the XML_Unserialzer on standard XML files, it will try to guess how it has to be unserialized. In most cases it does exactly what you expect it to do.
+Try reading a RSS file with XML_Unserializer and you have the  whole RSS file in a structured array or even a collection of objects, similar to XML_RSS.</description>
+  <maintainers>
+    <maintainer>
+      <user>schst</user>
+      <name>Stephan Schmidt</name>
+      <email>schst@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.6</version>
+    <date>2003-08-21</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Unserializer is able to return the name of the root tag,
+added 'complexType' option to XML_Unserializer,
+added possibility to create nested objects from any XML file,
+tagname is used as classname if no other class is specified,
+added 'overrideOptions' option that can be used to restore the default options for a serialization,
+added 'keyAttribute' option to XML_Unserializer,
+added Todo list</notes>
+    <deps>
+      <dep type="pkg" rel="has">XML_Util</dep>
+      <dep type="pkg" rel="has">XML_Parser</dep>
+    </deps>
+    <provides type="class" name="XML_Serializer" extends="PEAR" />
+    <provides type="function" name="XML_Serializer::apiVersion" />
+    <provides type="function" name="XML_Serializer::serialize" />
+    <provides type="function" name="XML_Serializer::getSerializedData" />
+    <provides type="class" name="XML_Unserializer" extends="XML_Parser" />
+    <provides type="function" name="XML_Unserializer::apiVersion" />
+    <provides type="function" name="XML_Unserializer::unserialize" />
+    <provides type="function" name="XML_Unserializer::getUnserializedData" />
+    <provides type="function" name="XML_Unserializer::getRootName" />
+    <provides type="function" name="XML_Unserializer::startHandler" />
+    <provides type="function" name="XML_Unserializer::endHandler" />
+    <provides type="function" name="XML_Unserializer::cdataHandler" />
+    <filelist>
+      <file role="doc" baseinstalldir="XML" md5sum="175ec54a502b04dae6c49e1e5be419b9" name="doc/todo.txt"/>
+      <file role="doc" baseinstalldir="XML" md5sum="7167c4c6bbe5e473c24ab14ee5789199" name="examples/serializeObject.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="42270d467e913693b41bc0a7c3b2dc93" name="examples/serializeRDF.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="57136753b50a909ae9c35487f834462c" name="examples/unserializeAnyXML.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="f593a0b13da85a9bc137d44e5847b1ef" name="examples/unserializeObject.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="24082066bbd6f96582d62746bed646b6" name="examples/unserializeRDF.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="0a1d7aff5074294a4d01ae7030e1f4db" name="Serializer.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="52525a6e83e817f5257e603a3cf7a54f" name="Unserializer.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.2</version>
+      <date>2003-08-03</date>
+      <state>beta</state>
+      <notes>inital release</notes>
+    </release>
+    <release>
+      <version>0.4</version>
+      <date>2003-08-12</date>
+      <state>beta</state>
+      <notes>added Unserializer
+removed bug with object typehint
+removed bug with unnameditem w/o _originalKey attribute
+uses XML_Util to validate tagname
+serializer does not break on resources anymore
+added support for __sleep() and __wakeup()</notes>
+    </release>
+    <release>
+      <version>0.5</version>
+      <date>2003-08-14</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Unserializer is now able to unserialize XML files w/o type hints by automatically transforming multiple occurences of the same tag to an indexed array
+This is now similar to ext/simpleXML in PHP5 that means it can be used to parse any XML file, try it with your favorite RSS feed</notes>
+    </release>
+    <release>
+      <version>0.6</version>
+      <date>2003-08-21</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Unserializer is able to return the name of the root tag,
+added 'complexType' option to XML_Unserializer,
+added possibility to create nested objects from any XML file,
+tagname is used as classname if no other class is specified,
+added 'overrideOptions' option that can be used to restore the default options for a serialization,
+added 'keyAttribute' option to XML_Unserializer,
+added Todo list</notes>
+    </release>
+  </changelog>
+</package>

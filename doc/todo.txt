@@ -1,0 +1,24 @@
+TODO XML_Serializer:
+--------------------
+- find a way to detect references in the structure and add id/idref attributes
+- options to set the attribute names for type hints
+- serialize some other structures, especially XPath return values
+- custom serialization of objects
+- namespace support
+- alternative way to define aggregates
+  array(
+            "foo" => array( "bar", "argh" )
+        );
+  serializes to:
+  <foo>bar</foo>
+  <foo>argh</foo>
+
+TODO XML_Unserializer:
+----------------------
+- options to set the attribute names for type hints
+- some way to handle attributes (convert them into arrays)
+- support for xml:space attribute
+- set types for certain tags
+- namespace support
+- custom unserialization for objects (static unserialize() or fromXML() methods)
+- unserialize references using id/idref
