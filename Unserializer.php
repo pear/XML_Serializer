@@ -1,22 +1,28 @@
 <?PHP
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
-// +----------------------------------------------------------------------+
-// | PHP Version 4                                                        |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2002 The PHP Group                                |
-// +----------------------------------------------------------------------+
-// | This source file is subject to version 2.0 of the PHP license,       |
-// | that is bundled with this package in the file LICENSE, and is        |
-// | available at through the world-wide-web at                           |
-// | http://www.php.net/license/2_02.txt.                                 |
-// | If you did not receive a copy of the PHP license and are unable to   |
-// | obtain it through the world-wide-web, please send a note to          |
-// | license@php.net so we can mail you a copy immediately.               |
-// +----------------------------------------------------------------------+
-// | Authors: Stephan Schmidt <schst@php-tools.net>                       |
-// +----------------------------------------------------------------------+
-//
-//    $Id$
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/**
+ * XML_Unserializer
+ *
+ * Parses any XML document into PHP data structures.
+ *
+ * PHP versions 4 and 5
+ *
+ * LICENSE: This source file is subject to version 3.0 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_0.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @category   XML
+ * @package    XML_Serializer
+ * @author     Stephan Schmidt <schst@php.net>
+ * @copyright  1997-2005 The PHP Group
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/XML_Serializer
+ * @see        XML_Unserializer
+ */
 
 /**
  * uses PEAR error managemt
@@ -94,19 +100,23 @@ define('XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION', 151);
  * $users = $unserializer->getUnserializedData();
  * </code>
  *
- * @category XML
- * @package  XML_Serializer
- * @version  0.14.1
- * @author   Stephan Schmidt <schst@php-tools.net>
- * @uses     XML_Parser
+ * @category   XML
+ * @package    XML_Serializer
+ * @author     Stephan Schmidt <schst@php.net>
+ * @copyright  1997-2005 The PHP Group
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version    Release: @package_version@
+ * @link       http://pear.php.net/package/XML_Serializer
+ * @see        XML_Serializer
  */
 class XML_Unserializer extends PEAR
 {
 
    /**
     * default options for the serialization
+    *
     * @access private
-    * @var array $_defaultOptions
+    * @var    array
     */
     var $_defaultOptions = array(
                          'complexType'       => 'array',                // complex types will be converted to arrays, if no type hint is given
@@ -129,38 +139,49 @@ class XML_Unserializer extends PEAR
 
    /**
     * actual options for the serialization
-    * @access private
-    * @var array $options
+    *
+    * @access public
+    * @var    array
     */
     var $options = array();
 
    /**
     * unserialized data
-    * @var string $_unserializedData
+    *
+    * @access private
+    * @var    string
     */
     var $_unserializedData = null;
 
    /**
     * name of the root tag
-    * @var string $_root
+    *
+    * @access private
+    * @var    string
     */
     var $_root = null;
 
    /**
     * stack for all data that is found
-    * @var array    $_dataStack
+    *
+    * @access private
+    * @var    array
     */
     var $_dataStack  =   array();
 
    /**
     * stack for all values that are generated
-    * @var array    $_valStack
+    *
+    * @access private
+    * @var    array
     */
     var $_valStack  =   array();
 
    /**
     * current tag depth
-    * @var int    $_depth
+    *
+    * @access private
+    * @var    int
     */
     var $_depth = 0;
 
@@ -176,7 +197,7 @@ class XML_Unserializer extends PEAR
     * constructor
     *
     * @access   public
-    * @param    mixed   $options    array containing options for the serialization
+    * @param    mixed   $options    array containing options for the unserialization
     */
     function XML_Unserializer($options = null)
     {
@@ -196,7 +217,7 @@ class XML_Unserializer extends PEAR
     */
     function apiVersion()
     {
-        return '0.14';
+        return '@package_version@';
     }
 
    /**
@@ -240,9 +261,9 @@ class XML_Unserializer extends PEAR
     * unserialize data
     *
     * @access   public
-    * @param    mixed    $data   data to unserialize (string, filename or resource)
-    * @param    boolean  $isFile string should be treated as a file
-    * @param    array    $options
+    * @param    mixed    $data     data to unserialize (string, filename or resource)
+    * @param    boolean  $isFile   data should be treated as a file
+    * @param    array    $options  options that will override the global options for this call
     * @return   boolean  $success
     */
     function unserialize($data, $isFile = false, $options = null)
@@ -310,7 +331,7 @@ class XML_Unserializer extends PEAR
     function getUnserializedData()
     {
         if ($this->_root === null) {
-            return  $this->raiseError('No unserialized data available. Use XML_Unserializer::unserialize() first.', XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION);
+            return $this->raiseError('No unserialized data available. Use XML_Unserializer::unserialize() first.', XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION);
         }
         return $this->_unserializedData;
     }
@@ -324,7 +345,7 @@ class XML_Unserializer extends PEAR
     function getRootName()
     {
         if ($this->_root === null) {
-            return  $this->raiseError('No unserialized data available. Use XML_Unserializer::unserialize() first.', XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION);
+            return $this->raiseError('No unserialized data available. Use XML_Unserializer::unserialize() first.', XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION);
         }
         return $this->_root;
     }
@@ -414,9 +435,8 @@ class XML_Unserializer extends PEAR
 
         // adjust type of the value
         switch(strtolower($value['type'])) {
-            /*
-             * unserialize an object
-             */
+
+            // unserialize an object
             case 'object':
                 if (isset($value['class'])) {
                     $classname  = $value['class'];
@@ -453,9 +473,7 @@ class XML_Unserializer extends PEAR
                 }
                 break;
 
-            /*
-             * unserialize an array
-             */
+            // unserialize an array
             case 'array':
                 if ($data !== '') {
                     $value['children'][$this->options['contentName']] = $data;
@@ -467,23 +485,17 @@ class XML_Unserializer extends PEAR
                 }
                 break;
 
-            /*
-             * unserialize a null value
-             */
+            // unserialize a null value
             case 'null':
                 $data = null;
                 break;
 
-            /*
-             * unserialize a resource => this is not possible :-(
-             */
+            // unserialize a resource => this is not possible :-(
             case 'resource':
                 $value['value'] = $data;
                 break;
 
-            /*
-             * unserialize any scalar value
-             */
+            // unserialize any scalar value
             default:
                 settype($data, $value['type']);
                 $value['value'] = $data;
@@ -549,6 +561,7 @@ class XML_Unserializer extends PEAR
     * create the XML_Parser instance
     *
     * @access    private
+    * @return    boolean
     */
     function _createParser()
     {
