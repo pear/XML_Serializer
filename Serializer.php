@@ -112,6 +112,7 @@ class XML_Serializer extends PEAR
                          'linebreak'          => "\n",                  // string used for newlines
                          'typeHints'          => false,                 // automatically add type hin attributes
                          'addDecl'            => false,                 // add an XML declaration
+                         'encoding'           => null,                  // encoding specified in the XML declaration
                          'defaultTagName'     => 'XML_Serializer_Tag',  // tag used for indexed arrays or invalid names
                          'classAsTagName'     => false,                 // use classname for objects in indexed arrays
                          'keyAttribute'       => '_originalKey',        // attribute where original key is stored
