@@ -7,15 +7,14 @@
  */
     error_reporting(E_ALL);
 
-    require_once 'XML/Serializer.php';
+    require_once '../Serializer.php';
 
     $options = array(
-                        'indent'       => '    ',
-                        'linebreak'    => "\n",
-                        'returnResult' => true
+                        XML_SERIALIZER_OPTION_INDENT        => '    ',
+                        XML_SERIALIZER_OPTION_RETURN_RESULT => true
                     );
     
-    $serializer = new XML_Serializer($options);
+    $serializer = &new XML_Serializer($options);
 
     $foo = PEAR::raiseError('Just a test', 1234);
     

@@ -13,26 +13,23 @@
     require_once 'XML/Serializer.php';
     require_once 'XML/Unserializer.php';
 
-    // this is just to get a nested object
-    $pearError = PEAR::raiseError('This is just an error object',123);
-    
     $options = array(
-                        'indent'             => '    ',
-                        'linebreak'          => "\n",
-                        'scalarAsAttributes' => true,
-                        'encodeFunction'     => 'strtoupper'
+                      XML_SERIALIZER_OPTION_INDENT               => '    ',
+                      XML_SERIALIZER_OPTION_LINEBREAKS           => "\n",
+                      XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES => true,
+                      XML_SERIALIZER_OPTION_ENCODE_FUNC          => 'strtoupper'
                     );
     
     $foo = new stdClass();
     $foo->bar = new stdClass();
-    $foo->bar->test = 'This is a test.';
+    $foo->bar->test  = 'This is a test.';
     $foo->bar->value = 'This is a value.';
     
     $serializer = &new XML_Serializer($options);
     
     $result = $serializer->serialize($foo);
     
-    if( $result === true ) {
+    if ($result === true) {
 		$xml = $serializer->getSerializedData();
     }
 

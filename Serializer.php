@@ -1,22 +1,28 @@
 <?PHP
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
-// +----------------------------------------------------------------------+
-// | PHP Version 4                                                        |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2002 The PHP Group                                |
-// +----------------------------------------------------------------------+
-// | This source file is subject to version 2.0 of the PHP license,       |
-// | that is bundled with this package in the file LICENSE, and is        |
-// | available at through the world-wide-web at                           |
-// | http://www.php.net/license/2_02.txt.                                 |
-// | If you did not receive a copy of the PHP license and are unable to   |
-// | obtain it through the world-wide-web, please send a note to          |
-// | license@php.net so we can mail you a copy immediately.               |
-// +----------------------------------------------------------------------+
-// | Authors: Stephan Schmidt <schst@php-tools.net>                       |
-// +----------------------------------------------------------------------+
-//
-//    $Id$
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/**
+ * XML_Serializer
+ *
+ * Creates XML documents from PHP data structures like arrays, objects or scalars.
+ *
+ * PHP versions 4 and 5
+ *
+ * LICENSE: This source file is subject to version 3.0 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_0.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @category   XML
+ * @package    XML_Serializer
+ * @author     Stephan Schmidt <schst@php.net>
+ * @copyright  1997-2005 The PHP Group
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/XML_Serializer
+ * @see        XML_Unserializer
+ */
 
 /**
  * uses PEAR error management
@@ -28,6 +34,243 @@ require_once 'PEAR.php';
  */
 require_once 'XML/Util.php';
 
+/**
+ * option: string used for indentation
+ *
+ * Possible values:
+ * - any string (default is any string)
+ */
+define('XML_SERIALIZER_OPTION_INDENT', 'indent');
+
+/**
+ * option: string used for linebreaks
+ *
+ * Possible values:
+ * - any string (default is \n)
+ */
+define('XML_SERIALIZER_OPTION_LINEBREAKS', 'linebreak');
+
+/**
+ * option: enable type hints
+ *
+ * Possible values:
+ * - true
+ * - false
+ */
+define('XML_SERIALIZER_OPTION_TYPEHINTS', 'typeHints');
+
+/**
+ * option: add an XML declaration
+ *
+ * Possible values:
+ * - true
+ * - false
+ */
+define('XML_SERIALIZER_OPTION_XML_DECL_ENABLED', 'addDecl');
+
+/**
+ * option: encoding of the document
+ *
+ * Possible values:
+ * - any valid encoding
+ * - null (default)
+ */
+define('XML_SERIALIZER_OPTION_XML_ENCODING', 'encoding');
+
+/**
+ * option: default name for tags
+ *
+ * Possible values:
+ * - any string (XML_Serializer_Tag is default)
+ */
+define('XML_SERIALIZER_OPTION_DEFAULT_TAG', 'defaultTagName');
+
+/**
+ * option: use classname for objects in indexed arrays
+ *
+ * Possible values:
+ * - true (default)
+ * - false
+ */
+define('XML_SERIALIZER_OPTION_CLASSNAME_AS_TAGNAME', 'classAsTagName');
+
+/**
+ * option: attribute where original key is stored
+ *
+ * Possible values:
+ * - any string (default is _originalKey)
+ */
+define('XML_SERIALIZER_OPTION_ATTRIBUTE_KEY', 'keyAttribute');
+
+/**
+ * option: attribute for type (only if typeHints => true)
+ *
+ * Possible values:
+ * - any string (default is _type)
+ */
+define('XML_SERIALIZER_OPTION_ATTRIBUTE_TYPE', 'typeAttribute');
+
+/**
+ * option: attribute for class (only if typeHints => true)
+ *
+ * Possible values:
+ * - any string (default is _class)
+ */
+define('XML_SERIALIZER_OPTION_ATTRIBUTE_CLASS', 'classAttribute');
+
+/**
+ * option: scalar values (strings, ints,..) will be serialized as attribute
+ *
+ * Possible values:
+ * - true
+ * - false (default)
+ */
+define('XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES', 'scalarAsAttributes');
+
+/**
+ * option: prepend string for attributes
+ *
+ * Possible values:
+ * - any string (default is any string)
+ */
+define('XML_SERIALIZER_OPTION_PREPEND_ATTRIBUTES', 'prependAttributes');
+
+/**
+ * option: indent the attributes, if set to '_auto', it will indent attributes so they all start at the same column
+ *
+ * Possible values:
+ * - true
+ * - false (default)
+ */
+define('XML_SERIALIZER_OPTION_INDENT_ATTRIBUTES', 'indentAttributes');
+
+/**
+ * option: use 'simplexml' to use parent name as tagname if transforming an indexed array
+ *
+ * Possible values:
+ * - XML_SERIALIZER_MODE_DEFAULT (default)
+ * - XML_SERIALIZER_MODE_SIMPLEXML
+ */
+define('XML_SERIALIZER_OPTION_MODE', 'mode');
+
+/**
+ * option: add a doctype declaration
+ *
+ * Possible values:
+ * - true
+ * - false (default)
+ */
+define('XML_SERIALIZER_OPTION_DOCTYPE_ENABLED', 'addDoctype');
+
+/**
+ * option: supply a string or an array with id and uri ({@see XML_Util::getDoctypeDeclaration()}
+ *
+ * Possible values:
+ * - string
+ * - array
+ */
+define('XML_SERIALIZER_OPTION_DOCTYPE', 'doctype');
+
+/**
+ * option: name of the root tag
+ *
+ * Possible values:
+ * - string
+ * - null (default)
+ */
+define('XML_SERIALIZER_OPTION_ROOT_NAME', 'rootName');
+
+/**
+ * option: attributes of the root tag
+ *
+ * Possible values:
+ * - array
+ */
+define('XML_SERIALIZER_OPTION_ROOT_ATTRIBS', 'rootAttributes');
+
+/**
+ * option: all values in this key will be treated as attributes
+ *
+ * Possible values:
+ * - array
+ */
+define('XML_SERIALIZER_OPTION_ATTRIBUTES_KEY', 'attributesArray');
+
+/**
+ * option: this value will be used directly as content, instead of creating a new tag, may only be used in conjuction with attributesArray
+ *
+ * Possible values:
+ * - string
+ * - null (default)
+ */
+define('XML_SERIALIZER_OPTION_CONTENT_KEY', 'contentName');
+
+/**
+ * option: tag names that will be changed
+ *
+ * Possible values:
+ * - array
+ */
+define('XML_SERIALIZER_OPTION_TAGMAP', 'tagMap');
+
+/**
+ * option: function that will be applied before serializing
+ *
+ * Possible values:
+ * - any valid PHP callback
+ */
+define('XML_SERIALIZER_OPTION_ENCODE_FUNC', 'encodeFunction');
+
+/**
+ * option: function that will be applied before serializing
+ *
+ * Possible values:
+ * - string
+ * - null (default)
+ */
+define('XML_SERIALIZER_OPTION_NAMESPACE', 'namespace');
+
+/**
+ * option: type of entities to replace
+ *
+ * Possible values:
+ * - XML_SERIALIZER_ENTITIES_NONE
+ * - XML_SERIALIZER_ENTITIES_XML (default)
+ * - XML_SERIALIZER_ENTITIES_XML_REQUIRED
+ * - XML_SERIALIZER_ENTITIES_HTML
+ */
+define('XML_SERIALIZER_OPTION_ENTITIES', 'replaceEntities');
+
+/**
+ * option: whether to return the result of the serialization from serialize()
+ *
+ * Possible values:
+ * - true
+ * - false (default)
+ */
+define('XML_SERIALIZER_OPTION_RETURN_RESULT', 'returnResult');
+
+/**
+ * option: whether to ignore properties that are set to null
+ *
+ * Possible values:
+ * - true
+ * - false (default)
+ */
+define('XML_SERIALIZER_OPTION_IGNORE_NULL', 'ignoreNull');
+
+/**
+ * default mode
+ */
+define('XML_SERIALIZER_MODE_DEFAULT', 'default');
+
+/**
+ * SimpleXML mode
+ *
+ * When serializing indexed arrays, the key of the parent value is used as a tagname.
+ */
+define('XML_SERIALIZER_MODE_SIMPLEXML', 'simplexml');
+                         
 /**
  * error code for no serialization done
  */
@@ -57,8 +300,7 @@ define('XML_SERIALIZER_ENTITIES_XML_REQUIRED', XML_UTIL_ENTITIES_XML_REQUIRED);
 define('XML_SERIALIZER_ENTITIES_HTML', XML_UTIL_ENTITIES_HTML);
 
 /**
- * XML_Serializer
- * class that serializes various structures into an XML document
+ * Creates XML documents from PHP data structures like arrays, objects or scalars.
  *
  * this class can be used in two modes:
  *
@@ -91,17 +333,16 @@ define('XML_SERIALIZER_ENTITIES_HTML', XML_UTIL_ENTITIES_HTML);
  *   require_once 'XML/Serializer.php';
  *
  *   $options = array(
- *                     'indent'         => "\t",        // indent with tabs
- *                     'linebreak'      => "\n",        // use UNIX line breaks
- *                     'rootName'       => 'rdf:RDF',   // root tag
- *                     'defaultTagName' => 'item'       // tag for values with numeric keys
+ *                     XML_SERIALIZER_OPTION_INDENT      => "\t",        // indent with tabs
+ *                     XML_SERIALIZER_OPTION_LINEBREAKS  => "\n",        // use UNIX line breaks
+ *                     XML_SERIALIZER_OPTION_ROOT_NAME   => 'rdf:RDF',   // root tag
+ *                     XML_SERIALIZER_OPTION_DEFAULT_TAG => 'item'       // tag for values with numeric keys
  *   );
  *
  *   $serializer = new XML_Serializer($options);
  *   $rdf        = $serializer->serialize($data);
  *
  * You will get a complete XML document that can be processed like any RDF document.
- *
  *
  * 2. this classes can be used to serialize any data structure in a way that it can
  *    later be unserialized again.
@@ -110,71 +351,112 @@ define('XML_SERIALIZER_ENTITIES_HTML', XML_UTIL_ENTITIES_HTML);
  *    to restore the original data structure in PHP. If you want XML_Serializer
  *    to add meta information to the tags, add
  *
- *      'typeHints' => true
+ *      XML_SERIALIZER_OPTION_TYPEHINTS => true
  *
  *    to the options array in the constructor.
  *
- *    Future versions of this package will include an XML_Unserializer, that does
- *    the unserialization automatically for you.
- *
- * @category XML
- * @package  XML_Serializer
- * @version  0.14.1
- * @author   Stephan Schmidt <schst@php.net>
- * @uses     XML_Util
+ * @category   XML
+ * @package    XML_Serializer
+ * @author     Stephan Schmidt <schst@php.net>
+ * @copyright  1997-2005 The PHP Group
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version    Release: @package_version@
+ * @link       http://pear.php.net/package/XML_Serializer
+ * @see        XML_Unserializer
  */
 class XML_Serializer extends PEAR
 {
    /**
-    * default options for the serialization
+    * list of all available options
+    *
     * @access private
-    * @var array $_defaultOptions
+    * @var    array
+    */
+    var $_knownOptions = array(
+                                 XML_SERIALIZER_OPTION_INDENT,
+                                 XML_SERIALIZER_OPTION_LINEBREAKS,
+                                 XML_SERIALIZER_OPTION_TYPEHINTS,
+                                 XML_SERIALIZER_OPTION_XML_DECL_ENABLED,
+                                 XML_SERIALIZER_OPTION_XML_ENCODING,
+                                 XML_SERIALIZER_OPTION_DEFAULT_TAG,
+                                 XML_SERIALIZER_OPTION_CLASSNAME_AS_TAGNAME,
+                                 XML_SERIALIZER_OPTION_ATTRIBUTE_KEY,
+                                 XML_SERIALIZER_OPTION_ATTRIBUTE_TYPE,
+                                 XML_SERIALIZER_OPTION_ATTRIBUTE_CLASS,
+                                 XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES,
+                                 XML_SERIALIZER_OPTION_PREPEND_ATTRIBUTES,
+                                 XML_SERIALIZER_OPTION_INDENT_ATTRIBUTES,
+                                 XML_SERIALIZER_OPTION_MODE,
+                                 XML_SERIALIZER_OPTION_DOCTYPE_ENABLED,
+                                 XML_SERIALIZER_OPTION_DOCTYPE,
+                                 XML_SERIALIZER_OPTION_ROOT_NAME,
+                                 XML_SERIALIZER_OPTION_ROOT_ATTRIBS,
+                                 XML_SERIALIZER_OPTION_ATTRIBUTES_KEY,
+                                 XML_SERIALIZER_OPTION_CONTENT_KEY,
+                                 XML_SERIALIZER_OPTION_TAGMAP,
+                                 XML_SERIALIZER_OPTION_ENCODE_FUNC,
+                                 XML_SERIALIZER_OPTION_NAMESPACE,
+                                 XML_SERIALIZER_OPTION_ENTITIES,
+                                 XML_SERIALIZER_OPTION_RETURN_RESULT,
+                                 XML_SERIALIZER_OPTION_IGNORE_NULL,
+                                );
+    
+   /**
+    * default options for the serialization
+    *
+    * @access private
+    * @var    array
     */
     var $_defaultOptions = array(
-                         'indent'             => '',                    // string used for indentation
-                         'linebreak'          => "\n",                  // string used for newlines
-                         'typeHints'          => false,                 // automatically add type hin attributes
-                         'addDecl'            => false,                 // add an XML declaration
-                         'encoding'           => null,                  // encoding specified in the XML declaration
-                         'defaultTagName'     => 'XML_Serializer_Tag',  // tag used for indexed arrays or invalid names
-                         'classAsTagName'     => false,                 // use classname for objects in indexed arrays
-                         'keyAttribute'       => '_originalKey',        // attribute where original key is stored
-                         'typeAttribute'      => '_type',               // attribute for type (only if typeHints => true)
-                         'classAttribute'     => '_class',              // attribute for class of objects (only if typeHints => true)
-                         'scalarAsAttributes' => false,                 // scalar values (strings, ints,..) will be serialized as attribute
-                         'prependAttributes'  => '',                    // prepend string for attributes
-                         'indentAttributes'   => false,                 // indent the attributes, if set to '_auto', it will indent attributes so they all start at the same column
-                         'mode'               => 'default',             // use 'simplexml' to use parent name as tagname if transforming an indexed array
-                         'addDoctype'         => false,                 // add a doctype declaration
-                         'doctype'            => null,                  // supply a string or an array with id and uri ({@see XML_Util::getDoctypeDeclaration()}
-                         'rootName'           => null,                  // name of the root tag
-                         'rootAttributes'     => array(),               // attributes of the root tag
-                         'attributesArray'    => null,                  // all values in this key will be treated as attributes
-                         'contentName'        => null,                  // this value will be used directly as content, instead of creating a new tag, may only be used in conjuction with attributesArray
-                         'tagMap'             => array(),               // tag names that will be changed
-                         'encodeFunction'     => null,                  // function that will be applied before serializing
-                         'namespace'          => null,                  // namespace to use
-                         'replaceEntities'    => XML_UTIL_ENTITIES_XML, // type of entities to replace,
-                         'returnResult'       => false,                 // serialize() returns the result of the serialization instead of true
-                         'ignoreNull'         => false                  // ignore properties that are set to null
+                         XML_SERIALIZER_OPTION_INDENT               => '',                    // string used for indentation
+                         XML_SERIALIZER_OPTION_LINEBREAKS           => "\n",                  // string used for newlines
+                         XML_SERIALIZER_OPTION_TYPEHINTS            => false,                 // automatically add type hin attributes
+                         XML_SERIALIZER_OPTION_XML_DECL_ENABLED     => false,                 // add an XML declaration
+                         XML_SERIALIZER_OPTION_XML_ENCODING         => null,                  // encoding specified in the XML declaration
+                         XML_SERIALIZER_OPTION_DEFAULT_TAG          => 'XML_Serializer_Tag',  // tag used for indexed arrays or invalid names
+                         XML_SERIALIZER_OPTION_CLASSNAME_AS_TAGNAME => false,                 // use classname for objects in indexed arrays
+                         XML_SERIALIZER_OPTION_ATTRIBUTE_KEY        => '_originalKey',        // attribute where original key is stored
+                         XML_SERIALIZER_OPTION_ATTRIBUTE_TYPE       => '_type',               // attribute for type (only if typeHints => true)
+                         XML_SERIALIZER_OPTION_ATTRIBUTE_CLASS      => '_class',              // attribute for class of objects (only if typeHints => true)
+                         XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES => false,                 // scalar values (strings, ints,..) will be serialized as attribute
+                         XML_SERIALIZER_OPTION_PREPEND_ATTRIBUTES   => '',                    // prepend string for attributes
+                         XML_SERIALIZER_OPTION_INDENT_ATTRIBUTES    => false,                 // indent the attributes, if set to '_auto', it will indent attributes so they all start at the same column
+                         XML_SERIALIZER_OPTION_MODE                 => XML_SERIALIZER_MODE_DEFAULT,             // use XML_SERIALIZER_MODE_SIMPLEXML to use parent name as tagname if transforming an indexed array
+                         XML_SERIALIZER_OPTION_DOCTYPE_ENABLED      => false,                 // add a doctype declaration
+                         XML_SERIALIZER_OPTION_DOCTYPE              => null,                  // supply a string or an array with id and uri ({@see XML_Util::getDoctypeDeclaration()}
+                         XML_SERIALIZER_OPTION_ROOT_NAME            => null,                  // name of the root tag
+                         XML_SERIALIZER_OPTION_ROOT_ATTRIBS         => array(),               // attributes of the root tag
+                         XML_SERIALIZER_OPTION_ATTRIBUTES_KEY       => null,                  // all values in this key will be treated as attributes
+                         XML_SERIALIZER_OPTION_CONTENT_KEY          => null,                  // this value will be used directly as content, instead of creating a new tag, may only be used in conjuction with attributesArray
+                         XML_SERIALIZER_OPTION_TAGMAP               => array(),               // tag names that will be changed
+                         XML_SERIALIZER_OPTION_ENCODE_FUNC          => null,                  // function that will be applied before serializing
+                         XML_SERIALIZER_OPTION_NAMESPACE            => null,                  // namespace to use
+                         XML_SERIALIZER_OPTION_ENTITIES             => XML_SERIALIZER_ENTITIES_XML, // type of entities to replace,
+                         XML_SERIALIZER_OPTION_RETURN_RESULT        => false,                 // serialize() returns the result of the serialization instead of true
+                         XML_SERIALIZER_OPTION_IGNORE_NULL          => false                  // ignore properties that are set to null
                         );
 
    /**
     * options for the serialization
-    * @access private
-    * @var array $options
+    *
+    * @access public
+    * @var    array
     */
     var $options = array();
 
    /**
     * current tag depth
-    * @var integer $_tagDepth
+    *
+    * @access private
+    * @var    integer
     */
     var $_tagDepth = 0;
 
    /**
     * serilialized representation of the data
-    * @var string $_serializedData
+    *
+    * @access private
+    * @var    string
     */
     var $_serializedData = null;
     
@@ -203,14 +485,14 @@ class XML_Serializer extends PEAR
     */
     function apiVersion()
     {
-        return '0.14';
+        return '1.0.0';
     }
 
    /**
     * reset all options to default options
     *
     * @access   public
-    * @see      setOption(), XML_Unserializer()
+    * @see      setOption(), XML_Serializer()
     */
     function resetOptions()
     {
@@ -265,24 +547,19 @@ class XML_Serializer extends PEAR
             $optionsBak = null;
         }
         
-        // maintain BC
-        if (isset($this->options['tagName'])) {
-            $this->options['rootName'] = $this->options['tagName'];
-        }
-        
         //  start depth is zero
         $this->_tagDepth = 0;
 
-        $rootAttributes = $this->options['rootAttributes'];
-        if (is_array($this->options['namespace'])) {
-        	$rootAttributes['xmlns:'.$this->options['namespace'][0]] = $this->options['namespace'][1];
+        $rootAttributes = $this->options[XML_SERIALIZER_OPTION_ROOT_ATTRIBS];
+        if (is_array($this->options[XML_SERIALIZER_OPTION_NAMESPACE])) {
+        	$rootAttributes['xmlns:'.$this->options[XML_SERIALIZER_OPTION_NAMESPACE][0]] = $this->options[XML_SERIALIZER_OPTION_NAMESPACE][1];
         }
         
         $this->_serializedData = '';
         // serialize an array
         if (is_array($data)) {
-            if (isset($this->options['rootName'])) {
-                $tagName = $this->options['rootName'];
+            if (isset($this->options[XML_SERIALIZER_OPTION_ROOT_NAME])) {
+                $tagName = $this->options[XML_SERIALIZER_OPTION_ROOT_NAME];
             } else {
                 $tagName = 'array';
             }
@@ -291,8 +568,8 @@ class XML_Serializer extends PEAR
         }
         // serialize an object
         elseif (is_object($data)) {
-            if (isset($this->options['rootName'])) {
-                $tagName = $this->options['rootName'];
+            if (isset($this->options[XML_SERIALIZER_OPTION_ROOT_NAME])) {
+                $tagName = $this->options[XML_SERIALIZER_OPTION_ROOT_NAME];
             } else {
                 $tagName = get_class($data);
             }
@@ -300,21 +577,21 @@ class XML_Serializer extends PEAR
         }
         
         // add doctype declaration
-        if ($this->options['addDoctype'] === true) {
-            $this->_serializedData = XML_Util::getDoctypeDeclaration($tagName, $this->options['doctype'])
-                                   . $this->options['linebreak']
+        if ($this->options[XML_SERIALIZER_OPTION_DOCTYPE_ENABLED] === true) {
+            $this->_serializedData = XML_Util::getDoctypeDeclaration($tagName, $this->options[XML_SERIALIZER_OPTION_DOCTYPE])
+                                   . $this->options[XML_SERIALIZER_OPTION_LINEBREAKS]
                                    . $this->_serializedData;
         }
 
         //  build xml declaration
-        if ($this->options['addDecl']) {
+        if ($this->options[XML_SERIALIZER_OPTION_XML_DECL_ENABLED]) {
             $atts = array();
-            $this->_serializedData = XML_Util::getXMLDeclaration('1.0', $this->options['encoding'])
-                                   . $this->options['linebreak']
+            $this->_serializedData = XML_Util::getXMLDeclaration('1.0', $this->options[XML_SERIALIZER_OPTION_XML_ENCODING])
+                                   . $this->options[XML_SERIALIZER_OPTION_LINEBREAKS]
                                    . $this->_serializedData;
         }
 
-        if ($this->options['returnResult'] === true) {
+        if ($this->options[XML_SERIALIZER_OPTION_RETURN_RESULT] === true) {
         	$result = $this->_serializedData;
         } else {
             $result = true;
@@ -386,23 +663,23 @@ class XML_Serializer extends PEAR
         /**
          * check for special attributes
          */
-        if ($this->options['attributesArray'] !== null) {
-            if (isset($array[$this->options['attributesArray']])) {
-                $attributes = $array[$this->options['attributesArray']];
-                unset($array[$this->options['attributesArray']]);
+        if ($this->options[XML_SERIALIZER_OPTION_ATTRIBUTES_KEY] !== null) {
+            if (isset($array[$this->options[XML_SERIALIZER_OPTION_ATTRIBUTES_KEY]])) {
+                $attributes = $array[$this->options[XML_SERIALIZER_OPTION_ATTRIBUTES_KEY]];
+                unset($array[$this->options[XML_SERIALIZER_OPTION_ATTRIBUTES_KEY]]);
             }
             /**
              * check for special content
              */
-            if ($this->options['contentName'] !== null) {
-                if (isset($array[$this->options['contentName']])) {
-                    $_content = $array[$this->options['contentName']];
-                    unset($array[$this->options['contentName']]);
+            if ($this->options[XML_SERIALIZER_OPTION_CONTENT_KEY] !== null) {
+                if (isset($array[$this->options[XML_SERIALIZER_OPTION_CONTENT_KEY]])) {
+                    $_content = $array[$this->options[XML_SERIALIZER_OPTION_CONTENT_KEY]];
+                    unset($array[$this->options[XML_SERIALIZER_OPTION_CONTENT_KEY]]);
                 }
             }
         }
 
-        if ($this->options['ignoreNull'] === true) {
+        if ($this->options[XML_SERIALIZER_OPTION_IGNORE_NULL] === true) {
         	foreach (array_keys($array) as $key) {
         		if (is_null($array[$key])) {
         			unset($array[$key]);
@@ -414,7 +691,7 @@ class XML_Serializer extends PEAR
         * if mode is set to simpleXML, check whether
         * the array is associative or indexed
         */
-        if (is_array($array) && !empty($array) && $this->options['mode'] == 'simplexml') {
+        if (is_array($array) && !empty($array) && $this->options[XML_SERIALIZER_OPTION_MODE] == XML_SERIALIZER_MODE_SIMPLEXML) {
             $indexed = true;
             foreach ($array as $key => $val) {
                 if (!is_int($key)) {
@@ -423,27 +700,27 @@ class XML_Serializer extends PEAR
                 }
             }
 
-            if ($indexed && $this->options['mode'] == 'simplexml') {
+            if ($indexed && $this->options[XML_SERIALIZER_OPTION_MODE] == XML_SERIALIZER_MODE_SIMPLEXML) {
                 $string = '';
                 foreach ($array as $key => $val) {
                     $string .= $this->_serializeValue( $val, $tagName, $attributes);
                     
-                    $string .= $this->options['linebreak'];
+                    $string .= $this->options[XML_SERIALIZER_OPTION_LINEBREAKS];
                     //    do indentation
-                    if ($this->options['indent']!==null && $this->_tagDepth>0) {
-                        $string .= str_repeat($this->options['indent'], $this->_tagDepth);
+                    if ($this->options[XML_SERIALIZER_OPTION_INDENT]!==null && $this->_tagDepth>0) {
+                        $string .= str_repeat($this->options[XML_SERIALIZER_OPTION_INDENT], $this->_tagDepth);
                     }
                 }
                 return rtrim($string);
             }
         }
         
-        if ($this->options['scalarAsAttributes'] === true) {
+        if ($this->options[XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES] === true) {
             $this->expectError('*');
             foreach ($array as $key => $value) {
                 if (is_scalar($value) && (XML_Util::isValidName($key) === true)) {
                     unset($array[$key]);
-                    $attributes[$this->options['prependAttributes'].$key] = $value;
+                    $attributes[$this->options[XML_SERIALIZER_OPTION_PREPEND_ATTRIBUTES].$key] = $value;
                 }
             }
             $this->popExpect();
@@ -459,15 +736,15 @@ class XML_Serializer extends PEAR
 
         } else {
             $this->_tagDepth++;
-            $tmp = $this->options['linebreak'];
+            $tmp = $this->options[XML_SERIALIZER_OPTION_LINEBREAKS];
             foreach ($array as $key => $value) {
                 //    do indentation
-                if ($this->options['indent']!==null && $this->_tagDepth>0) {
-                    $tmp .= str_repeat($this->options['indent'], $this->_tagDepth);
+                if ($this->options[XML_SERIALIZER_OPTION_INDENT]!==null && $this->_tagDepth>0) {
+                    $tmp .= str_repeat($this->options[XML_SERIALIZER_OPTION_INDENT], $this->_tagDepth);
                 }
 
-                if (isset($this->options['tagMap'][$key])) {
-                    $key = $this->options['tagMap'][$key];
+                if (isset($this->options[XML_SERIALIZER_OPTION_TAGMAP][$key])) {
+                    $key = $this->options[XML_SERIALIZER_OPTION_TAGMAP][$key];
                 }
 
                 // copy key
@@ -477,17 +754,17 @@ class XML_Serializer extends PEAR
                 $valid = XML_Util::isValidName($key);
                 $this->popExpect();
                 if (PEAR::isError($valid)) {
-                    if ($this->options['classAsTagName'] && is_object($value)) {
+                    if ($this->options[XML_SERIALIZER_OPTION_CLASSNAME_AS_TAGNAME] && is_object($value)) {
                         $key = get_class($value);
                     } else {
-                        $key = $this->options['defaultTagName'];
+                        $key = $this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG];
                     }
                     }
                 $atts = array();
-                if ($this->options['typeHints'] === true) {
-                    $atts[$this->options['typeAttribute']] = gettype($value);
+                if ($this->options[XML_SERIALIZER_OPTION_TYPEHINTS] === true) {
+                    $atts[$this->options[XML_SERIALIZER_OPTION_ATTRIBUTE_TYPE]] = gettype($value);
                     if ($key !== $origKey) {
-                        $atts[$this->options['keyAttribute']] = (string)$origKey;
+                        $atts[$this->options[XML_SERIALIZER_OPTION_ATTRIBUTE_KEY]] = (string)$origKey;
                     }
     
                 }
@@ -497,12 +774,12 @@ class XML_Serializer extends PEAR
                                                     'attributes' => $atts,
                                                     'content'    => $value )
                                             );
-                $tmp .= $this->options['linebreak'];
+                $tmp .= $this->options[XML_SERIALIZER_OPTION_LINEBREAKS];
             }
             
             $this->_tagDepth--;
-            if ($this->options['indent']!==null && $this->_tagDepth>0) {
-                $tmp .= str_repeat($this->options['indent'], $this->_tagDepth);
+            if ($this->options[XML_SERIALIZER_OPTION_INDENT]!==null && $this->_tagDepth>0) {
+                $tmp .= str_repeat($this->options[XML_SERIALIZER_OPTION_INDENT], $this->_tagDepth);
             }
     
             if (trim($tmp) === '') {
@@ -515,9 +792,9 @@ class XML_Serializer extends PEAR
                             'attributes' => $attributes
                         );
         }
-        if ($this->options['typeHints'] === true) {
-            if (!isset($tag['attributes'][$this->options['typeAttribute']])) {
-                $tag['attributes'][$this->options['typeAttribute']] = 'array';
+        if ($this->options[XML_SERIALIZER_OPTION_TYPEHINTS] === true) {
+            if (!isset($tag['attributes'][$this->options[XML_SERIALIZER_OPTION_ATTRIBUTE_TYPE]])) {
+                $tag['attributes'][$this->options[XML_SERIALIZER_OPTION_ATTRIBUTE_TYPE]] = 'array';
             }
         }
 
@@ -539,16 +816,16 @@ class XML_Serializer extends PEAR
             $object->__sleep();
         }
 
-        $tmp = $this->options['linebreak'];
+        $tmp = $this->options[XML_SERIALIZER_OPTION_LINEBREAKS];
         $properties = get_object_vars($object);
         if (empty($tagName)) {
             $tagName = get_class($object);
         }
         
         // typehints activated?
-        if ($this->options['typeHints'] === true) {
-            $attributes[$this->options['typeAttribute']]  = 'object';
-            $attributes[$this->options['classAttribute']] =  get_class($object);
+        if ($this->options[XML_SERIALIZER_OPTION_TYPEHINTS] === true) {
+            $attributes[$this->options[XML_SERIALIZER_OPTION_ATTRIBUTE_TYPE]]  = 'object';
+            $attributes[$this->options[XML_SERIALIZER_OPTION_ATTRIBUTE_CLASS]] =  get_class($object);
         }
         
         $string = $this->_serializeArray($properties, $tagName, $attributes);
@@ -571,33 +848,35 @@ class XML_Serializer extends PEAR
     * @param    boolean $replaceEntities whether to replace XML entities in content or not
     * @return   string  $string XML tag
     */
-    function _createXMLTag( $tag, $replaceEntities = true )
+    function _createXMLTag( $tag, $firstCall = true )
     {
-        if ($this->options['namespace'] !== null) {
-        	if (is_array($this->options['namespace'])) {
-        		$tag['qname'] = $this->options['namespace'][0] . ':' . $tag['qname'];
+        if ($this->options[XML_SERIALIZER_OPTION_NAMESPACE] !== null) {
+        	if (is_array($this->options[XML_SERIALIZER_OPTION_NAMESPACE])) {
+        		$tag['qname'] = $this->options[XML_SERIALIZER_OPTION_NAMESPACE][0] . ':' . $tag['qname'];
         	} else {
-        		$tag['qname'] = $this->options['namespace'] . ':' . $tag['qname'];
+        		$tag['qname'] = $this->options[XML_SERIALIZER_OPTION_NAMESPACE] . ':' . $tag['qname'];
         	}
         }
 
-        if ($this->options['indentAttributes'] !== false) {
+        if ($this->options[XML_SERIALIZER_OPTION_INDENT_ATTRIBUTES] !== false) {
             $multiline = true;
-            $indent    = str_repeat($this->options['indent'], $this->_tagDepth);
+            $indent    = str_repeat($this->options[XML_SERIALIZER_OPTION_INDENT], $this->_tagDepth);
 
-            if ($this->options['indentAttributes'] == '_auto') {
+            if ($this->options[XML_SERIALIZER_OPTION_INDENT_ATTRIBUTES] == '_auto') {
                 $indent .= str_repeat(' ', (strlen($tag['qname'])+2));
 
             } else {
-                $indent .= $this->options['indentAttributes'];
+                $indent .= $this->options[XML_SERIALIZER_OPTION_INDENT_ATTRIBUTES];
             }
         } else {
             $multiline = false;
             $indent    = false;
         }
 
-        if ($replaceEntities) {
-           	$replaceEntities = $this->options['replaceEntities'];
+        if ($firstCall === true) {
+           	$replaceEntities = $this->options[XML_SERIALIZER_OPTION_ENTITIES];
+        } else {
+            $replaceEntities = XML_SERIALIZER_ENTITIES_NONE;
         }
     
         if (is_array($tag['content'])) {
@@ -609,24 +888,24 @@ class XML_Serializer extends PEAR
         }
     
         if (is_scalar($tag['content']) || is_null($tag['content'])) {
-            if ($this->options['encodeFunction']) {
-                if ($replaceEntities === true) {
-                	$tag['content'] = call_user_func($this->options['encodeFunction'], $tag['content']);
+            if ($this->options[XML_SERIALIZER_OPTION_ENCODE_FUNC]) {
+                if ($firstCall === true) {
+                	$tag['content'] = call_user_func($this->options[XML_SERIALIZER_OPTION_ENCODE_FUNC], $tag['content']);
                 }
-            	$tag['attributes'] = array_map($this->options['encodeFunction'], $tag['attributes']);
+            	$tag['attributes'] = array_map($this->options[XML_SERIALIZER_OPTION_ENCODE_FUNC], $tag['attributes']);
             }
-            $tag = XML_Util::createTagFromArray($tag, $replaceEntities, $multiline, $indent, $this->options['linebreak']);
+            $tag = XML_Util::createTagFromArray($tag, $replaceEntities, $multiline, $indent, $this->options[XML_SERIALIZER_OPTION_LINEBREAKS]);
         } elseif (is_array($tag['content'])) {
             $tag    =   $this->_serializeArray($tag['content'], $tag['qname'], $tag['attributes']);
         } elseif (is_object($tag['content'])) {
             $tag    =   $this->_serializeObject($tag['content'], $tag['qname'], $tag['attributes']);
         } elseif (is_resource($tag['content'])) {
             settype($tag['content'], 'string');
-            if ($this->options['encodeFunction']) {
+            if ($this->options[XML_SERIALIZER_OPTION_ENCODE_FUNC]) {
             	if ($replaceEntities === true) {
-                    $tag['content'] = call_user_func($this->options['encodeFunction'], $tag['content']);
+                    $tag['content'] = call_user_func($this->options[XML_SERIALIZER_OPTION_ENCODE_FUNC], $tag['content']);
             	}
-            	$tag['attributes'] = array_map($this->options['encodeFunction'], $tag['attributes']);
+            	$tag['attributes'] = array_map($this->options[XML_SERIALIZER_OPTION_ENCODE_FUNC], $tag['attributes']);
             }
             $tag = XML_Util::createTagFromArray($tag, $replaceEntities);
         }
