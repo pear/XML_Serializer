@@ -109,7 +109,7 @@ class XML_Serializer extends PEAR
     */
     var $_defaultOptions = array(
                          'indent'             => '',                    // string used for indentation
-                         'linebreak'          => '\n',                  // string used for newlines
+                         'linebreak'          => "\n",                  // string used for newlines
                          'typeHints'          => false,                 // automatically add type hin attributes
                          'addDecl'            => false,                 // add an XML declaration
                          'defaultTagName'     => 'XML_Serializer_Tag',  // tag used for indexed arrays or invalid names
