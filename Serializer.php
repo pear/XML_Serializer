@@ -170,6 +170,30 @@ class XML_Serializer extends PEAR {
     }
 
    /**
+    * reset all options to default options
+    *
+    * @access   public
+    * @see      setOption(), XML_Unserializer()
+    */
+    function resetOptions()
+    {
+        $this->options = $this->_defaultOptions;
+    }
+
+   /**
+    * set an option
+    *
+    * You can use this method if you do not want to set all options in the constructor
+    *
+    * @access   public
+    * @see      resetOption(), XML_Serializer()
+    */
+    function setOption($name, $value)
+    {
+        $this->options[$name] = $value;
+    }
+    
+   /**
     * serialize data
     *
     * @access   public

@@ -18,7 +18,14 @@
 //
 //    $Id$
 
+/**
+ * uses PEAR error managemt
+ */
 require_once 'PEAR.php';
+
+/**
+ * uses XML_Parser to unserialize document
+ */
 require_once 'XML/Parser.php';
 
 /**
@@ -182,6 +189,30 @@ class XML_Unserializer extends XML_Parser {
         return "0.6";
     }
 
+   /**
+    * reset all options to default options
+    *
+    * @access   public
+    * @see      setOption(), XML_Unserializer()
+    */
+    function resetOptions()
+    {
+        $this->options = $this->_defaultOptions;
+    }
+
+   /**
+    * set an option
+    *
+    * You can use this method if you do not want to set all options in the constructor
+    *
+    * @access   public
+    * @see      resetOption(), XML_Unserializer()
+    */
+    function setOption($name, $value)
+    {
+        $this->options[$name] = $value;
+    }
+    
    /**
     * unserialize data
     *
