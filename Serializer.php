@@ -96,7 +96,7 @@ define("XML_SERIALIZER_ERROR_NO_SERIALIZATION", 51);
  *
  * @category XML
  * @package  XML_Serializer
- * @version  0.8.1
+ * @version  0.9
  * @author   Stephan Schmidt <schst@php.net>
  * @uses     XML_Util
  */
@@ -169,7 +169,7 @@ class XML_Serializer extends PEAR {
     */
     function apiVersion()
     {
-		return "0.8";
+		return "0.9";
     }
 
    /**
