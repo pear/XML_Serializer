@@ -117,7 +117,8 @@ class XML_Unserializer extends XML_Parser {
                          'prependAttributes' => '',                     // prepend attribute names with this string
                          'contentName'       => '_content',             // put cdata found in a tag that has been converted to a complex type in this key
                          'tagMap'            => array(),                // use this to map tagnames
-                         'forceEnum'         => array()                 // these tags will always be an indexed array
+                         'forceEnum'         => array(),                // these tags will always be an indexed array
+                         'encoding'          => null                    // specify the encoding character of the document to parse
                         );
 
    /**
@@ -171,14 +172,14 @@ class XML_Unserializer extends XML_Parser {
     */
     function XML_Unserializer($options = null)
     {
-        // reset parser and properties
-        $this->XML_Parser(null,'event');
-
         if (is_array($options)) {
             $this->options = array_merge($this->_defaultOptions, $options);
         } else {
             $this->options = $this->_defaultOptions;
         }
+
+        // reset parser and properties
+        $this->XML_Parser($this->options['encoding'],'event');
     }
 
    /**
