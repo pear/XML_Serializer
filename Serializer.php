@@ -100,8 +100,8 @@ define('XML_SERIALIZER_ERROR_NO_SERIALIZATION', 51);
  * @author   Stephan Schmidt <schst@php.net>
  * @uses     XML_Util
  */
-class XML_Serializer extends PEAR {
-
+class XML_Serializer extends PEAR
+{
    /**
     * default options for the serialization
     * @access private
@@ -116,7 +116,7 @@ class XML_Serializer extends PEAR {
                          'keyAttribute'       => '_originalKey',        // attribute where original key is stored
                          'typeAttribute'      => '_type',               // attribute for type (only if typeHints => true)
                          'classAttribute'     => '_class',              // attribute for class of objects (only if typeHints => true)
-						 'scalarAsAttributes' => false,                 // scalar values (strings, ints,..) will be serialized as attribute
+                         'scalarAsAttributes' => false,                 // scalar values (strings, ints,..) will be serialized as attribute
                          'prependAttributes'  => '',                    // prepend string for attributes
                          'indentAttributes'   => false,                 // indent the attributes, if set to '_auto', it will indent attributes so they all start at the same column
                          'mode'               => 'default',             // use 'simplexml' to use parent name as tagname if transforming an indexed array
