@@ -493,9 +493,13 @@ class XML_Serializer extends PEAR {
             $indent    = false;
         }
     
-        if ((string)$tag["content"] == '') {
+        if (is_array($tag["content"])) {
+            if (empty($tag["content"])) {
+                $tag["content"] =   '';
+            }
+        } elseif(is_scalar($tag["content"]) && (string)$tag["content"] == '') {
             $tag["content"] =   '';
-        }    
+        }
     
         if (is_scalar($tag["content"])) {
             $tag = XML_Util::createTagFromArray($tag, $replaceEntities, $multiline, $indent, $this->options["linebreak"]);
