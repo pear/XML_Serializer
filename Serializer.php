@@ -18,7 +18,14 @@
 //
 //    $Id$
 
+/**
+ * uses PEAR error management
+ */
 require_once 'PEAR.php';
+
+/**
+ * uses XML_Util to create XML tags
+ */
 require_once 'XML/Util.php';
 
 /**
@@ -111,7 +118,8 @@ class XML_Serializer extends PEAR {
                          "classAttribute"     => "_class",              // attribute for class of objects (only if typeHints => true)
 						 "scalarAsAttributes" => false,                 // scalar values (strings, ints,..) will be serialized as attribute
                          "prependAttributes"  => "",                    // prepend string for attributes
-                         "indentAttributes"   => false                  // indent the attributes, if set to '_auto', it will indent attributes so they all start at the same column
+                         "indentAttributes"   => false,                 // indent the attributes, if set to '_auto', it will indent attributes so they all start at the same column
+                         "mode"               => 'default'              // use 'simplexml' to use parent name as tagname if transforming an indexed array
                         );
 
    /**
@@ -247,6 +255,30 @@ class XML_Serializer extends PEAR {
     */
     function _serializeArray(&$array, $tagName = null, $attributes = array())
     {
+        if ($this->options["mode"] == "simplexml") {
+            $indexed = true;
+            foreach ($array as $key => $val) {
+                if (!is_int($key)) {
+                    $indexed = false;
+                    break;
+                }
+            }
+
+            if ($indexed) {
+                $string = "";
+                foreach ($array as $key => $val) {
+                    $string .= $this->_serializeArray( $val, $tagName);
+                    
+                    $string .= $this->options["linebreak"];
+        			//	do indentation
+                    if ($this->options["indent"]!==null && $this->_tagDepth>0) {
+                        $string .= str_repeat($this->options["indent"], $this->_tagDepth);
+                    }
+                }
+                return rtrim($string);
+            }
+        }
+        
         $this->_tagDepth++;
 
 		if ($this->options["scalarAsAttributes"] === true) {

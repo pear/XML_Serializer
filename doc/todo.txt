@@ -9,24 +9,16 @@ TODO XML_Serializer:
        );
   serializes to:
   <array foo="bar">
-    <foo>bar</foo>
+    <child>content</child>
   </array>
-       
 - custom serialization of objects
 - namespace support
-- alternative way to define aggregates
-  array(
-            "foo" => array( "bar", "argh" )
-        );
-  serializes to:
-  <foo>bar</foo>
-  <foo>argh</foo>
 
 TODO XML_Unserializer:
 ----------------------
 - add support to convert arrays into objects
 - support for xml:space attribute
-- set types for certain tags
+- set types for certain tags (like in patConfiguration)
 - namespace support
 - custom unserialization for objects (static unserialize() or fromXML() methods)
 - unserialize references using id/idref
