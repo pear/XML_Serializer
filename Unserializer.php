@@ -100,7 +100,7 @@ define('XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION', 151);
  * @author   Stephan Schmidt <schst@php-tools.net>
  * @uses     XML_Parser
  */
-class XML_Unserializer
+class XML_Unserializer extends PEAR
 {
 
    /**
