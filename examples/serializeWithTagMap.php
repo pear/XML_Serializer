@@ -55,7 +55,7 @@
 
 	$newOptions = array(
 						'rootName' => 'body',
-						'replaceEntities' => XML_UTIL_ENTITIES_HTML,
+						'replaceEntities' => XML_SERIALIZER_ENTITIES_HTML,
 						'tagMap'   => array(
 						                      'item'        => 'div',
 						                      'title'       => 'h1',
