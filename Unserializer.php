@@ -116,8 +116,8 @@ class XML_Unserializer extends XML_Parser {
                          'attributesArray'   => false,                  // parse them into sperate array (specify name of array here)
                          'prependAttributes' => '',                     // prepend attribute names with this string
                          'contentName'       => '_content',             // put cdata found in a tag that has been converted to a complex type in this key
-                         'tagMap'            => array()                 // use this to map tagnames
-                         
+                         'tagMap'            => array(),                // use this to map tagnames
+                         'forceEnum'         => array()                 // these tags will always be an indexed array
                         );
 
    /**
@@ -477,10 +477,14 @@ class XML_Unserializer extends XML_Parser {
 
             if (!empty($value['name'])) {
                 // there already has been a tag with this name
-                if (in_array($value['name'], $parent['childrenKeys'])) {
+                if (in_array($value['name'], $parent['childrenKeys']) || in_array($value['name'], $this->options['forceEnum'])) {
                     // no aggregate has been created for this tag
                     if (!in_array($value['name'], $parent['aggregKeys'])) {
-                        $parent['children'][$value['name']] = array($parent['children'][$value['name']]);
+                        if (isset($parent['children'][$value['name']])) {
+                            $parent['children'][$value['name']] = array($parent['children'][$value['name']]);
+                        } else {
+                            $parent['children'][$value['name']] = array();
+                        }
                         array_push($parent['aggregKeys'], $value['name']);
                     }
                     array_push($parent['children'][$value['name']], $value['value']);
