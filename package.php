@@ -18,7 +18,7 @@ require_once 'PEAR/PackageFileManager.php';
 /**
  * current version
  */
-$version = '0.10.0';
+$version = '0.10.1';
 
 /**
  * current state
@@ -29,9 +29,7 @@ $state = 'beta';
  * release notes
  */
 $notes = <<<EOT
-- fixed bug #1478 (Array to string conversion)
-- fixed bug #170 (RDF examples produce incorrect code)
-- added new options to XML_Serializer: attributesArray and contentName to match XML_Unserializer
+fixed bug #1846 (unserialization bug with empty arrays)
 EOT;
 
 /**

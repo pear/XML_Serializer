@@ -19,13 +19,11 @@ Since version 0.8 the package is able to treat XML documents like the simplexml 
     </maintainer>
   </maintainers>
   <release>
-    <version>0.10.0</version>
-    <date>2004-05-24</date>
+    <version>0.10.1</version>
+    <date>2004-07-12</date>
     <license>PHP License</license>
     <state>beta</state>
-    <notes>- fixed bug #1478 (Array to string conversion)
-- fixed bug #170 (RDF examples produce incorrect code)
-- added new options to XML_Serializer: attributesArray and contentName to match XML_Unserializer</notes>
+    <notes>fixed bug #1846 (unserialization bug with empty arrays)</notes>
     <deps>
       <dep type="pkg" rel="ge" version="0.4.2" optional="no">XML_Util</dep>
       <dep type="pkg" rel="ge" version="1.1.0" optional="no">XML_Parser</dep>
@@ -38,6 +36,7 @@ Since version 0.8 the package is able to treat XML documents like the simplexml 
        </dir> <!-- doc -->
        <dir name="examples">
         <file role="doc" name="example.xml"/>
+        <file role="doc" name="serializeEmptyArray.php"/>
         <file role="doc" name="serializeIndexedArray.php"/>
         <file role="doc" name="serializeObject.php"/>
         <file role="doc" name="serializeRDF.php"/>
@@ -171,6 +170,13 @@ XML_Unserializer:
       <notes>- fixed bug #1478 (Array to string conversion)
 - fixed bug #170 (RDF examples produce incorrect code)
 - added new options to XML_Serializer: attributesArray and contentName to match XML_Unserializer</notes>
+    </release>
+    <release>
+      <version>0.10.1</version>
+      <date>2004-07-12</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>fixed bug #1846 (unserialization bug with empty arrays)</notes>
     </release>
   </changelog>
 </package>
