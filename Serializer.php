@@ -155,7 +155,8 @@ class XML_Serializer extends PEAR
                          'encodeFunction'     => null,                  // function that will be applied before serializing
                          'namespace'          => null,                  // namespace to use
                          'replaceEntities'    => XML_UTIL_ENTITIES_XML, // type of entities to replace,
-                         'returnResult'       => false                  // serialize() returns the result of the serialization instead of true
+                         'returnResult'       => false,                 // serialize() returns the result of the serialization instead of true
+                         'ignoreNull'         => false                  // ignore properties that are set to null
                         );
 
    /**
@@ -334,7 +335,7 @@ class XML_Serializer extends PEAR
     */
     function getSerializedData()
     {
-        if ($this->_serializedData == null ) {
+        if ($this->_serializedData == null) {
             return  $this->raiseError('No serialized data available. Use XML_Serializer::serialize() first.', XML_SERIALIZER_ERROR_NO_SERIALIZATION);
         }
         return $this->_serializedData;
@@ -399,6 +400,14 @@ class XML_Serializer extends PEAR
                     unset($array[$this->options['contentName']]);
                 }
             }
+        }
+
+        if ($this->options['ignoreNull'] === true) {
+        	foreach (array_keys($array) as $key) {
+        		if (is_null($array[$key])) {
+        			unset($array[$key]);
+        		}
+        	}
         }
 
         /*
