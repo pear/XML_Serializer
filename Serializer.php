@@ -129,7 +129,8 @@ class XML_Serializer extends PEAR
                          'attributesArray'    => null,                  // all values in this key will be treated as attributes
                          'contentName'        => null,                  // this value will be used directly as content, instead of creating a new tag, may only be used in conjuction with attributesArray
                          'tagMap'             => array(),               // tag names that will be changed
-                         'encodeFunction'     => null 
+                         'encodeFunction'     => null,                  // function that will be applied before serializing
+                         'namespace'          => null,                  // namespace to use
                         );
 
    /**
@@ -247,6 +248,11 @@ class XML_Serializer extends PEAR
         //  start depth is zero
         $this->_tagDepth = 0;
 
+        $rootAttributes = $this->options['rootAttributes'];
+        if (is_array($this->options['namespace'])) {
+        	$rootAttributes['xmlns:'.$this->options['namespace'][0]] = $this->options['namespace'][1];
+        }
+        
         $this->_serializedData = '';
         // serialize an array
         if (is_array($data)) {
@@ -256,7 +262,7 @@ class XML_Serializer extends PEAR
                 $tagName = 'array';
             }
 
-            $this->_serializedData .= $this->_serializeArray($data, $tagName, $this->options['rootAttributes']);
+            $this->_serializedData .= $this->_serializeArray($data, $tagName, $rootAttributes);
         }
         // serialize an object
         elseif (is_object($data)) {
@@ -265,7 +271,7 @@ class XML_Serializer extends PEAR
             } else {
                 $tagName = get_class($data);
             }
-            $this->_serializedData .= $this->_serializeObject($data, $tagName, $this->options['rootAttributes']);
+            $this->_serializedData .= $this->_serializeObject($data, $tagName, $rootAttributes);
         }
         
         // add doctype declaration
@@ -278,12 +284,7 @@ class XML_Serializer extends PEAR
         //  build xml declaration
         if ($this->options['addDecl']) {
             $atts = array();
-            if (isset($this->options['encoding']) ) {
-                $encoding = $this->options['encoding'];
-            } else {
-                $encoding = null;
-            }
-            $this->_serializedData = XML_Util::getXMLDeclaration('1.0', $encoding)
+            $this->_serializedData = XML_Util::getXMLDeclaration('1.0', $this->options['encoding'])
                                    . $this->options['linebreak']
                                    . $this->_serializedData;
         }
@@ -533,6 +534,14 @@ class XML_Serializer extends PEAR
     */
     function _createXMLTag( $tag, $replaceEntities = true )
     {
+        if ($this->options['namespace'] !== null) {
+        	if (is_array($this->options['namespace'])) {
+        		$tag['qname'] = $this->options['namespace'][0] . ':' . $tag['qname'];
+        	} else {
+        		$tag['qname'] = $this->options['namespace'] . ':' . $tag['qname'];
+        	}
+        }
+
         if ($this->options['indentAttributes'] !== false) {
             $multiline = true;
             $indent    = str_repeat($this->options['indent'], $this->_tagDepth);
