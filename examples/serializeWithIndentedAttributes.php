@@ -5,6 +5,10 @@
  * This example demonstrates, how XML_Serializer is able
  * to serialize scalar values as an attribute instead of a nested tag.
  *
+ * In this example tags with more than one attribute become
+ * multiline tags, as each attribute gets written to a
+ * separate line as 'indentAttributes' is set to '_auto'.
+ *
  * @author  Stephan Schmidt 
  */
 
@@ -13,8 +17,10 @@
     $options = array(
                         "indent"             => "    ",
                         "linebreak"          => "\n",
+                        "typeHints"          => false,
                         "defaultTagName"     => "unnamedItem",
-						"scalarAsAttributes" => true,
+                        "scalarAsAttributes" => true,
+                        "indentAttributes"   => "_auto"
                     );
     
     // this is just to get a nested object

@@ -87,17 +87,6 @@ define("XML_SERIALIZER_ERROR_NO_SERIALIZATION", 51);
  *    Future versions of this package will include an XML_Unserializer, that does
  *    the unserialization automatically for you.
  *
- *  Finally a list of all possible options that can be set in the constructor:
- *
- * array(
- *          "indent"         => "\t",       // string used for indentation
- *          "linebreak"      => "\n",       // string used for linebreaks
- *          "defaultTagName" => "myName",   // tagname for unnamed values (indexed array)
- *          "addDecl"        => true,       // add XML declaration
- *          "encoding"       => "UTF-8",    // encoding specified in XML declaration
- *          "typeHints"      => true        // add '_type' and '_class' attributes to the tags        
- *      )
- *
  * @category XML
  * @package  XML_Serializer
  * @version  0.6
@@ -122,6 +111,7 @@ class XML_Serializer extends PEAR {
                          "classAttribute"     => "_class",              // attribute for class of objects (only if typeHints => true)
 						 "scalarAsAttributes" => false,                 // scalar values (strings, ints,..) will be serialized as attribute
                          "prependAttributes"  => "",                    // prepend string for attributes
+                         "indentAttributes"   => false                  // indent the attributes, if set to '_auto', it will indent attributes so they all start at the same column
                         );
 
    /**
@@ -261,7 +251,7 @@ class XML_Serializer extends PEAR {
 
 		if ($this->options["scalarAsAttributes"] === true) {
 	        foreach ($array as $key => $value) {
-				if (is_scalar($value)) {
+				if (is_scalar($value) && (XML_Util::isValidName($key) === true)) {
 					unset($array[$key]);
 					$attributes[$this->options["prependAttributes"].$key] = $value;
 				}
@@ -358,7 +348,7 @@ class XML_Serializer extends PEAR {
     * create a tag from an array
     * this method awaits an array in the following format
     * array(
-    *       "tagName"      => $tagName,
+    *       "qname"        => $tagName,
     *       "attributes"   => array(),
     *       "content"      => $content,      // optional
     *       "namespace"    => $namespace     // optional
@@ -372,8 +362,23 @@ class XML_Serializer extends PEAR {
     */
     function _createXMLTag( $tag, $replaceEntities = true )
     {
+        if ($this->options["indentAttributes"] !== false) {
+            $multiline = true;
+            $indent    = str_repeat($this->options["indent"], $this->_tagDepth);
+
+            if ($this->options["indentAttributes"] == "_auto") {
+                $indent .= str_repeat(" ", (strlen($tag["qname"])+2));
+
+            } else {
+                $indent .= $this->options["indentAttributes"];
+            }
+        } else {
+            $multiline = false;
+            $indent    = false;
+        }
+    
         if (is_scalar($tag["content"]) || empty($tag["content"])) {
-            $tag = XML_Util::createTagFromArray($tag, $replaceEntities);
+            $tag = XML_Util::createTagFromArray($tag, $replaceEntities, $multiline, $indent, $this->options["linebreak"]);
         } elseif (is_array($tag["content"])) {
             $tag    =   $this->_serializeArray($tag["content"], $tag["qname"], $tag["attributes"]);
         } elseif (is_object($tag["content"])) {
@@ -384,5 +389,7 @@ class XML_Serializer extends PEAR {
         }
         return  $tag;
     }
+
+
 }
 ?>

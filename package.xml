@@ -29,7 +29,7 @@ added 'overrideOptions' option that can be used to restore the default options f
 added 'keyAttribute' option to XML_Unserializer,
 added Todo list</notes>
     <deps>
-      <dep type="pkg" rel="has">XML_Util</dep>
+      <dep type="pkg" rel="gte" version="0.4.1">XML_Util</dep>
       <dep type="pkg" rel="has">XML_Parser</dep>
     </deps>
     <provides type="class" name="XML_Serializer" extends="PEAR" />
@@ -41,9 +41,6 @@ added Todo list</notes>
     <provides type="function" name="XML_Unserializer::unserialize" />
     <provides type="function" name="XML_Unserializer::getUnserializedData" />
     <provides type="function" name="XML_Unserializer::getRootName" />
-    <provides type="function" name="XML_Unserializer::startHandler" />
-    <provides type="function" name="XML_Unserializer::endHandler" />
-    <provides type="function" name="XML_Unserializer::cdataHandler" />
     <filelist>
       <file role="doc" baseinstalldir="XML" md5sum="175ec54a502b04dae6c49e1e5be419b9" name="doc/todo.txt"/>
       <file role="doc" baseinstalldir="XML" md5sum="7167c4c6bbe5e473c24ab14ee5789199" name="examples/serializeObject.php"/>
