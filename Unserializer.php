@@ -96,11 +96,12 @@ define('XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION', 151);
  *
  * @category XML
  * @package  XML_Serializer
- * @version  0.13.0
+ * @version  0.14.0
  * @author   Stephan Schmidt <schst@php-tools.net>
  * @uses     XML_Parser
  */
-class XML_Unserializer extends XML_Parser {
+class XML_Unserializer
+{
 
    /**
     * default options for the serialization
@@ -119,6 +120,7 @@ class XML_Unserializer extends XML_Parser {
                          'tagMap'            => array(),                // use this to map tagnames
                          'forceEnum'         => array(),                // these tags will always be an indexed array
                          'encoding'          => null,                   // specify the encoding character of the document to parse
+                         'targetEncoding'    => null,                   // specify the target encoding
                          'decodeFunction'    => null                    // function used to decode data
                         );
 
@@ -130,14 +132,8 @@ class XML_Unserializer extends XML_Parser {
     var $options = array();
 
    /**
-    * do not use case folding
-    * @var boolean $folding
-    */
-    var $folding = false;
-
-   /**
-    * unserilialized data
-    * @var string $_serializedData
+    * unserialized data
+    * @var string $_unserializedData
     */
     var $_unserializedData = null;
 
@@ -166,6 +162,14 @@ class XML_Unserializer extends XML_Parser {
     var $_depth = 0;
 
    /**
+    * XML_Parser instance
+    *
+    * @access   private
+    * @var      object XML_Parser
+    */
+    var $_parser = null;
+    
+   /**
     * constructor
     *
     * @access   public
@@ -178,9 +182,6 @@ class XML_Unserializer extends XML_Parser {
         } else {
             $this->options = $this->_defaultOptions;
         }
-
-        // reset parser and properties
-        $this->XML_Parser($this->options['encoding'],'event');
     }
 
    /**
@@ -192,7 +193,7 @@ class XML_Unserializer extends XML_Parser {
     */
     function apiVersion()
     {
-        return '0.13';
+        return '0.14';
     }
 
    /**
@@ -264,19 +265,21 @@ class XML_Unserializer extends XML_Parser {
         $this->_dataStack = array();
         $this->_depth = 0;
 
+        $this->_createParser();
+        
         if (is_string($data)) {
             if ($isFile) {
-                $result = $this->setInputFile($data);
+                $result = $this->_parser->setInputFile($data);
                 if (PEAR::isError($result)) {
                     return $result;
                 }
-                $result = $this->parse();
+                $result = $this->_parser->parse();
             } else {
-                $result = $this->parseString($data,true);
+                $result = $this->_parser->parseString($data,true);
             }
         } else {
-           $this->setInput($data);
-           $result = $this->parse();
+           $this->_parser->setInput($data);
+           $result = $this->_parser->parse();
         }
 
         if ($optionsBak !== null) {
@@ -367,12 +370,12 @@ class XML_Unserializer extends XML_Parser {
         $keyAttr = false;
         
         if (is_string($this->options['keyAttribute'])) {
-        	$keyAttr = $this->options['keyAttribute'];
+            $keyAttr = $this->options['keyAttribute'];
         } elseif (is_array($this->options['keyAttribute'])) {
             if (isset($this->options['keyAttribute'][$element])) {
-            	$keyAttr = $this->options['keyAttribute'][$element];
+                $keyAttr = $this->options['keyAttribute'][$element];
             } elseif (isset($this->options['keyAttribute']['__default'])) {
-            	$keyAttr = $this->options['keyAttribute']['__default'];
+                $keyAttr = $this->options['keyAttribute']['__default'];
             }
         }
         
@@ -531,6 +534,23 @@ class XML_Unserializer extends XML_Parser {
     function cdataHandler($parser, $cdata)
     {
         $this->_dataStack[$this->_depth] .= $cdata;
+    }
+
+   /**
+    * create the XML_Parser instance
+    *
+    * @access    private
+    */
+    function _createParser()
+    {
+        if (is_object($this->_parser)) {
+            $this->_parser->free();
+            unset($this->_parser);
+        }
+        $this->_parser = &new XML_Parser($this->options['encoding'], 'event', $this->options['targetEncoding']);
+        $this->_parser->folding = false;
+        $this->_parser->setHandlerObj($this);
+        return true;
     }
 }
 ?>
