@@ -34,6 +34,29 @@ require_once 'XML/Util.php';
 define('XML_SERIALIZER_ERROR_NO_SERIALIZATION', 51);
 
 /**
+ * do not replace entitites
+ */
+define('XML_SERIALIZER_ENTITIES_NONE', XML_UTIL_ENTITIES_NONE);
+
+/**
+ * replace all XML entitites
+ * This setting will replace <, >, ", ' and &
+ */
+define('XML_SERIALIZER_ENTITIES_XML', XML_UTIL_ENTITIES_XML);
+
+/**
+ * replace only required XML entitites
+ * This setting will replace <, " and &
+ */
+define('XML_SERIALIZER_ENTITIES_XML_REQUIRED', XML_UTIL_ENTITIES_XML_REQUIRED);
+
+/**
+ * replace HTML entitites
+ * @link    http://www.php.net/htmlentities
+ */
+define('XML_SERIALIZER_ENTITIES_HTML', XML_UTIL_ENTITIES_HTML);
+
+/**
  * XML_Serializer
  * class that serializes various structures into an XML document
  *
@@ -131,6 +154,7 @@ class XML_Serializer extends PEAR
                          'tagMap'             => array(),               // tag names that will be changed
                          'encodeFunction'     => null,                  // function that will be applied before serializing
                          'namespace'          => null,                  // namespace to use
+                         'replaceEntities'    => XML_UTIL_ENTITIES_XML  // type of entities to replace
                         );
 
    /**
@@ -556,6 +580,10 @@ class XML_Serializer extends PEAR
             $multiline = false;
             $indent    = false;
         }
+
+        if ($replaceEntities) {
+           	$replaceEntities = $this->options['replaceEntities'];
+        }
     
         if (is_array($tag['content'])) {
             if (empty($tag['content'])) {
@@ -585,7 +613,7 @@ class XML_Serializer extends PEAR
             	}
             	$tag['attributes'] = array_map($this->options['encodeFunction'], $tag['attributes']);
             }
-            $tag    =   XML_Util::createTagFromArray($tag, $replaceEntities);
+            $tag = XML_Util::createTagFromArray($tag, $replaceEntities);
         }
         return  $tag;
     }

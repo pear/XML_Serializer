@@ -29,7 +29,7 @@
 									),
 									array(
 										'title'       => 'Foobar2!',
-										'description' => 'This is some text....',
+										'description' => 'This is some text.ü &uuml; ä ö',
 										'link'        => 'http://foobar.com'
 									)
 								)
@@ -55,6 +55,7 @@
 
 	$newOptions = array(
 						'rootName' => 'body',
+						'replaceEntities' => XML_UTIL_ENTITIES_HTML,
 						'tagMap'   => array(
 						                      'item'        => 'div',
 						                      'title'       => 'h1',
