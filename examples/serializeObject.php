@@ -29,7 +29,7 @@
     $foo->arr   = array();
     $foo->zero  = 0;
     
-    $serializer = new XML_Serializer($options);
+    $serializer = &new XML_Serializer($options);
     
     $result = $serializer->serialize($foo);
     

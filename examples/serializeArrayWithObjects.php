@@ -21,6 +21,7 @@
     
     $serializer = new XML_Serializer($options);
 
+    $serializer->setErrorHandling(PEAR_ERROR_DIE);
     
     $array = array(
                     new stdClass(),

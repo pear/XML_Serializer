@@ -127,7 +127,7 @@ class XML_Serializer extends PEAR
                          'rootAttributes'     => array(),               // attributes of the root tag
                          'attributesArray'    => null,                  // all values in this key will be treated as attributes
                          'contentName'        => null,                  // this value will be used directly as content, instead of creating a new tag, may only be used in conjuction with attributesArray
-                         'tagMap'			  => array()
+                         'tagMap'              => array()
                         );
 
    /**
@@ -174,7 +174,7 @@ class XML_Serializer extends PEAR
     */
     function apiVersion()
     {
-		return '0.13';
+        return '0.13';
     }
 
    /**
@@ -287,10 +287,10 @@ class XML_Serializer extends PEAR
         }
         
         
-		if ($optionsBak !== null) {
-			$this->options = $optionsBak;
-		}
-		
+        if ($optionsBak !== null) {
+            $this->options = $optionsBak;
+        }
+
         return  true;
     }
 
@@ -388,7 +388,7 @@ class XML_Serializer extends PEAR
                     $string .= $this->_serializeValue( $val, $tagName, $attributes);
                     
                     $string .= $this->options['linebreak'];
-        			//	do indentation
+                    //    do indentation
                     if ($this->options['indent']!==null && $this->_tagDepth>0) {
                         $string .= str_repeat($this->options['indent'], $this->_tagDepth);
                     }
@@ -397,14 +397,14 @@ class XML_Serializer extends PEAR
             }
         }
         
-		if ($this->options['scalarAsAttributes'] === true) {
-	        foreach ($array as $key => $value) {
-				if (is_scalar($value) && (XML_Util::isValidName($key) === true)) {
-					unset($array[$key]);
-					$attributes[$this->options['prependAttributes'].$key] = $value;
-				}
-			}
-		}
+        if ($this->options['scalarAsAttributes'] === true) {
+            foreach ($array as $key => $value) {
+                if (is_scalar($value) && (XML_Util::isValidName($key) === true)) {
+                    unset($array[$key]);
+                    $attributes[$this->options['prependAttributes'].$key] = $value;
+                }
+            }
+        }
 
         // check for empty array => create empty tag
         if (empty($array)) {
@@ -418,35 +418,37 @@ class XML_Serializer extends PEAR
             $this->_tagDepth++;
             $tmp = $this->options['linebreak'];
             foreach ($array as $key => $value) {
-    			//	do indentation
+                //    do indentation
                 if ($this->options['indent']!==null && $this->_tagDepth>0) {
                     $tmp .= str_repeat($this->options['indent'], $this->_tagDepth);
                 }
 
                 if (isset($this->options['tagMap'][$key])) {
-                	$key = $this->options['tagMap'][$key];
+                    $key = $this->options['tagMap'][$key];
                 }
 
-    			//	copy key
-    			$origKey	=	$key;
-    			//	key cannot be used as tagname => use default tag
+                //    copy key
+                $origKey    =    $key;
+                $this->expectError('*');
+                //    key cannot be used as tagname => use default tag
                 $valid = XML_Util::isValidName($key);
-    	        if (PEAR::isError($valid)) {
-    	            if ($this->options['classAsTagName'] && is_object($value)) {
-    	                $key = get_class($value);
-    	            } else {
-            	        $key = $this->options['defaultTagName'];
-    	            }
-           	 	}
+                $this->popExpect();
+                if (PEAR::isError($valid)) {
+                    if ($this->options['classAsTagName'] && is_object($value)) {
+                        $key = get_class($value);
+                    } else {
+                        $key = $this->options['defaultTagName'];
+                    }
+                    }
                 $atts = array();
                 if ($this->options['typeHints'] === true) {
                     $atts[$this->options['typeAttribute']] = gettype($value);
-    				if ($key !== $origKey) {
-    					$atts[$this->options['keyAttribute']] = (string)$origKey;
-    				}
+                    if ($key !== $origKey) {
+                        $atts[$this->options['keyAttribute']] = (string)$origKey;
+                    }
     
                 }
-    			
+                
                 $tmp .= $this->_createXMLTag(array(
                                                     'qname'      => $key,
                                                     'attributes' => $atts,
@@ -460,10 +462,10 @@ class XML_Serializer extends PEAR
                 $tmp .= str_repeat($this->options['indent'], $this->_tagDepth);
             }
     
-    		if (trim($tmp) === '') {
-    			$tmp = null;
-    		}
-    		
+            if (trim($tmp) === '') {
+                $tmp = null;
+            }
+            
             $tag = array(
                             'qname'      => $tagName,
                             'content'    => $tmp,
