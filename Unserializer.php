@@ -101,8 +101,10 @@ class XML_Unserializer extends XML_Parser {
     * @var array $_defaultOptions
     */
     var $_defaultOptions = array(
-                        "complexType"   => "array",
-                        "keyAttribute"  => "_originalKey" 
+                         "complexType"    => "array",
+                         "keyAttribute"   => "_originalKey", 
+                         "typeAttribute"  => "_type",
+                         "classAttribute" => "_class"
                         );
 
    /**
@@ -158,6 +160,8 @@ class XML_Unserializer extends XML_Parser {
     {
         if (is_array($options)) {
             $this->options = array_merge($this->_defaultOptions, $options);
+        } else {
+            $this->options = $this->_defaultOptions;
         }
     }
 
@@ -272,8 +276,8 @@ class XML_Unserializer extends XML_Parser {
      */
     function startHandler($parser, $element, $attribs)
     {
-        if (!isset($attribs["_type"])) {
-            $attribs["_type"] = "string";
+        if (!isset($attribs[$this->options["typeAttribute"]])) {
+            $attribs[$this->options["typeAttribute"]] = "string";
         }
         $this->_depth++;
         $this->_dataStack[$this->_depth] = null;
@@ -281,7 +285,7 @@ class XML_Unserializer extends XML_Parser {
         $val = array(
                      "name"         => $element,
                      "value"        => null,
-                     "type"         => $attribs["_type"],
+                     "type"         => $attribs[$this->options["typeAttribute"]],
                      "childrenKeys" => array(),
                      "aggregKeys"   => array()
                     );
@@ -290,8 +294,8 @@ class XML_Unserializer extends XML_Parser {
             $val["name"] = $attribs[$this->options["keyAttribute"]];
         }
 
-        if (isset($attribs["_class"])) {
-            $val["class"] = $attribs["_class"];
+        if (isset($attribs[$this->options["typeAttribute"]])) {
+            $val["class"] = $attribs[$this->options["typeAttribute"]];
         }
 
         array_push($this->_valStack, $val);

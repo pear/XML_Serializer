@@ -116,7 +116,10 @@ class XML_Serializer extends PEAR {
                          "linebreak"      => "",
                          "typeHints"      => false,
                          "addDecl"        => false,
-                         "defaultTagName" => "XML_Serializer_Tag"
+                         "defaultTagName" => "XML_Serializer_Tag",
+                         "keyAttribute"   => "_originalKey",
+                         "typeAttribute"  => "_type",
+                         "classAttribute" => "_class"
                         );
 
    /**
@@ -137,6 +140,7 @@ class XML_Serializer extends PEAR {
     * @var string $_serializedData
     */
     var $_serializedData = null;
+    
    /**
     * constructor
     *
@@ -147,7 +151,9 @@ class XML_Serializer extends PEAR {
     {
         $this->PEAR();
         if (is_array($options)) {
-            $this->options = array_merge($this->options, $options);
+            $this->options = array_merge($this->_defaultOptions, $options);
+        } else {
+            $this->options = $this->_defaultOptions;
         }
     }
 
@@ -167,8 +173,8 @@ class XML_Serializer extends PEAR {
     * serialize data
     *
     * @access   public
-    * @param    mixed   $data data to serialize
-    * @return   string  $string serialized data
+    * @param    mixed    $data data to serialize
+    * @return   boolean  true on success, pear error on failure
     */
     function serialize( $data, $options = null )
     {
@@ -267,9 +273,9 @@ class XML_Serializer extends PEAR {
        	 	}
             $atts = array();
             if ($this->options["typeHints"] === true) {
-                $atts["_type"] = gettype($value);
+                $atts[$this->options["typeAttribute"]] = gettype($value);
 				if ($key !== $origKey) {
-					$atts["_originalKey"] = (string)$origKey;
+					$atts[$this->options["keyAttribute"]] = (string)$origKey;
 				}
             }
 			
@@ -293,8 +299,8 @@ class XML_Serializer extends PEAR {
                     );
         
         if ($this->options["typeHints"] === true) {
-            if (!isset($tag["attributes"]["_type"])) {
-                $tag["attributes"]["_type"] = "array";
+            if (!isset($tag["attributes"][$this->options["typeAttribute"]])) {
+                $tag["attributes"][$this->options["typeAttribute"]] = "array";
             }
         }
                     
@@ -325,8 +331,8 @@ class XML_Serializer extends PEAR {
         $attributes = array();
         // typehints activated?
         if ($this->options["typeHints"] === true) {
-            $attributes["_type"]  = "object";
-            $attributes["_class"] =  get_class($object);
+            $attributes[$this->options["typeAttribute"]]  = "object";
+            $attributes[$this->options["classAttribute"]] =  get_class($object);
         }
         
         $string = $this->_serializeArray($properties, $tagName, $attributes);
