@@ -121,7 +121,8 @@ class XML_Unserializer extends PEAR
                          'forceEnum'         => array(),                // these tags will always be an indexed array
                          'encoding'          => null,                   // specify the encoding character of the document to parse
                          'targetEncoding'    => null,                   // specify the target encoding
-                         'decodeFunction'    => null                    // function used to decode data
+                         'decodeFunction'    => null,                   // function used to decode data
+                         'returnResult'      => false                   // unserialize() returns the result of the unserialization instead of true
                         );
 
    /**
@@ -282,6 +283,12 @@ class XML_Unserializer extends PEAR
            $result = $this->_parser->parse();
         }
 
+        if ($this->options['returnResult'] === true) {
+        	$return = $this->_unserializedData;
+        } else {
+            $return = true;
+        }
+
         if ($optionsBak !== null) {
             $this->options = $optionsBak;
         }
@@ -290,7 +297,7 @@ class XML_Unserializer extends PEAR
             return $result;
         }
 
-        return  true;
+        return $return;
     }
 
    /**

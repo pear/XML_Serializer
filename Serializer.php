@@ -154,7 +154,8 @@ class XML_Serializer extends PEAR
                          'tagMap'             => array(),               // tag names that will be changed
                          'encodeFunction'     => null,                  // function that will be applied before serializing
                          'namespace'          => null,                  // namespace to use
-                         'replaceEntities'    => XML_UTIL_ENTITIES_XML  // type of entities to replace
+                         'replaceEntities'    => XML_UTIL_ENTITIES_XML, // type of entities to replace,
+                         'returnResult'       => false                  // serialize() returns the result of the serialization instead of true
                         );
 
    /**
@@ -259,8 +260,7 @@ class XML_Serializer extends PEAR
             } else {
                 $this->options = array_merge($this->options, $options);
             }
-        }
-        else {
+        } else {
             $optionsBak = null;
         }
         
@@ -313,11 +313,17 @@ class XML_Serializer extends PEAR
                                    . $this->_serializedData;
         }
 
+        if ($this->options['returnResult'] === true) {
+        	$result = $this->_serializedData;
+        } else {
+            $result = true;
+        }
+        
         if ($optionsBak !== null) {
             $this->options = $optionsBak;
         }
 
-        return  true;
+        return $result;
     }
 
    /**
