@@ -8,7 +8,7 @@
  * @author  Stephan Schmidt <schst@php.net>
  */
 
-    require_once 'XML/Unserializer.php';
+    require_once '../Unserializer.php';
 
    /**
     * class for the RDF docuemnt

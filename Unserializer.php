@@ -341,7 +341,6 @@ class XML_Unserializer extends XML_Parser {
                 }
             }
         }
-
         
         if (isset($attribs[$this->options["keyAttribute"]])) {
             $val["name"] = $attribs[$this->options["keyAttribute"]];
@@ -377,7 +376,6 @@ class XML_Unserializer extends XML_Parser {
                 if (is_array($this->options["tagMap"]) && isset($this->options["tagMap"][$classname])) {
                     $classname = $this->options["tagMap"][$classname];
                 }
-
                 
                 // instantiate the class
                 if (class_exists($classname)) {
@@ -385,7 +383,6 @@ class XML_Unserializer extends XML_Parser {
                 } else {
                     $value["value"] = &new stdClass;
                 }
-
                 if ($data !== '') {
                     $value["children"][$this->options["contentName"]] = $data;
                 }
@@ -397,14 +394,13 @@ class XML_Unserializer extends XML_Parser {
                     if (method_exists($value["value"], $setMethod)) {
                         call_user_func(array(&$value["value"], $setMethod), $propVal);
                     } else {
-                        $value["value"]->$prop = &$propVal;
+                        $value["value"]->$prop = $propVal;
                     }
                 }
                 //  check for magic function
                 if (method_exists($value["value"], "__wakeup")) {
                     $value["value"]->__wakeup();
                 }
-
                 break;
                 
             /*
