@@ -6,6 +6,7 @@
  * @author  Stephan Schmidt <schst@php.net>
  * @uses    example.xml
  */
+    error_reporting(E_ALL);
 
     require_once 'XML/Unserializer.php';
 

@@ -7,6 +7,7 @@
  * @author Stephan Schmidt <schst@php.net>
  * @see    serializeIndexedArray.php
  */
+    error_reporting(E_ALL);
 
     require_once 'XML/Serializer.php';
 

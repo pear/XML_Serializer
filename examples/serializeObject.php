@@ -6,6 +6,7 @@
  *
  * @author Stephan Schmidt <schst@php.net>
  */
+    error_reporting(E_ALL);
 
     require_once 'XML/Serializer.php';
 
