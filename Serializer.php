@@ -200,6 +200,19 @@ class XML_Serializer extends PEAR {
     }
     
    /**
+    * sets several options at once
+    *
+    * You can use this method if you do not want to set all options in the constructor
+    *
+    * @access   public
+    * @see      resetOption(), XML_Unserializer(), setOption()
+    */
+    function setOptions($options)
+    {
+        $this->options = array_merge($this->options, $options);
+    }
+
+   /**
     * serialize data
     *
     * @access   public

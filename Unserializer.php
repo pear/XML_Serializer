@@ -196,7 +196,7 @@ class XML_Unserializer extends XML_Parser {
     * reset all options to default options
     *
     * @access   public
-    * @see      setOption(), XML_Unserializer()
+    * @see      setOption(), XML_Unserializer(), setOptions()
     */
     function resetOptions()
     {
@@ -209,11 +209,24 @@ class XML_Unserializer extends XML_Parser {
     * You can use this method if you do not want to set all options in the constructor
     *
     * @access   public
-    * @see      resetOption(), XML_Unserializer()
+    * @see      resetOption(), XML_Unserializer(), setOptions()
     */
     function setOption($name, $value)
     {
         $this->options[$name] = $value;
+    }
+
+   /**
+    * sets several options at once
+    *
+    * You can use this method if you do not want to set all options in the constructor
+    *
+    * @access   public
+    * @see      resetOption(), XML_Unserializer(), setOption()
+    */
+    function setOptions($options)
+    {
+        $this->options = array_merge($this->options, $options);
     }
 
    /**
