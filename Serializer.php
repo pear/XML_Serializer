@@ -268,6 +268,34 @@ class XML_Serializer extends PEAR {
         }
     
    /**
+    * serialize any value
+    *
+    * This method checks for the type of the value and calls the appropriate method
+    *
+    * @access private
+    * @param  mixed     $value
+    * @param  string    $tagName
+    * @param  array     $attributes
+    * @return string
+    */
+    function _serializeValue($value, $tagName = null, $attributes = array())
+    {
+        if (is_array($value)) {
+            $xml = $this->_serializeArray($value, $tagName, $attributes);
+        } elseif (is_object($value)) {
+            $xml = $this->_serializeObject($value, $tagName);
+        } else {
+            $tag = array(
+                          "qname"      => $tagName,
+                          "attributes" => $attributes,
+                          "content"    => $value
+                        );
+            $xml = $this->_createXMLTag($tag);
+        }
+        return $xml;
+    }
+    
+   /**
     * serialize an array
     *
     * @access   private
@@ -279,7 +307,7 @@ class XML_Serializer extends PEAR {
     */
     function _serializeArray(&$array, $tagName = null, $attributes = array())
     {
-        if ($this->options["mode"] == "simplexml") {
+        if (is_array($array) && $this->options["mode"] == "simplexml") {
             $indexed = true;
             foreach ($array as $key => $val) {
                 if (!is_int($key)) {
@@ -291,7 +319,7 @@ class XML_Serializer extends PEAR {
             if ($indexed) {
                 $string = "";
                 foreach ($array as $key => $val) {
-                    $string .= $this->_serializeArray( $val, $tagName);
+                    $string .= $this->_serializeValue( $val, $tagName, $attributes);
                     
                     $string .= $this->options["linebreak"];
         			//	do indentation
@@ -334,6 +362,7 @@ class XML_Serializer extends PEAR {
 				if ($key !== $origKey) {
 					$atts[$this->options["keyAttribute"]] = (string)$origKey;
 				}
+
             }
 			
             $tmp .= $this->_createXMLTag(array(
@@ -376,7 +405,7 @@ class XML_Serializer extends PEAR {
     * @param    object  $object object to serialize
     * @return   string  $string serialized data
     */
-    function _serializeObject( &$object, $tagName = null )
+    function _serializeObject(&$object, $tagName = null, $attributes = array())
     {
         //  check for magic function
         if (method_exists($object, "__sleep")) {
@@ -389,7 +418,6 @@ class XML_Serializer extends PEAR {
             $tagName = get_class($object);
         }
         
-        $attributes = array();
         // typehints activated?
         if ($this->options["typeHints"] === true) {
             $attributes[$this->options["typeAttribute"]]  = "object";

@@ -321,10 +321,6 @@ class XML_Unserializer extends XML_Parser {
         $this->_depth++;
         $this->_dataStack[$this->_depth] = null;
 
-        if (is_array($this->options["tagMap"]) && isset($this->options["tagMap"][$element])) {
-            $element = $this->options["tagMap"][$element];
-        }
-        
         $val = array(
                      "name"         => $element,
                      "value"        => null,
@@ -351,8 +347,8 @@ class XML_Unserializer extends XML_Parser {
             $val["name"] = $attribs[$this->options["keyAttribute"]];
         }
 
-        if (isset($attribs[$this->options["typeAttribute"]])) {
-            $val["class"] = $attribs[$this->options["typeAttribute"]];
+        if (isset($attribs[$this->options["classAttribute"]])) {
+            $val["class"] = $attribs[$this->options["classAttribute"]];
         }
 
         array_push($this->_valStack, $val);
@@ -370,7 +366,6 @@ class XML_Unserializer extends XML_Parser {
     {
         $value = array_pop($this->_valStack); 
         $data  = trim($this->_dataStack[$this->_depth]);
-
         
         // adjust type of the value
         switch(strtolower($value["type"])) {
@@ -379,11 +374,16 @@ class XML_Unserializer extends XML_Parser {
              */
             case "object":
                 $classname  = $value["class"];
+                if (is_array($this->options["tagMap"]) && isset($this->options["tagMap"][$classname])) {
+                    $classname = $this->options["tagMap"][$classname];
+                }
+
+                
                 // instantiate the class
                 if (class_exists($classname)) {
-                    $value["value"] = new $classname;
+                    $value["value"] = &new $classname;
                 } else {
-                    $value["value"] = new stdClass;
+                    $value["value"] = &new stdClass;
                 }
 
                 if ($data !== '') {
@@ -392,9 +392,14 @@ class XML_Unserializer extends XML_Parser {
                 
                 // set properties
                 foreach($value["children"] as $prop => $propVal) {
-                    $value["value"]->$prop = $propVal;
+                    // check whether there is a special method to set this property
+                    $setMethod = "set".$prop;
+                    if (method_exists($value["value"], $setMethod)) {
+                        call_user_func(array(&$value["value"], $setMethod), $propVal);
+                    } else {
+                        $value["value"]->$prop = &$propVal;
+                    }
                 }
-
                 //  check for magic function
                 if (method_exists($value["value"], "__wakeup")) {
                     $value["value"]->__wakeup();
@@ -437,8 +442,8 @@ class XML_Unserializer extends XML_Parser {
         }
         $parent = array_pop($this->_valStack);
         if ($parent === null) {
-            $this->_unserializedData = $value["value"];
-            $this->_root = $value["name"];
+            $this->_unserializedData = &$value["value"];
+            $this->_root = &$value["name"];
             return true;
         } else {
             // parent has to be an array
@@ -462,7 +467,7 @@ class XML_Unserializer extends XML_Parser {
                     }
                     array_push($parent["children"][$value["name"]], $value["value"]);
                 } else {
-                    $parent["children"][$value["name"]] = $value["value"];
+                    $parent["children"][$value["name"]] = &$value["value"];
                     array_push($parent["childrenKeys"], $value["name"]);
                 }
             } else {
