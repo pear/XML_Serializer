@@ -375,6 +375,10 @@ class XML_Unserializer extends PEAR
         $this->_depth++;
         $this->_dataStack[$this->_depth] = null;
 
+        if (is_array($this->options['tagMap']) && isset($this->options['tagMap'][$element])) {
+            $element = $this->options['tagMap'][$element];
+        }
+
         $val = array(
                      'name'         => $element,
                      'value'        => null,
@@ -443,10 +447,6 @@ class XML_Unserializer extends PEAR
                 } else {
                     $classname = '';
                 }
-                if (is_array($this->options['tagMap']) && isset($this->options['tagMap'][$classname])) {
-                    $classname = $this->options['tagMap'][$classname];
-                }
-
                 // instantiate the class
                 if ($this->options['tagAsClass'] === true && class_exists($classname)) {
                     $value['value'] = &new $classname;
