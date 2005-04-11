@@ -206,6 +206,15 @@ define('XML_SERIALIZER_OPTION_ATTRIBUTES_KEY', 'attributesArray');
 define('XML_SERIALIZER_OPTION_CONTENT_KEY', 'contentName');
 
 /**
+ * option: this value will be used in a comment, instead of creating a new tag
+ *
+ * Possible values:
+ * - string
+ * - null (default)
+ */
+define('XML_SERIALIZER_OPTION_COMMENT_KEY', 'commentName');
+
+/**
  * option: tag names that will be changed
  *
  * Possible values:
@@ -393,6 +402,7 @@ class XML_Serializer extends PEAR
                                  XML_SERIALIZER_OPTION_ROOT_ATTRIBS,
                                  XML_SERIALIZER_OPTION_ATTRIBUTES_KEY,
                                  XML_SERIALIZER_OPTION_CONTENT_KEY,
+                                 XML_SERIALIZER_OPTION_COMMENT_KEY,
                                  XML_SERIALIZER_OPTION_TAGMAP,
                                  XML_SERIALIZER_OPTION_ENCODE_FUNC,
                                  XML_SERIALIZER_OPTION_NAMESPACE,
@@ -428,6 +438,7 @@ class XML_Serializer extends PEAR
                          XML_SERIALIZER_OPTION_ROOT_ATTRIBS         => array(),               // attributes of the root tag
                          XML_SERIALIZER_OPTION_ATTRIBUTES_KEY       => null,                  // all values in this key will be treated as attributes
                          XML_SERIALIZER_OPTION_CONTENT_KEY          => null,                  // this value will be used directly as content, instead of creating a new tag, may only be used in conjuction with attributesArray
+                         XML_SERIALIZER_OPTION_COMMENT_KEY          => null,                  // this value will be used directly as comment, instead of creating a new tag, may only be used in conjuction with attributesArray
                          XML_SERIALIZER_OPTION_TAGMAP               => array(),               // tag names that will be changed
                          XML_SERIALIZER_OPTION_ENCODE_FUNC          => null,                  // function that will be applied before serializing
                          XML_SERIALIZER_OPTION_NAMESPACE            => null,                  // namespace to use
@@ -659,6 +670,15 @@ class XML_Serializer extends PEAR
     function _serializeArray(&$array, $tagName = null, $attributes = array())
     {
         $_content = null;
+        $_comment = null;
+
+        // check for comment
+        if ($this->options[XML_SERIALIZER_OPTION_COMMENT_KEY] !== null) {
+            if (isset($array[$this->options[XML_SERIALIZER_OPTION_COMMENT_KEY]])) {
+                $_comment = $array[$this->options[XML_SERIALIZER_OPTION_COMMENT_KEY]];
+                unset($array[$this->options[XML_SERIALIZER_OPTION_COMMENT_KEY]]);
+            }
+        }
         
         /**
          * check for special attributes
@@ -706,7 +726,7 @@ class XML_Serializer extends PEAR
                     $string .= $this->_serializeValue( $val, $tagName, $attributes);
                     
                     $string .= $this->options[XML_SERIALIZER_OPTION_LINEBREAKS];
-                    //    do indentation
+                    // do indentation
                     if ($this->options[XML_SERIALIZER_OPTION_INDENT]!==null && $this->_tagDepth>0) {
                         $string .= str_repeat($this->options[XML_SERIALIZER_OPTION_INDENT], $this->_tagDepth);
                     }
@@ -733,12 +753,11 @@ class XML_Serializer extends PEAR
                             'content'    => $_content,
                             'attributes' => $attributes
                         );
-
         } else {
             $this->_tagDepth++;
             $tmp = $this->options[XML_SERIALIZER_OPTION_LINEBREAKS];
             foreach ($array as $key => $value) {
-                //    do indentation
+                // do indentation
                 if ($this->options[XML_SERIALIZER_OPTION_INDENT]!==null && $this->_tagDepth>0) {
                     $tmp .= str_repeat($this->options[XML_SERIALIZER_OPTION_INDENT], $this->_tagDepth);
                 }
@@ -768,7 +787,7 @@ class XML_Serializer extends PEAR
                     }
     
                 }
-                
+
                 $tmp .= $this->_createXMLTag(array(
                                                     'qname'      => $key,
                                                     'attributes' => $atts,
@@ -798,7 +817,15 @@ class XML_Serializer extends PEAR
             }
         }
 
-        $string = $this->_createXMLTag($tag, false);
+        $string = '';
+        if (!is_null($_comment)) {
+        	$string .= XML_Util::createComment($_comment);
+        	$string .= $this->options[XML_SERIALIZER_OPTION_LINEBREAKS];
+            if ($this->options[XML_SERIALIZER_OPTION_INDENT]!==null && $this->_tagDepth>0) {
+                $string .= str_repeat($this->options[XML_SERIALIZER_OPTION_INDENT], $this->_tagDepth);
+            }
+        }
+        $string .= $this->_createXMLTag($tag, false);
         return $string;
     }
 
@@ -850,6 +877,7 @@ class XML_Serializer extends PEAR
     */
     function _createXMLTag( $tag, $firstCall = true )
     {
+        // build fully qualified tag name
         if ($this->options[XML_SERIALIZER_OPTION_NAMESPACE] !== null) {
         	if (is_array($this->options[XML_SERIALIZER_OPTION_NAMESPACE])) {
         		$tag['qname'] = $this->options[XML_SERIALIZER_OPTION_NAMESPACE][0] . ':' . $tag['qname'];
@@ -858,6 +886,7 @@ class XML_Serializer extends PEAR
         	}
         }
 
+        // attribute indentation
         if ($this->options[XML_SERIALIZER_OPTION_INDENT_ATTRIBUTES] !== false) {
             $multiline = true;
             $indent    = str_repeat($this->options[XML_SERIALIZER_OPTION_INDENT], $this->_tagDepth);
@@ -873,6 +902,7 @@ class XML_Serializer extends PEAR
             $indent    = false;
         }
 
+        // replace XML entities (only needed, if this is not a nested call)
         if ($firstCall === true) {
            	$replaceEntities = $this->options[XML_SERIALIZER_OPTION_ENTITIES];
         } else {
