@@ -6,7 +6,7 @@
  * $Id$
  *
  * @author      Stephan Schmidt <schst@php-tools.net>
- * @package     XML_Parser
+ * @package     XML_Serializer
  * @subpackage  Tools
  */
 
@@ -30,8 +30,13 @@ $state = 'beta';
  */
 $notes = <<<EOT
 XML_Serializer:
+- introduced constants for all options (this helps avoiding typos in the option names)
+- deprecated option 'tagName' is no longer supported, use XML_SERIALIZER_OPTION_ROOT_NAME (or rootName) instead
 - implement Request #3762: added new ignoreNull option to ignore properties that are set to null when serializing objects or arrays
+- fixed bug with encoding function
+- use new header comment blocks
 XML_Unserializer:
+- fix bug #4075 (allow tagMap option to influence any kind of value)
 EOT;
 
 /**
@@ -44,7 +49,7 @@ Furthermore this package can be used as a replacement to serialize() and unseria
 If you use the XML_Unserializer on standard XML files, it will try to guess how it has to be unserialized. In most cases it does exactly what you expect it to do.
 Try reading a RSS file with XML_Unserializer and you have the whole RSS file in a structured array or even a collection of objects, similar to XML_RSS.
 
-Since version 0.8 the package is able to treat XML documents like the simplexml extension of PHP 5.
+Since version 0.8.0 the package is able to treat XML documents similar to the simplexml extension of PHP 5.
 EOT;
 
 $package = new PEAR_PackageFileManager();
@@ -74,6 +79,7 @@ if (PEAR::isError($result)) {
 }
 
 $package->addMaintainer('schst', 'lead', 'Stephan Schmidt', 'schst@php-tools.net');
+$package->addGlobalReplacement('package-info', '@package_version@', 'version');
 
 $package->detectDependencies();
 
