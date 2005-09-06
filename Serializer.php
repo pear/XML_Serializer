@@ -776,7 +776,7 @@ class XML_Serializer extends PEAR
                     if ($this->options[XML_SERIALIZER_OPTION_CLASSNAME_AS_TAGNAME] && is_object($value)) {
                         $key = get_class($value);
                     } else {
-                        $key = $this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG];
+                        $key = $this->_getDefaultTagname($tagName);
                     }
                 }
                 $atts = array();
@@ -829,6 +829,28 @@ class XML_Serializer extends PEAR
         return $string;
     }
 
+   /**
+    * get the name of the default tag.
+    *
+    * The name of the parent tag needs to be passed as the
+    * default name can depend on the context.
+    *
+    * @param  string     name of the parent tag
+    * @return string     default tag name
+    */
+    function _getDefaultTagname($parent)
+    {
+        if (is_string($this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG])) {
+        	return $this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG];
+        }
+        if (isset($this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG][$parent])) {
+            return $this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG][$parent];
+        } elseif (isset($this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG]['__default'])) {
+            return $this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG]['__default'];
+        }
+        return 'XML_Serializer_Tag';
+    }
+    
    /**
     * serialize an object
     *

@@ -30,13 +30,8 @@ $state = 'beta';
  */
 $notes = <<<EOT
 XML_Serializer:
-- introduced constants for all options (this helps avoiding typos in the option names)
-- deprecated option 'tagName' is no longer supported, use XML_SERIALIZER_OPTION_ROOT_NAME (or rootName) instead
-- implement Request #3762: added new ignoreNull option to ignore properties that are set to null when serializing objects or arrays
-- fixed bug with encoding function
-- use new header comment blocks
+- allow XML_SERIALIZER_OPTION_DEFAULT_TAG to be set as array to set different default tags based on the surrounding tag
 XML_Unserializer:
-- fix bug #4075 (allow tagMap option to influence any kind of value)
 EOT;
 
 /**
