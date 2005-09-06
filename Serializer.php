@@ -873,23 +873,22 @@ class XML_Serializer extends PEAR
     */
     function _serializeObject(&$object, $tagName = null, $attributes = array())
     {
-        //  check for magic function
+        // check for magic function
         if (method_exists($object, '__sleep')) {
-            $object->__sleep();
+            $properties = $object->__sleep();
+        } else {
+            $properties = get_object_vars($object);
         }
 
-        $tmp = $this->options[XML_SERIALIZER_OPTION_LINEBREAKS];
-        $properties = get_object_vars($object);
         if (empty($tagName)) {
             $tagName = get_class($object);
         }
-        
+
         // typehints activated?
         if ($this->options[XML_SERIALIZER_OPTION_TYPEHINTS] === true) {
             $attributes[$this->options[XML_SERIALIZER_OPTION_ATTRIBUTE_TYPE]]  = 'object';
             $attributes[$this->options[XML_SERIALIZER_OPTION_ATTRIBUTE_CLASS]] =  get_class($object);
         }
-        
         $string = $this->_serializeArray($properties, $tagName, $attributes);
         return $string;
     }
@@ -910,7 +909,7 @@ class XML_Serializer extends PEAR
     * @param    boolean $replaceEntities whether to replace XML entities in content or not
     * @return   string  $string XML tag
     */
-    function _createXMLTag( $tag, $firstCall = true )
+    function _createXMLTag($tag, $firstCall = true)
     {
         // build fully qualified tag name
         if ($this->options[XML_SERIALIZER_OPTION_NAMESPACE] !== null) {

@@ -6,38 +6,61 @@
  *
  * @author Stephan Schmidt <schst@php.net>
  */
-    error_reporting(E_ALL);
 
-    require_once 'XML/Serializer.php';
-
-    // this is just to get a nested object
-    $pearError = PEAR::raiseError('This is just an error object',123);
+/**
+ * Example class that implements __sleep()
+ *
+ * @package    XML_Serializer
+ * @subpackage Examples
+ */
+class MyClass
+{
+    var $foo = 'This is foo.';
+    var $bar = 'This is bar.';
     
-    $options = array(
-                        "indent"         => "    ",
-                        "linebreak"      => "\n",
-                        "defaultTagName" => "unnamedItem",
-                        "typeHints"      => true
-                    );
-    
-    $foo    =   new stdClass;
-    $foo->value = "My value";
-    $foo->error = $pearError;
-    $foo->xml   = "cool";
-
-    $foo->obj	= new stdClass;
-    $foo->arr   = array();
-    $foo->zero  = 0;
-    
-    $serializer = &new XML_Serializer($options);
-    
-    $result = $serializer->serialize($foo);
-    
-    if( $result === true ) {
-		$xml = $serializer->getSerializedData();
+    function __sleep()
+    {
+        return array('foo' => $this->foo);
     }
+}
 
-    echo	"<pre>";
-    print_r( htmlspecialchars($xml) );
-    echo	"</pre>";
+error_reporting(E_ALL);
+
+/**
+ * Load XML_Serializer
+ */
+require_once 'XML/Serializer.php';
+
+
+// this is just to get a nested object
+$pearError = PEAR::raiseError('This is just an error object',123);
+
+$options = array(
+                    "indent"         => "    ",
+                    "linebreak"      => "\n",
+                    "defaultTagName" => "unnamedItem",
+                    "typeHints"      => true
+                );
+
+$foo    =   new stdClass;
+$foo->value = "My value";
+$foo->error = $pearError;
+$foo->xml   = "cool";
+
+$foo->obj	= new MyClass();
+$foo->arr   = array();
+$foo->zero  = 0;
+
+
+$serializer = &new XML_Serializer($options);
+
+$result = $serializer->serialize($foo);
+
+if( $result === true ) {
+	$xml = $serializer->getSerializedData();
+}
+
+echo '<pre>';
+echo htmlspecialchars($xml);
+echo '</pre>';
 ?>
