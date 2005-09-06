@@ -735,7 +735,20 @@ class XML_Serializer extends PEAR
             }
         }
         
-        if ($this->options[XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES] === true) {
+        if (is_array($this->options[XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES]) && isset($this->options[XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES][$tagName])) {
+            $this->expectError('*');
+            foreach ($this->options[XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES][$tagName] as $key) {
+                if (!isset($array[$key])) {
+                    continue;
+                }
+                $value = $array[$key];
+                if (is_scalar($value) && (XML_Util::isValidName($key) === true)) {
+                    unset($array[$key]);
+                    $attributes[$this->options[XML_SERIALIZER_OPTION_PREPEND_ATTRIBUTES].$key] = $value;
+                }
+            }
+            $this->popExpect();
+        } elseif ($this->options[XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES] === true) {
             $this->expectError('*');
             foreach ($array as $key => $value) {
                 if (is_scalar($value) && (XML_Util::isValidName($key) === true)) {

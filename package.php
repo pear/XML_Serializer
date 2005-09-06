@@ -31,6 +31,7 @@ $state = 'beta';
 $notes = <<<EOT
 XML_Serializer:
 - allow XML_SERIALIZER_OPTION_DEFAULT_TAG to be set as array to set different default tags based on the surrounding tag
+- allow XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES to be set as array to selectively use scalar values as attributes
 XML_Unserializer:
 EOT;
 
