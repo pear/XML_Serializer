@@ -33,6 +33,7 @@ XML_Serializer:
 - fixed bug #4575: use the return values of __sleep() when serializing objects
 - allow XML_SERIALIZER_OPTION_DEFAULT_TAG to be set as array to set different default tags based on the surrounding tag
 - allow XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES to be set as array to selectively use scalar values as attributes
+- allow scalar values as first argument to serialize()
 XML_Unserializer:
 EOT;
 

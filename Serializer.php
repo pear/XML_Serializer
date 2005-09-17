@@ -562,7 +562,7 @@ class XML_Serializer extends PEAR
         $this->_tagDepth = 0;
 
         $rootAttributes = $this->options[XML_SERIALIZER_OPTION_ROOT_ATTRIBS];
-        if (is_array($this->options[XML_SERIALIZER_OPTION_NAMESPACE])) {
+        if (isset($this->options[XML_SERIALIZER_OPTION_NAMESPACE]) && is_array($this->options[XML_SERIALIZER_OPTION_NAMESPACE])) {
         	$rootAttributes['xmlns:'.$this->options[XML_SERIALIZER_OPTION_NAMESPACE][0]] = $this->options[XML_SERIALIZER_OPTION_NAMESPACE][1];
         }
         
@@ -576,15 +576,28 @@ class XML_Serializer extends PEAR
             }
 
             $this->_serializedData .= $this->_serializeArray($data, $tagName, $rootAttributes);
-        }
-        // serialize an object
-        elseif (is_object($data)) {
+        } elseif (is_object($data)) {
+            // serialize an object
             if (isset($this->options[XML_SERIALIZER_OPTION_ROOT_NAME])) {
                 $tagName = $this->options[XML_SERIALIZER_OPTION_ROOT_NAME];
             } else {
                 $tagName = get_class($data);
             }
             $this->_serializedData .= $this->_serializeObject($data, $tagName, $rootAttributes);
+        } else {
+            $tag = array();
+            if (isset($this->options[XML_SERIALIZER_OPTION_ROOT_NAME])) {
+                $tag['qname'] = $this->options[XML_SERIALIZER_OPTION_ROOT_NAME];
+            } else {
+                $tag['qname'] = gettype($data);
+            }
+            if ($this->options[XML_SERIALIZER_OPTION_TYPEHINTS] === true) {
+                $rootAttributes[$this->options[XML_SERIALIZER_OPTION_ATTRIBUTE_TYPE]] = gettype($data);
+            }
+            @settype($data, 'string');
+            $tag['content']    = $data;
+            $tag['attributes'] = $rootAttributes;
+            $this->_serializedData = $this->_createXMLTag($tag);
         }
         
         // add doctype declaration
@@ -798,7 +811,6 @@ class XML_Serializer extends PEAR
                     if ($key !== $origKey) {
                         $atts[$this->options[XML_SERIALIZER_OPTION_ATTRIBUTE_KEY]] = (string)$origKey;
                     }
-    
                 }
 
                 $tmp .= $this->_createXMLTag(array(
