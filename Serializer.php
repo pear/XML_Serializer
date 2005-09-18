@@ -124,6 +124,7 @@ define('XML_SERIALIZER_OPTION_ATTRIBUTE_CLASS', 'classAttribute');
  * Possible values:
  * - true
  * - false (default)
+ * - array which sets this option on a per-tag basis
  */
 define('XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES', 'scalarAsAttributes');
 
@@ -748,22 +749,29 @@ class XML_Serializer extends PEAR
             }
         }
         
+        $scalarAsAttributes = false;
         if (is_array($this->options[XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES]) && isset($this->options[XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES][$tagName])) {
+            $scalarAsAttributes = $this->options[XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES][$tagName];
+        } elseif ($this->options[XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES] === true) {
+            $scalarAsAttributes = true;
+        }
+        
+        if ($scalarAsAttributes === true) {
             $this->expectError('*');
-            foreach ($this->options[XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES][$tagName] as $key) {
-                if (!isset($array[$key])) {
-                    continue;
-                }
-                $value = $array[$key];
+            foreach ($array as $key => $value) {
                 if (is_scalar($value) && (XML_Util::isValidName($key) === true)) {
                     unset($array[$key]);
                     $attributes[$this->options[XML_SERIALIZER_OPTION_PREPEND_ATTRIBUTES].$key] = $value;
                 }
             }
             $this->popExpect();
-        } elseif ($this->options[XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES] === true) {
+        } elseif (is_array($scalarAsAttributes)) {
             $this->expectError('*');
-            foreach ($array as $key => $value) {
+            foreach ($scalarAsAttributes as $key) {
+                if (!isset($array[$key])) {
+                    continue;
+                }
+                $value = $array[$key];
                 if (is_scalar($value) && (XML_Util::isValidName($key) === true)) {
                     unset($array[$key]);
                     $attributes[$this->options[XML_SERIALIZER_OPTION_PREPEND_ATTRIBUTES].$key] = $value;
