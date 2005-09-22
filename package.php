@@ -37,6 +37,7 @@ XML_Serializer:
 XML_Unserializer:
 - added constants for all options
 - fixed bug #5187: decode function should decode cdata instead of the element name
+- implemented requst #3700: Treatment of whitespace can be influenced via an option
 EOT;
 
 /**

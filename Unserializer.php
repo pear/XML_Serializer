@@ -169,6 +169,31 @@ define('XML_UNSERIALIZER_OPTION_DECODE_FUNC', 'decodeFunction');
 define('XML_UNSERIALIZER_OPTION_RETURN_RESULT', 'returnResult');
 
 /**
+ * option: set the whitespace behaviour
+ *
+ * Possible values:
+ * - XML_UNSERIALIZER_WHITESPACE_KEEP
+ * - XML_UNSERIALIZER_WHITESPACE_TRIM
+ * - XML_UNSERIALIZER_WHITESPACE_NORMALIZE
+ */
+define('XML_UNSERIALIZER_OPTION_WHITESPACE', 'whitespace');
+
+/**
+ * Keep all whitespace
+ */
+define('XML_UNSERIALIZER_WHITESPACE_KEEP', 'keep');
+
+/**
+ * remove whitespace from start and end of the data
+ */
+define('XML_UNSERIALIZER_WHITESPACE_TRIM', 'trim');
+
+/**
+ * normalize whitespace
+ */
+define('XML_UNSERIALIZER_WHITESPACE_NORMALIZE', 'normalize');
+
+/**
  * option: whether to ovverride all options that have been set before
  *
  * Possible values:
@@ -176,7 +201,6 @@ define('XML_UNSERIALIZER_OPTION_RETURN_RESULT', 'returnResult');
  * - false (default)
  */
 define('XML_UNSERIALIZER_OPTION_OVERRIDE_OPTIONS', 'overrideOptions');
-
 
 /**
  * error code for no serialization done
@@ -239,7 +263,8 @@ class XML_Unserializer extends PEAR
                                 XML_UNSERIALIZER_OPTION_ENCODING_SOURCE,
                                 XML_UNSERIALIZER_OPTION_ENCODING_TARGET,
                                 XML_UNSERIALIZER_OPTION_DECODE_FUNC,
-                                XML_UNSERIALIZER_OPTION_RETURN_RESULT
+                                XML_UNSERIALIZER_OPTION_RETURN_RESULT,
+                                XML_UNSERIALIZER_OPTION_WHITESPACE
                               );
    /**
     * default options for the serialization
@@ -263,7 +288,8 @@ class XML_Unserializer extends PEAR
                          XML_UNSERIALIZER_OPTION_ENCODING_SOURCE     => null,                   // specify the encoding character of the document to parse
                          XML_UNSERIALIZER_OPTION_ENCODING_TARGET     => null,                   // specify the target encoding
                          XML_UNSERIALIZER_OPTION_DECODE_FUNC         => null,                   // function used to decode data
-                         XML_UNSERIALIZER_OPTION_RETURN_RESULT       => false                   // unserialize() returns the result of the unserialization instead of true
+                         XML_UNSERIALIZER_OPTION_RETURN_RESULT       => false,                  // unserialize() returns the result of the unserialization instead of true
+                         XML_UNSERIALIZER_OPTION_WHITESPACE          => XML_UNSERIALIZER_WHITESPACE_TRIM  // remove whitespace around data
                         );
 
    /**
@@ -563,7 +589,18 @@ class XML_Unserializer extends PEAR
     function endHandler($parser, $element)
     {
         $value = array_pop($this->_valStack);
-        $data  = trim($this->_dataStack[$this->_depth]);
+        switch ($this->options[XML_UNSERIALIZER_OPTION_WHITESPACE]) {
+            case XML_UNSERIALIZER_WHITESPACE_KEEP:
+                $data = $this->_dataStack[$this->_depth];
+                break;
+            case XML_UNSERIALIZER_WHITESPACE_NORMALIZE:
+                $data = trim(preg_replace('/\s\s+/m', ' ', $this->_dataStack[$this->_depth]));
+                break;
+            case XML_UNSERIALIZER_WHITESPACE_TRIM:
+            default:
+                $data  = trim($this->_dataStack[$this->_depth]);
+                break;
+        }
 
         // adjust type of the value
         switch(strtolower($value['type'])) {
@@ -603,7 +640,7 @@ class XML_Unserializer extends PEAR
 
             // unserialize an array
             case 'array':
-                if ($data !== '') {
+                if (trim($data) !== '') {
                     $value['children'][$this->options[XML_UNSERIALIZER_OPTION_CONTENT_KEY]] = $data;
                 }
                 if (isset($value['children'])) {
@@ -664,7 +701,7 @@ class XML_Unserializer extends PEAR
                     array_push($parent['childrenKeys'], $value['name']);
                 }
             } else {
-                array_push($parent['children'],$value['value']);
+                array_push($parent['children'], $value['value']);
             }
             array_push($this->_valStack, $parent);
         }
