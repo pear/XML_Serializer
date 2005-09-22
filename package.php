@@ -36,6 +36,7 @@ XML_Serializer:
 - allow scalar values as first argument to serialize()
 XML_Unserializer:
 - added constants for all options
+- fixed bug #5187: decode function should decode cdata instead of the element name
 EOT;
 
 /**

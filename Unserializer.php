@@ -497,7 +497,6 @@ class XML_Unserializer extends PEAR
         }
 
         if ($this->options[XML_UNSERIALIZER_OPTION_DECODE_FUNC] !== null) {
-            $element = call_user_func($this->options[XML_UNSERIALIZER_OPTION_DECODE_FUNC], $element);
             $attribs = array_map($this->options[XML_UNSERIALIZER_OPTION_DECODE_FUNC], $attribs);
         }
         
@@ -683,6 +682,9 @@ class XML_Unserializer extends PEAR
     */
     function cdataHandler($parser, $cdata)
     {
+        if ($this->options[XML_UNSERIALIZER_OPTION_DECODE_FUNC] !== null) {
+            $cdata = call_user_func($this->options[XML_UNSERIALIZER_OPTION_DECODE_FUNC], $cdata);
+        }
         $this->_dataStack[$this->_depth] .= $cdata;
     }
 
