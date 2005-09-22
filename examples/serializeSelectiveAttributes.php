@@ -6,7 +6,7 @@
  * @author Stephan Schmidt <schst@php.net>
  */
 error_reporting(E_ALL);
-require_once '../Serializer.php';
+require_once 'XML/Serializer.php';
 
 $data = array(
                 array('name' => 'Superman', 'age' => 34, 'realname' => 'Clark Kent'),

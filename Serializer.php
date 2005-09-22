@@ -497,7 +497,7 @@ class XML_Serializer extends PEAR
     */
     function apiVersion()
     {
-        return '1.0.0';
+        return '@package_version@';
     }
 
    /**

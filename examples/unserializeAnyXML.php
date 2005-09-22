@@ -6,76 +6,71 @@
  *
  * @author  Stephan Schmidt <schst@php.net>
  */
-    error_reporting(E_ALL);
+error_reporting(E_ALL);
 
-    // this is a simple XML document
-    $xml = '<users>' .
-           '  <user handle="schst">Stephan Schmidt</user>' .
-           '  <user handle="mj">Martin Jansen</user>' .
-           '  <group name="qa">PEAR QA Team</group>' .
-           '  <foo id="test">This is handled by the default keyAttribute</foo>' .
-           '  <foo id="test2">Another foo tag</foo>' .
-           '</users>';
+// this is a simple XML document
+$xml = '<users>' .
+       '  <user handle="schst">Stephan Schmidt</user>' .
+       '  <user handle="mj">Martin Jansen</user>' .
+       '  <group name="qa">PEAR QA Team</group>' .
+       '  <foo id="test">This is handled by the default keyAttribute</foo>' .
+       '  <foo id="test2">Another foo tag</foo>' .
+       '</users>';
 
-    require_once 'XML/Unserializer.php';
+require_once 'XML/Unserializer.php';
 
-    // complex structures are arrays, the key is the attribute 'handle' or 'name', if handle is not present
-    $options = array(
-                     "complexType" => "array",
-                     "keyAttribute" => array(
-                                              'user'  => 'handle',
-                                              'group' => 'name',
-                                              '__default' => 'id'
-                                            )
-                    );
- 
-    //  be careful to always use the ampersand in front of the new operator 
-    $unserializer = &new XML_Unserializer($options);
+// complex structures are arrays, the key is the attribute 'handle' or 'name', if handle is not present
+$options = array(
+                 XML_UNSERIALIZER_OPTION_COMPLEXTYPE => 'array',
+                 XML_UNSERIALIZER_OPTION_ATTRIBUTE_KEY => array(
+                                                                  'user'  => 'handle',
+                                                                  'group' => 'name',
+                                                                  '__default' => 'id'
+                                                                )
+                );
 
-    // userialize the document
-    $status = $unserializer->unserialize($xml, false);    
+//  be careful to always use the ampersand in front of the new operator 
+$unserializer = &new XML_Unserializer($options);
 
-    if (PEAR::isError($status)) {
-        echo    "Error: " . $status->getMessage();
-    } else {
-        $data = $unserializer->getUnserializedData();
+// userialize the document
+$status = $unserializer->unserialize($xml, false);    
 
-        echo	"<pre>";
-        print_r( $data );
-        echo	"</pre>";
-    }
-
-
-    // unserialize it again and change the complexType option
-    // but leave other options untouched
-    // now complex types will be an object, and the property name will be in the
-    // attribute 'handle'
-    $status = $unserializer->unserialize($xml, false, array("complexType" => "object"));    
-
-    if (PEAR::isError($status)) {
-        echo    "Error: " . $status->getMessage();
-    } else {
-        $data = $unserializer->getUnserializedData();
-
-        echo	"<pre>";
-        print_r( $data );
-        echo	"</pre>";
-    }
+if (PEAR::isError($status)) {
+    echo 'Error: ' . $status->getMessage();
+} else {
+    $data = $unserializer->getUnserializedData();
+    echo '<pre>';
+    print_r($data);
+    echo '</pre>';
+}
 
 
-    // unserialize it again and change the complexType option
-    // and reset all other options
-    // Now, there's no key so the tags are stored in an array
-    $status = $unserializer->unserialize($xml, false, array("overrideOptions" => true, "complexType" => "object"));    
+// unserialize it again and change the complexType option
+// but leave other options untouched
+// now complex types will be an object, and the property name will be in the
+// attribute 'handle'
+$status = $unserializer->unserialize($xml, false, array(XML_UNSERIALIZER_OPTION_COMPLEXTYPE => 'object'));
 
-    if (PEAR::isError($status)) {
-        echo    "Error: " . $status->getMessage();
-    } else {
-        $data = $unserializer->getUnserializedData();
+if (PEAR::isError($status)) {
+    echo 'Error: ' . $status->getMessage();
+} else {
+    $data = $unserializer->getUnserializedData();
+    echo '<pre>';
+    print_r($data);
+    echo '</pre>';
+}
 
-        echo	"<pre>";
-        print_r( $data );
-        echo	"</pre>";
-    }
+// unserialize it again and change the complexType option
+// and reset all other options
+// Now, there's no key so the tags are stored in an array
+$status = $unserializer->unserialize($xml, false, array(XML_UNSERIALIZER_OPTION_OVERRIDE_OPTIONS => true, XML_UNSERIALIZER_OPTION_COMPLEXTYPE => 'object'));    
 
+if (PEAR::isError($status)) {
+    echo 'Error: ' . $status->getMessage();
+} else {
+    $data = $unserializer->getUnserializedData();
+    echo '<pre>';
+    print_r($data);
+    echo '</pre>';
+}
 ?>

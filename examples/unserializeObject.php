@@ -8,51 +8,48 @@
  *
  * @author  Stephan Schmidt <schst@php.net>
  */
-    error_reporting(E_ALL);
+error_reporting(E_ALL);
 
-    require_once 'XML/Serializer.php';
-    require_once 'XML/Unserializer.php';
-    // this is just to get a nested object
-    $pearError = PEAR::raiseError('This is just an error object',123);
-    
-    $options = array(
-                        "indent"         => "    ",
-                        "linebreak"      => "\n",
-                        "defaultTagName" => "unnamedItem",
-                        "typeHints"      => true
-                    );
-    
-    $foo    =   new stdClass;
-    
-    $foo->value = "My value";
-    $foo->error = $pearError;
-    $foo->xml   = array( "This is" => "cool" );
-    $foo->resource   = fopen( "../package.xml", "r" );
-    
-    $serializer = new XML_Serializer($options);
-    
-    $result = $serializer->serialize($foo);
-    
-    if( $result === true ) {
-		$xml = $serializer->getSerializedData();
-    }
+require_once 'XML/Serializer.php';
+require_once 'XML/Unserializer.php';
+// this is just to get a nested object
+$pearError = PEAR::raiseError('This is just an error object',123);
 
-    echo	"<pre>";
-    print_r( htmlspecialchars($xml) );
-    echo	"</pre>";
-    
-    //  be careful to always use the ampersand in front of the new operator 
-    $unserializer = &new XML_Unserializer();
+$options = array(
+                    XML_SERIALIZER_OPTION_INDENT      => '    ',
+                    XML_SERIALIZER_OPTION_LINEBREAKS  => "\n",
+                    XML_SERIALIZER_OPTION_DEFAULT_TAG => 'unnamedItem',
+                    XML_SERIALIZER_OPTION_TYPEHINTS   => true
+                );
 
-    $status = $unserializer->unserialize($xml);    
+$foo = new stdClass();
+$foo->value = 'My value';
+$foo->error = $pearError;
+$foo->xml   = array('This is' => 'cool');
+$foo->resource = fopen(__FILE__, 'r');
 
-    if (PEAR::isError($status)) {
-        echo    "Error: " . $status->getMessage();
-    } else {
-        $data = $unserializer->getUnserializedData();
+$serializer = new XML_Serializer($options);
+$result = $serializer->serialize($foo);
 
-        echo	"<pre>";
-        var_dump( $data );
-        echo	"</pre>";
-    }
+if ($result === true) {
+    $xml = $serializer->getSerializedData();
+}
+
+echo '<pre>';
+echo htmlspecialchars($xml);
+echo '</pre>';
+
+//  be careful to always use the ampersand in front of the new operator 
+$unserializer = &new XML_Unserializer();
+
+$status = $unserializer->unserialize($xml);    
+
+if (PEAR::isError($status)) {
+    echo 'Error: ' . $status->getMessage();
+} else {
+    $data = $unserializer->getUnserializedData();
+    echo '<pre>';
+    print_r($data);
+    echo '</pre>';
+}
 ?>

@@ -4,9 +4,9 @@
  *
  * @author  Stephan Schmidt <schst@php.net>
  */
-    error_reporting(E_ALL);
+error_reporting(E_ALL);
 
-    require_once 'XML/Unserializer.php';
+require_once 'XML/Unserializer.php';
 
 $xml = '<dict>
    <word>
@@ -15,26 +15,25 @@ $xml = '<dict>
    </word>
  </dict>';
     
-    // specify different source and target encodings
-    $options = array(
-                      'encoding'       => 'UTF-8',
-                      'targetEncoding' => 'ISO-8859-1'
-                    );
-    
-                    
-    //  be careful to always use the ampersand in front of the new operator 
-    $unserializer = &new XML_Unserializer($options);
+// specify different source and target encodings
+$options = array(
+                  XML_UNSERIALIZER_OPTION_ENCODING_SOURCE => 'UTF-8',
+                  XML_UNSERIALIZER_OPTION_ENCODING_TARGET => 'ISO-8859-1'
+                );
 
-    // userialize the document
-    $status = $unserializer->unserialize($xml);
+                
+//  be careful to always use the ampersand in front of the new operator 
+$unserializer = &new XML_Unserializer($options);
 
-    if (PEAR::isError($status)) {
-        echo    "Error: " . $status->getMessage();
-    } else {
-        $data = $unserializer->getUnserializedData();
+// userialize the document
+$status = $unserializer->unserialize($xml);
 
-        echo	"<pre>";
-        print_r( $data );
-        echo	"</pre>";
-    }
+if (PEAR::isError($status)) {
+    echo 'Error: ' . $status->getMessage();
+} else {
+    $data = $unserializer->getUnserializedData();
+    echo '<pre>';
+    print_r($data);
+    echo '</pre>';
+}
 ?>

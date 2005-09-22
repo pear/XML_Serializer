@@ -31,25 +31,22 @@ class bar
 }
 
 echo '<pre>';
-
 //  be careful to always use the ampersand in front of the new operator 
 $unserializer = &new XML_Unserializer();
-$unserializer->setOption('complexType', 'object');
-$unserializer->setOption('parseAttributes', true);
-$unserializer->setOption('returnResult', true);
-
+$unserializer->setOption(XML_UNSERIALIZER_OPTION_COMPLEXTYPE, 'object');
+$unserializer->setOption(XML_UNSERIALIZER_OPTION_ATTRIBUTES_PARSE, true);
+$unserializer->setOption(XML_UNSERIALIZER_OPTION_RETURN_RESULT, true);
 
 $data = $unserializer->unserialize($xml);    
-var_dump( $data );
-
+var_dump($data);
 
 echo "Do not use tagname as class name\n";
-$unserializer->setOption('tagAsClass', false);
+$unserializer->setOption(XML_UNSERIALIZER_OPTION_TAG_AS_CLASSNAME, false);
 $data = $unserializer->unserialize($xml);    
 var_dump( $data );
 
 echo "Use a different default class\n";
-$unserializer->setOption('defaultClass', 'foo');
+$unserializer->setOption(XML_UNSERIALIZER_OPTION_DEFAULT_CLASS, 'foo');
 $data = $unserializer->unserialize($xml);    
 var_dump( $data );
 

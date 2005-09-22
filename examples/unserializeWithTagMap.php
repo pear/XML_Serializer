@@ -4,7 +4,7 @@
  *
  * @author  Stephan Schmidt <schst@php.net>
  */
-    error_reporting(E_ALL);
+error_reporting(E_ALL);
 
 // this is a simple XML document
 $xml = '<root>' .
@@ -16,11 +16,11 @@ require_once 'XML/Unserializer.php';
 
 // complex structures are arrays, the key is the attribute 'handle' or 'name', if handle is not present
 $options = array(
-                 'complexType' => 'array',
-                 'tagMap'      => array(
-                                        'foo' => 'bar',
-                                        'bar' => 'foo'
-                                       )
+                 XML_UNSERIALIZER_OPTION_COMPLEXTYPE => 'array',
+                 XML_UNSERIALIZER_OPTION_TAG_MAP     => array(
+                                                            'foo' => 'bar',
+                                                            'bar' => 'foo'
+                                                           )
                 );
 
 //  be careful to always use the ampersand in front of the new operator 
@@ -33,7 +33,6 @@ if (PEAR::isError($status)) {
     echo 'Error: ' . $status->getMessage();
 } else {
     $data = $unserializer->getUnserializedData();
-
     echo '<pre>';
     print_r($data);
     echo '</pre>';
@@ -56,7 +55,6 @@ if (PEAR::isError($status)) {
     echo 'Error: ' . $status->getMessage();
 } else {
     $data = $unserializer->getUnserializedData();
-
     echo '<pre>';
     print_r($data);
     echo '</pre>';
