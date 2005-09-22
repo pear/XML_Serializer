@@ -270,6 +270,16 @@ define('XML_SERIALIZER_OPTION_RETURN_RESULT', 'returnResult');
 define('XML_SERIALIZER_OPTION_IGNORE_NULL', 'ignoreNull');
 
 /**
+ * option: whether to use cdata sections for character data
+ *
+ * Possible values:
+ * - true
+ * - false (default)
+ */
+define('XML_SERIALIZER_OPTION_CDATA_SECTIONS', 'cdata');
+
+
+/**
  * default mode
  */
 define('XML_SERIALIZER_MODE_DEFAULT', 'default');
@@ -410,6 +420,7 @@ class XML_Serializer extends PEAR
                                  XML_SERIALIZER_OPTION_ENTITIES,
                                  XML_SERIALIZER_OPTION_RETURN_RESULT,
                                  XML_SERIALIZER_OPTION_IGNORE_NULL,
+                                 XML_SERIALIZER_OPTION_CDATA_SECTIONS
                                 );
     
    /**
@@ -445,7 +456,8 @@ class XML_Serializer extends PEAR
                          XML_SERIALIZER_OPTION_NAMESPACE            => null,                  // namespace to use
                          XML_SERIALIZER_OPTION_ENTITIES             => XML_SERIALIZER_ENTITIES_XML, // type of entities to replace,
                          XML_SERIALIZER_OPTION_RETURN_RESULT        => false,                 // serialize() returns the result of the serialization instead of true
-                         XML_SERIALIZER_OPTION_IGNORE_NULL          => false                  // ignore properties that are set to null
+                         XML_SERIALIZER_OPTION_IGNORE_NULL          => false,                 // ignore properties that are set to null
+                         XML_SERIALIZER_OPTION_CDATA_SECTIONS       => false                  // Whether to use cdata sections for plain character data
                         );
 
    /**
@@ -956,13 +968,6 @@ class XML_Serializer extends PEAR
             $indent    = false;
         }
 
-        // replace XML entities (only needed, if this is not a nested call)
-        if ($firstCall === true) {
-           	$replaceEntities = $this->options[XML_SERIALIZER_OPTION_ENTITIES];
-        } else {
-            $replaceEntities = XML_SERIALIZER_ENTITIES_NONE;
-        }
-    
         if (is_array($tag['content'])) {
             if (empty($tag['content'])) {
                 $tag['content'] =   '';
@@ -970,7 +975,17 @@ class XML_Serializer extends PEAR
         } elseif(is_scalar($tag['content']) && (string)$tag['content'] == '') {
             $tag['content'] =   '';
         }
-    
+
+        // replace XML entities (only needed, if this is not a nested call)
+        if ($firstCall === true) {
+            if ($this->options[XML_SERIALIZER_OPTION_CDATA_SECTIONS] === true) {
+                $replaceEntities = XML_UTIL_CDATA_SECTION;
+            } else {
+           	    $replaceEntities = $this->options[XML_SERIALIZER_OPTION_ENTITIES];
+            }
+        } else {
+            $replaceEntities = XML_SERIALIZER_ENTITIES_NONE;
+        }
         if (is_scalar($tag['content']) || is_null($tag['content'])) {
             if ($this->options[XML_SERIALIZER_OPTION_ENCODE_FUNC]) {
                 if ($firstCall === true) {

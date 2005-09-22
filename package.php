@@ -34,6 +34,7 @@ XML_Serializer:
 - allow XML_SERIALIZER_OPTION_DEFAULT_TAG to be set as array to set different default tags based on the surrounding tag
 - allow XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES to be set as array to selectively use scalar values as attributes
 - allow scalar values as first argument to serialize()
+- implemented request #3180: Add option to create cdata sections
 XML_Unserializer:
 - added constants for all options
 - fixed bug #5187: decode function should decode cdata instead of the element name
