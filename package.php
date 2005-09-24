@@ -18,7 +18,7 @@ require_once 'PEAR/PackageFileManager.php';
 /**
  * current version
  */
-$version = '0.16.0';
+$version = '0.17.0';
 
 /**
  * current state
@@ -38,7 +38,7 @@ XML_Serializer:
 XML_Unserializer:
 - added constants for all options
 - fixed bug #5187: decode function should decode cdata instead of the element name
-- implemented requst #3700: Treatment of whitespace can be influenced via an option
+- implemented request #3700: Treatment of whitespace can be influenced via an option
 EOT;
 
 /**
@@ -64,7 +64,7 @@ $result = $package->setOptions(array(
     'state'             => $state,
     'license'           => 'PHP License',
     'filelistgenerator' => 'cvs',
-    'ignore'            => array('package.php', 'package.xml'),
+    'ignore'            => array('package.php', 'package.xml', 'package2.xml'),
     'notes'             => $notes,
     'simpleoutput'      => true,
     'baseinstalldir'    => 'XML',
@@ -83,10 +83,11 @@ if (PEAR::isError($result)) {
 $package->addMaintainer('schst', 'lead', 'Stephan Schmidt', 'schst@php-tools.net');
 $package->addGlobalReplacement('package-info', '@package_version@', 'version');
 
-$package->detectDependencies();
+//$package->detectDependencies();
 
+$package->addDependency('php', '4.2.0', 'ge', 'php', false);
 $package->addDependency('PEAR', '', 'has', 'pkg', false);
-$package->addDependency('XML_Parser', '1.2.1', 'ge', 'pkg', false);
+$package->addDependency('XML_Parser', '1.2.6', 'ge', 'pkg', false);
 $package->addDependency('XML_Util', '1.1.1', 'ge', 'pkg', false);
 
 if (isset($_GET['make']) || (isset($_SERVER['argv'][1]) && $_SERVER['argv'][1] == 'make')) {

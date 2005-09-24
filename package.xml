@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<package version="1.0" packagerversion="1.4.0a11">
+<package version="1.0" packagerversion="1.4.0">
  <name>XML_Serializer</name>
  <summary>Swiss-army knive for reading and writing XML files. Creates XML files from data structures and vice versa.</summary>
  <description>XML_Serializer serializes complex data structures like arrays or object as XML documents.
@@ -20,24 +20,26 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
   </maintainer>
   </maintainers>
  <release>
-  <version>0.16.0</version>
-  <date>2005-06-05</date>
+  <version>0.17.0</version>
+  <date>2005-09-24</date>
   <license>PHP License</license>
   <state>beta</state>
   <notes>XML_Serializer:
-- introduced constants for all options (this helps avoiding typos in the option names)
-- deprecated option 'tagName' is no longer supported, use XML_SERIALIZER_OPTION_ROOT_NAME (or rootName) instead
-- implement Request #3762: added new ignoreNull option to ignore properties that are set to null when serializing objects or arrays
-- fixed bug with encoding function
-- use new header comment blocks
+- fixed bug #4575: use the return values of __sleep() when serializing objects
+- allow XML_SERIALIZER_OPTION_DEFAULT_TAG to be set as array to set different default tags based on the surrounding tag
+- allow XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES to be set as array to selectively use scalar values as attributes
+- allow scalar values as first argument to serialize()
+- implemented request #3180: Add option to create cdata sections
 XML_Unserializer:
-- fix bug #4075 (allow tagMap option to influence any kind of value)
+- added constants for all options
+- fixed bug #5187: decode function should decode cdata instead of the element name
+- implemented request #3700: Treatment of whitespace can be influenced via an option
   </notes>
   <deps>
    <dep type="pkg" rel="ge" version="1.1.1" optional="no">XML_Util</dep>
-   <dep type="pkg" rel="ge" version="1.2.1" optional="no">XML_Parser</dep>
+   <dep type="pkg" rel="ge" version="1.2.6" optional="no">XML_Parser</dep>
    <dep type="pkg" rel="has" optional="no">PEAR</dep>
-   <dep type="php" rel="ge" version="4.0.6" optional="no"/>
+   <dep type="php" rel="ge" version="4.2.0" optional="no"/>
    <dep type="ext" rel="has" optional="no">xml</dep>
   </deps>
   <filelist>
@@ -60,10 +62,16 @@ XML_Unserializer:
      <file role="doc" name="serializeArrayWithObjects.php">
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
+     <file role="doc" name="serializeCData.php">
+      <replace type="package-info" from="@package_version@" to="version"/>
+     </file>
      <file role="doc" name="serializeEmptyArray.php">
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
      <file role="doc" name="serializeIndexedArray.php">
+      <replace type="package-info" from="@package_version@" to="version"/>
+     </file>
+     <file role="doc" name="serializeIndexedArrayWithContext.php">
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
      <file role="doc" name="serializeNullProperties.php">
@@ -73,6 +81,9 @@ XML_Unserializer:
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
      <file role="doc" name="serializeRDF.php">
+      <replace type="package-info" from="@package_version@" to="version"/>
+     </file>
+     <file role="doc" name="serializeSelectiveAttributes.php">
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
      <file role="doc" name="serializeWithAttributes.php">
@@ -112,6 +123,9 @@ XML_Unserializer:
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
      <file role="doc" name="unserializeRDF.php">
+      <replace type="package-info" from="@package_version@" to="version"/>
+     </file>
+     <file role="doc" name="unserializeWhitespace.php">
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
      <file role="doc" name="unserializeWithAttributes.php">
@@ -165,11 +179,11 @@ This is now similar to ext/simpleXML in PHP5 that means it can be used to parse 
     <license>PHP License</license>
     <state>beta</state>
     <notes>Unserializer is able to return the name of the root tag,
-added 'complexType' option to XML_Unserializer,
+added &apos;complexType&apos; option to XML_Unserializer,
 added possibility to create nested objects from any XML file,
 tagname is used as classname if no other class is specified,
-added 'overrideOptions' option that can be used to restore the default options for a serialization,
-added 'keyAttribute' option to XML_Unserializer,
+added &apos;overrideOptions&apos; option that can be used to restore the default options for a serialization,
+added &apos;keyAttribute&apos; option to XML_Unserializer,
 added Todo list
     </notes>
    </release>
@@ -222,9 +236,9 @@ XML_Unserializer:
     <license>PHP License</license>
     <state>beta</state>
     <notes>XML_Serializer:
-+ added support for doctype declaration (requested by Lapo 'Raist' Luchini),
++ added support for doctype declaration (requested by Lapo &apos;Raist&apos; Luchini),
 * changed tagName option to rootName option (tagName is still supported but deprecated),
-+ added rootAttributes option (thanks to Lapo 'Raist' Luchini),
++ added rootAttributes option (thanks to Lapo &apos;Raist&apos; Luchini),
 + added rootName option for serializing objects
 
 XML_Unserializer:
@@ -276,7 +290,7 @@ XML_Unserializer:
 - some CS fixes
 
 Unserializer:
-- added new option 'forceEnum'
+- added new option &apos;forceEnum&apos;
 - replaced double quotes with single quotes
     </notes>
    </release>
@@ -327,11 +341,11 @@ Unserializer:
     <license>PHP License</license>
     <state>beta</state>
     <notes>Serializer:
-- new option 'encodeFunction' to apply a PHP function to character data and attributes before serializing the data
+- new option &apos;encodeFunction&apos; to apply a PHP function to character data and attributes before serializing the data
 Unserializer:
 - Does no longer extend XML_Parser (allows to change encoding at runtime), this could break some scripts
-- new option 'targetEncoding' to specify the target encoding for character data
-- new option 'decodeFunction' to apply a PHP function on character data and attributes while unserializing the document
+- new option &apos;targetEncoding&apos; to specify the target encoding for character data
+- new option &apos;decodeFunction&apos; to apply a PHP function on character data and attributes while unserializing the document
 - some tiny whitespace fixes
 Global:
 - new requires XML_Parser 1.2.2 and XML_Util 1.1.0
@@ -367,12 +381,29 @@ XML_Unserializer:
     <state>beta</state>
     <notes>XML_Serializer:
 - introduced constants for all options (this helps avoiding typos in the option names)
-- deprecated option 'tagName' is no longer supported, use XML_SERIALIZER_OPTION_ROOT_NAME (or rootName) instead
+- deprecated option &apos;tagName&apos; is no longer supported, use XML_SERIALIZER_OPTION_ROOT_NAME (or rootName) instead
 - implement Request #3762: added new ignoreNull option to ignore properties that are set to null when serializing objects or arrays
 - fixed bug with encoding function
 - use new header comment blocks
 XML_Unserializer:
 - fix bug #4075 (allow tagMap option to influence any kind of value)
+    </notes>
+   </release>
+   <release>
+    <version>0.17.0</version>
+    <date>2005-09-24</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>XML_Serializer:
+- fixed bug #4575: use the return values of __sleep() when serializing objects
+- allow XML_SERIALIZER_OPTION_DEFAULT_TAG to be set as array to set different default tags based on the surrounding tag
+- allow XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES to be set as array to selectively use scalar values as attributes
+- allow scalar values as first argument to serialize()
+- implemented request #3180: Add option to create cdata sections
+XML_Unserializer:
+- added constants for all options
+- fixed bug #5187: decode function should decode cdata instead of the element name
+- implemented request #3700: Treatment of whitespace can be influenced via an option
     </notes>
    </release>
  </changelog>
