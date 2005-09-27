@@ -40,6 +40,7 @@ require_once 'XML/Parser.php';
  * Possible values:
  * - array
  * - object
+ * - associative array to define this option per tag name
  */
 define('XML_UNSERIALIZER_OPTION_COMPLEXTYPE', 'complexType');
 
@@ -203,6 +204,11 @@ define('XML_UNSERIALIZER_WHITESPACE_NORMALIZE', 'normalize');
 define('XML_UNSERIALIZER_OPTION_OVERRIDE_OPTIONS', 'overrideOptions');
 
 /**
+ * option: list of tags, that will not be used as keys
+ */
+define('XML_UNSERIALIZER_OPTION_IGNORE_KEYS', 'ignoreKeys');
+
+/**
  * error code for no serialization done
  */
 define('XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION', 151);
@@ -264,7 +270,8 @@ class XML_Unserializer extends PEAR
                                 XML_UNSERIALIZER_OPTION_ENCODING_TARGET,
                                 XML_UNSERIALIZER_OPTION_DECODE_FUNC,
                                 XML_UNSERIALIZER_OPTION_RETURN_RESULT,
-                                XML_UNSERIALIZER_OPTION_WHITESPACE
+                                XML_UNSERIALIZER_OPTION_WHITESPACE,
+                                XML_UNSERIALIZER_OPTION_IGNORE_KEYS
                               );
    /**
     * default options for the serialization
@@ -289,7 +296,8 @@ class XML_Unserializer extends PEAR
                          XML_UNSERIALIZER_OPTION_ENCODING_TARGET     => null,                   // specify the target encoding
                          XML_UNSERIALIZER_OPTION_DECODE_FUNC         => null,                   // function used to decode data
                          XML_UNSERIALIZER_OPTION_RETURN_RESULT       => false,                  // unserialize() returns the result of the unserialization instead of true
-                         XML_UNSERIALIZER_OPTION_WHITESPACE          => XML_UNSERIALIZER_WHITESPACE_TRIM  // remove whitespace around data
+                         XML_UNSERIALIZER_OPTION_WHITESPACE          => XML_UNSERIALIZER_WHITESPACE_TRIM, // remove whitespace around data
+                         XML_UNSERIALIZER_OPTION_IGNORE_KEYS       => array()                 // List of tags that will automatically be added to the parent, instead of adding a new key
                         );
 
    /**
@@ -686,7 +694,13 @@ class XML_Unserializer extends PEAR
                 }
             }
 
-            if (!empty($value['name'])) {
+            if (in_array($element, $this->options[XML_UNSERIALIZER_OPTION_IGNORE_KEYS])) {
+                $ignoreKey = true;
+            } else {
+            	$ignoreKey = false;
+            }
+            
+            if (!empty($value['name']) && $ignoreKey === false) {
                 // there already has been a tag with this name
                 if (in_array($value['name'], $parent['childrenKeys']) || in_array($value['name'], $this->options[XML_UNSERIALIZER_OPTION_FORCE_ENUM])) {
                     // no aggregate has been created for this tag
