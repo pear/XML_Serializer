@@ -32,6 +32,7 @@ $notes = <<<EOT
 XML_Serializer:
 - Allow the use of '#default' whenever one wants to specify an option for any other key
 XML_Unserializer:
+- Added new IGNORE_KEYS option to specify a list of tags which will not be unserialized using their names as keys
 - Allow COMPLEXTYPE to be an array to be able to unserialize to arrays or objects
 - Allow the use of '#default' whenever one wants to specify an option for any other tag
 EOT;
