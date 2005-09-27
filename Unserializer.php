@@ -543,7 +543,7 @@ class XML_Unserializer extends PEAR
 
         if ($this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTES_PARSE] == true && (count($attribs) > 0)) {
             $val['children'] = array();
-            $val['type']  = $this->options[XML_UNSERIALIZER_OPTION_COMPLEXTYPE];
+            $val['type']  = $this->_getComplexType($element);
             $val['class'] = $element;
 
             if ($this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTES_ARRAYKEY] != false) {
@@ -562,7 +562,10 @@ class XML_Unserializer extends PEAR
         } elseif (is_array($this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTE_KEY])) {
             if (isset($this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTE_KEY][$element])) {
                 $keyAttr = $this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTE_KEY][$element];
+            } elseif (isset($this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTE_KEY]['#default'])) {
+                $keyAttr = $this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTE_KEY]['#default'];
             } elseif (isset($this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTE_KEY]['__default'])) {
+                // keep this for BC
                 $keyAttr = $this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTE_KEY]['__default'];
             }
         }
@@ -676,8 +679,8 @@ class XML_Unserializer extends PEAR
             if (!isset($parent['children']) || !is_array($parent['children'])) {
                 $parent['children'] = array();
                 if (!in_array($parent['type'], array('array', 'object'))) {
-                    $parent['type'] = $this->options[XML_UNSERIALIZER_OPTION_COMPLEXTYPE];
-                    if ($this->options[XML_UNSERIALIZER_OPTION_COMPLEXTYPE] == 'object') {
+                    $parent['type'] = $this->_getComplexType($parent['name']);
+                    if ($parent['type'] == 'object') {
                         $parent['class'] = $parent['name'];
                     }
                 }
@@ -725,6 +728,27 @@ class XML_Unserializer extends PEAR
         $this->_dataStack[$this->_depth] .= $cdata;
     }
 
+   /**
+    * get the complex type, that should be used for a specified tag
+    *
+    * @access   private
+    * @param    string      name of the tag
+    * @return   string      complex type ('array' or 'object')
+    */
+    function _getComplexType($tagname)
+    {
+        if (is_string($this->options[XML_UNSERIALIZER_OPTION_COMPLEXTYPE])) {
+        	return $this->options[XML_UNSERIALIZER_OPTION_COMPLEXTYPE];
+        }
+        if (isset($this->options[XML_UNSERIALIZER_OPTION_COMPLEXTYPE][$tagname])) {
+        	return $this->options[XML_UNSERIALIZER_OPTION_COMPLEXTYPE][$tagname];
+        }
+        if (isset($this->options[XML_UNSERIALIZER_OPTION_COMPLEXTYPE]['#default'])) {
+        	return $this->options[XML_UNSERIALIZER_OPTION_COMPLEXTYPE]['#default'];
+        }
+        return 'array';
+    }
+    
    /**
     * create the XML_Parser instance
     *
