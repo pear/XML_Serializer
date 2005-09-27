@@ -18,7 +18,7 @@ require_once 'PEAR/PackageFileManager.php';
 /**
  * current version
  */
-$version = '0.17.0';
+$version = '0.18.0';
 
 /**
  * current state
@@ -30,15 +30,10 @@ $state = 'beta';
  */
 $notes = <<<EOT
 XML_Serializer:
-- fixed bug #4575: use the return values of __sleep() when serializing objects
-- allow XML_SERIALIZER_OPTION_DEFAULT_TAG to be set as array to set different default tags based on the surrounding tag
-- allow XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES to be set as array to selectively use scalar values as attributes
-- allow scalar values as first argument to serialize()
-- implemented request #3180: Add option to create cdata sections
+- Allow the use of '#default' whenever one wants to specify an option for any other key
 XML_Unserializer:
-- added constants for all options
-- fixed bug #5187: decode function should decode cdata instead of the element name
-- implemented request #3700: Treatment of whitespace can be influenced via an option
+- Allow COMPLEXTYPE to be an array to be able to unserialize to arrays or objects
+- Allow the use of '#default' whenever one wants to specify an option for any other tag
 EOT;
 
 /**
