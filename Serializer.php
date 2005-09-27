@@ -890,7 +890,10 @@ class XML_Serializer extends PEAR
         }
         if (isset($this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG][$parent])) {
             return $this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG][$parent];
+        } elseif (isset($this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG]['#default'])) {
+            return $this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG]['#default'];
         } elseif (isset($this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG]['__default'])) {
+            // keep this for BC
             return $this->options[XML_SERIALIZER_OPTION_DEFAULT_TAG]['__default'];
         }
         return 'XML_Serializer_Tag';
