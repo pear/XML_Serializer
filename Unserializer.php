@@ -209,6 +209,11 @@ define('XML_UNSERIALIZER_OPTION_OVERRIDE_OPTIONS', 'overrideOptions');
 define('XML_UNSERIALIZER_OPTION_IGNORE_KEYS', 'ignoreKeys');
 
 /**
+ * option: whether to use type guessing for scalar values
+ */
+define('XML_UNSERIALIZER_OPTION_GUESS_TYPES', 'guessTypes');
+
+/**
  * error code for no serialization done
  */
 define('XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION', 151);
@@ -271,7 +276,8 @@ class XML_Unserializer extends PEAR
                                 XML_UNSERIALIZER_OPTION_DECODE_FUNC,
                                 XML_UNSERIALIZER_OPTION_RETURN_RESULT,
                                 XML_UNSERIALIZER_OPTION_WHITESPACE,
-                                XML_UNSERIALIZER_OPTION_IGNORE_KEYS
+                                XML_UNSERIALIZER_OPTION_IGNORE_KEYS,
+                                XML_UNSERIALIZER_OPTION_GUESS_TYPES
                               );
    /**
     * default options for the serialization
@@ -297,7 +303,8 @@ class XML_Unserializer extends PEAR
                          XML_UNSERIALIZER_OPTION_DECODE_FUNC         => null,                   // function used to decode data
                          XML_UNSERIALIZER_OPTION_RETURN_RESULT       => false,                  // unserialize() returns the result of the unserialization instead of true
                          XML_UNSERIALIZER_OPTION_WHITESPACE          => XML_UNSERIALIZER_WHITESPACE_TRIM, // remove whitespace around data
-                         XML_UNSERIALIZER_OPTION_IGNORE_KEYS       => array()                 // List of tags that will automatically be added to the parent, instead of adding a new key
+                         XML_UNSERIALIZER_OPTION_IGNORE_KEYS         => array(),                // List of tags that will automatically be added to the parent, instead of adding a new key
+                         XML_UNSERIALIZER_OPTION_GUESS_TYPES         => false                   // Whether to use type guessing
                         );
 
    /**
@@ -526,8 +533,14 @@ class XML_Unserializer extends PEAR
     {
         if (isset($attribs[$this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTE_TYPE]])) {
             $type = $attribs[$this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTE_TYPE]];
+            $guessType = false;
         } else {
             $type = 'string';
+            if ($this->options[XML_UNSERIALIZER_OPTION_GUESS_TYPES] === true) {
+                $guessType = true;
+            } else {
+                $guessType = false;
+            }
         }
 
         if ($this->options[XML_UNSERIALIZER_OPTION_DECODE_FUNC] !== null) {
@@ -545,6 +558,7 @@ class XML_Unserializer extends PEAR
                      'name'         => $element,
                      'value'        => null,
                      'type'         => $type,
+                     'guessType'    => $guessType,
                      'childrenKeys' => array(),
                      'aggregKeys'   => array()
                     );
@@ -554,6 +568,9 @@ class XML_Unserializer extends PEAR
             $val['type']  = $this->_getComplexType($element);
             $val['class'] = $element;
 
+            if ($this->options[XML_UNSERIALIZER_OPTION_GUESS_TYPES] === true) {
+            	$attribs = $this->_guessAndSetTypes($attribs);
+            }            
             if ($this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTES_ARRAYKEY] != false) {
                 $val['children'][$this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTES_ARRAYKEY]] = $attribs;
             } else {
@@ -589,6 +606,50 @@ class XML_Unserializer extends PEAR
         array_push($this->_valStack, $val);
     }
 
+   /**
+    * Try to guess the type of several values and
+    * set them accordingly
+    *
+    * @access   private
+    * @param    array      array, containing the values
+    * @return   array      array, containing the values with their correct types 
+    */
+    function _guessAndSetTypes($array)
+    {
+        foreach ($array as $key => $value) {
+        	$array[$key] = $this->_guessAndSetType($value);
+        }
+        return $array;
+    }
+    
+   /**
+    * Try to guess the type of a value and
+    * set it accordingly
+    *
+    * @access   private
+    * @param    string      character data
+    * @return   mixed       value with the best matching type
+    */
+    function _guessAndSetType($value)
+    {
+        if ($value === 'true') {
+            return true;
+        }
+        if ($value === 'false') {
+            return false;
+        }
+        if ($value === 'NULL') {
+            return null;
+        }
+        if (preg_match('/^[-+]?[0-9]{1,}$/', $value)) {
+        	return intval($value);
+        }
+        if (preg_match('/^[-+]?[0-9]{1,}\.[0-9]{1,}$/', $value)) {
+        	return doubleval($value);
+        }
+        return (string)$value;
+    }
+    
    /**
     * End element handler for XML parser
     *
@@ -629,7 +690,10 @@ class XML_Unserializer extends PEAR
                 } else {
                     $value['value'] = &new $this->options[XML_UNSERIALIZER_OPTION_DEFAULT_CLASS];
                 }
-                if ($data !== '') {
+                if (trim($data) !== '') {
+                    if ($value['guessType'] === true) {
+                    	$data = $this->_guessAndSetType($data);
+                    }
                     $value['children'][$this->options[XML_UNSERIALIZER_OPTION_CONTENT_KEY]] = $data;
                 }
 
@@ -652,6 +716,9 @@ class XML_Unserializer extends PEAR
             // unserialize an array
             case 'array':
                 if (trim($data) !== '') {
+                    if ($value['guessType'] === true) {
+                    	$data = $this->_guessAndSetType($data);
+                    }
                     $value['children'][$this->options[XML_UNSERIALIZER_OPTION_CONTENT_KEY]] = $data;
                 }
                 if (isset($value['children'])) {
@@ -673,7 +740,12 @@ class XML_Unserializer extends PEAR
 
             // unserialize any scalar value
             default:
-                settype($data, $value['type']);
+                if ($value['guessType'] === true) {
+                    $data = $this->_guessAndSetType($data);
+                } else {
+                    settype($data, $value['type']);
+                }
+            
                 $value['value'] = $data;
                 break;
         }
