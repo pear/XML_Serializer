@@ -23,9 +23,9 @@ require_once 'XML/Unserializer.php';
 $options = array(
                  XML_UNSERIALIZER_OPTION_COMPLEXTYPE => 'array',
                  XML_UNSERIALIZER_OPTION_ATTRIBUTE_KEY => array(
-                                                                  'user'  => 'handle',
-                                                                  'group' => 'name',
-                                                                  '__default' => 'id'
+                                                                  'user'     => 'handle',
+                                                                  'group'    => 'name',
+                                                                  '#default' => 'id'
                                                                 )
                 );
 
