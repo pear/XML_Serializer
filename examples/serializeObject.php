@@ -20,7 +20,7 @@ class MyClass
     
     function __sleep()
     {
-        return array('foo' => $this->foo);
+        return array('foo');
     }
 }
 

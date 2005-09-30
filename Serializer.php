@@ -910,7 +910,15 @@ class XML_Serializer extends PEAR
     {
         // check for magic function
         if (method_exists($object, '__sleep')) {
-            $properties = $object->__sleep();
+            $propNames = $object->__sleep();
+            if (is_array($propNames)) {
+            	$properties = array();
+            	foreach ($propNames as $propName) {
+            		$properties[$propName] = $object->$propName;
+            	}
+            } else {
+                $properties = get_object_vars($object);
+            }
         } else {
             $properties = get_object_vars($object);
         }
