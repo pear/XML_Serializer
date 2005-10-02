@@ -20,20 +20,18 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
   </maintainer>
   </maintainers>
  <release>
-  <version>0.17.0</version>
-  <date>2005-09-24</date>
+  <version>0.18.0</version>
+  <date>2005-10-02</date>
   <license>PHP License</license>
   <state>beta</state>
   <notes>XML_Serializer:
-- fixed bug #4575: use the return values of __sleep() when serializing objects
-- allow XML_SERIALIZER_OPTION_DEFAULT_TAG to be set as array to set different default tags based on the surrounding tag
-- allow XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES to be set as array to selectively use scalar values as attributes
-- allow scalar values as first argument to serialize()
-- implemented request #3180: Add option to create cdata sections
+- Allow the use of &apos;#default&apos; whenever one wants to specify an option for any other key
+- fixed bug #4575 for real: XML_Serializer now expects __sleep() to return an array of property names
 XML_Unserializer:
-- added constants for all options
-- fixed bug #5187: decode function should decode cdata instead of the element name
-- implemented request #3700: Treatment of whitespace can be influenced via an option
+- Added new IGNORE_KEYS option to specify a list of tags which will not be unserialized using their names as keys
+- Added new GUESS_TYPE option to automatically convert the data to the best matching type
+- Allow COMPLEXTYPE to be an array to be able to unserialize to arrays or objects
+- Allow the use of &apos;#default&apos; whenever one wants to specify an option for any other tag
   </notes>
   <deps>
    <dep type="pkg" rel="ge" version="1.1.1" optional="no">XML_Util</dep>
@@ -132,6 +130,9 @@ XML_Unserializer:
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
      <file role="doc" name="unserializeWithTagMap.php">
+      <replace type="package-info" from="@package_version@" to="version"/>
+     </file>
+     <file role="doc" name="unserializeWithTypeGuessing.php">
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
     </dir> <!-- /examples -->
@@ -404,6 +405,21 @@ XML_Unserializer:
 - added constants for all options
 - fixed bug #5187: decode function should decode cdata instead of the element name
 - implemented request #3700: Treatment of whitespace can be influenced via an option
+    </notes>
+   </release>
+   <release>
+    <version>0.18.0</version>
+    <date>2005-10-02</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>XML_Serializer:
+- Allow the use of &apos;#default&apos; whenever one wants to specify an option for any other key
+- fixed bug #4575 for real: XML_Serializer now expects __sleep() to return an array of property names
+XML_Unserializer:
+- Added new IGNORE_KEYS option to specify a list of tags which will not be unserialized using their names as keys
+- Added new GUESS_TYPE option to automatically convert the data to the best matching type
+- Allow COMPLEXTYPE to be an array to be able to unserialize to arrays or objects
+- Allow the use of &apos;#default&apos; whenever one wants to specify an option for any other tag
     </notes>
    </release>
  </changelog>

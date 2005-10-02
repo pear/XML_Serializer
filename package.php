@@ -31,6 +31,7 @@ $state = 'beta';
 $notes = <<<EOT
 XML_Serializer:
 - Allow the use of '#default' whenever one wants to specify an option for any other key
+- fixed bug #4575 for real: XML_Serializer now expects __sleep() to return an array of property names
 XML_Unserializer:
 - Added new IGNORE_KEYS option to specify a list of tags which will not be unserialized using their names as keys
 - Added new GUESS_TYPE option to automatically convert the data to the best matching type
