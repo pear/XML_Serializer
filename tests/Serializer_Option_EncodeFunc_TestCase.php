@@ -1,6 +1,6 @@
 <?php
 /**
- * Testcase for serializing arrays
+ * Testcase for serializing with an encoding function
  *
  * @author      Stephan Schmidt <schst@php-tools.net>
  * @package     XML_Serializer

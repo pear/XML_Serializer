@@ -17,6 +17,11 @@ $testcases = array(
     'Serializer_Arrays_TestCase',
     'Serializer_Objects_TestCase',
     'Serializer_Option_EncodeFunc_TestCase',
+    'Serializer_Option_ReturnResult_TestCase',
+    'Serializer_Option_CDataSections_TestCase',
+    'Serializer_Option_Linebreaks_TestCase',
+    'Serializer_Option_Indent_TestCase',
+    'Serializer_Option_IgnoreNull_TestCase'
 );
 
 $suite =& new PHPUnit_TestSuite();

@@ -52,4 +52,32 @@ class Serializer_Objects_TestCase extends PHPUnit_TestCase
         $s->serialize($obj);
         $this->assertEquals('<stdClass><foo><bar>nested</bar></foo></stdClass>', $s->getSerializedData());
     }
+
+   /**
+    * Test serializing an object, that supports __sleep
+    */
+    function testSleep()
+    {
+        $obj = new MyClass('foo', 'bar');
+        $s = new XML_Serializer($this->options);
+        $s->serialize($obj);
+        $this->assertEquals('<MyClass><foo>foo</foo></MyClass>', $s->getSerializedData());
+    }
+}
+
+class MyClass
+{
+    var $foo;
+    var $bar;
+    
+    function MyClass($foo, $bar)
+    {
+        $this->foo = $foo;
+        $this->bar = $bar;
+    }
+    
+    function __sleep()
+    {
+        return array('foo');
+    }
 }
