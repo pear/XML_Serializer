@@ -16,6 +16,7 @@ $testcases = array(
     'Serializer_Scalars_TestCase',
     'Serializer_Arrays_TestCase',
     'Serializer_Objects_TestCase',
+    'Serializer_Option_EncodeFunc_TestCase',
 );
 
 $suite =& new PHPUnit_TestSuite();
