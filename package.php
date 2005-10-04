@@ -18,7 +18,7 @@ require_once 'PEAR/PackageFileManager.php';
 /**
  * current version
  */
-$version = '0.18.0';
+$version = '1.0.0RC1';
 
 /**
  * current state
@@ -30,13 +30,9 @@ $state = 'beta';
  */
 $notes = <<<EOT
 XML_Serializer:
-- Allow the use of '#default' whenever one wants to specify an option for any other key
-- fixed bug #4575 for real: XML_Serializer now expects __sleep() to return an array of property names
+- fixed bug with doctype declaration (root tag has not been included)
+- Added unit tests for all features
 XML_Unserializer:
-- Added new IGNORE_KEYS option to specify a list of tags which will not be unserialized using their names as keys
-- Added new GUESS_TYPE option to automatically convert the data to the best matching type
-- Allow COMPLEXTYPE to be an array to be able to unserialize to arrays or objects
-- Allow the use of '#default' whenever one wants to specify an option for any other tag
 EOT;
 
 /**

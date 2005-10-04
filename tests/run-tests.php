@@ -25,6 +25,7 @@ $testcases = array(
     'Serializer_Option_RootName_TestCase',
     'Serializer_Option_RootAttributes_TestCase',
     'Serializer_Option_XmlDeclaration_TestCase',
+    'Serializer_Option_DocType_TestCase',
     'Serializer_Option_DefaultTag_TestCase',
     'Serializer_Option_ClassName_TestCase',
     'Serializer_Option_TypeHints_TestCase'
