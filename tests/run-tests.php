@@ -21,7 +21,13 @@ $testcases = array(
     'Serializer_Option_CDataSections_TestCase',
     'Serializer_Option_Linebreaks_TestCase',
     'Serializer_Option_Indent_TestCase',
-    'Serializer_Option_IgnoreNull_TestCase'
+    'Serializer_Option_IgnoreNull_TestCase',
+    'Serializer_Option_RootName_TestCase',
+    'Serializer_Option_RootAttributes_TestCase',
+    'Serializer_Option_XmlDeclaration_TestCase',
+    'Serializer_Option_DefaultTag_TestCase',
+    'Serializer_Option_ClassName_TestCase',
+    'Serializer_Option_TypeHints_TestCase'
 );
 
 $suite =& new PHPUnit_TestSuite();
