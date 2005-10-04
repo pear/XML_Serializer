@@ -69,4 +69,21 @@ class Serializer_Option_AttributesContent_TestCase extends PHPUnit_TestCase
         $s->serialize($data);
         $this->assertEquals('<array><foo one="1">some data<bar>bar</bar></foo></array>', $s->getSerializedData());
     }
+
+   /**
+    * Test indexed
+    */
+    function testNumbered()
+    {
+        $s = new XML_Serializer($this->options);
+        $data = array(
+                  'foo' => array(
+                              'atts'    => array('one' => 1),
+                              'content' => 'some data',
+                              'bar', 'foo'
+                           )
+                );
+        $s->serialize($data);
+        $this->assertEquals('<array><foo one="1">some data<XML_Serializer_Tag>bar</XML_Serializer_Tag><XML_Serializer_Tag>foo</XML_Serializer_Tag></foo></array>', $s->getSerializedData());
+    }
 }
