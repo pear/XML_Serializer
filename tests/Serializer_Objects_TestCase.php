@@ -61,16 +61,16 @@ class Serializer_Objects_TestCase extends PHPUnit_TestCase
         $obj = new MyClass('foo', 'bar');
         $s = new XML_Serializer($this->options);
         $s->serialize($obj);
-        $this->assertEquals('<MyClass><foo>foo</foo></MyClass>', $s->getSerializedData());
+        $this->assertEquals('<myclass><foo>foo</foo></myclass>', $s->getSerializedData());
     }
 }
 
-class MyClass
+class myclass
 {
     var $foo;
     var $bar;
     
-    function MyClass($foo, $bar)
+    function myclass($foo, $bar)
     {
         $this->foo = $foo;
         $this->bar = $bar;
