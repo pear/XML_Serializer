@@ -801,7 +801,7 @@ class XML_Serializer extends PEAR
                         );
         } else {
             $this->_tagDepth++;
-            $tmp = $this->options[XML_SERIALIZER_OPTION_LINEBREAKS];
+            $tmp = $_content . $this->options[XML_SERIALIZER_OPTION_LINEBREAKS];
             foreach ($array as $key => $value) {
                 // do indentation
                 if ($this->options[XML_SERIALIZER_OPTION_INDENT]!==null && $this->_tagDepth>0) {

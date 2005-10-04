@@ -28,7 +28,10 @@ $testcases = array(
     'Serializer_Option_DocType_TestCase',
     'Serializer_Option_DefaultTag_TestCase',
     'Serializer_Option_ClassName_TestCase',
-    'Serializer_Option_TypeHints_TestCase'
+    'Serializer_Option_TypeHints_TestCase',
+    'Serializer_Option_Namespace_TestCase',
+    'Serializer_Option_Comment_TestCase',
+    'Serializer_Option_AttributesContent_TestCase'
 );
 
 $suite =& new PHPUnit_TestSuite();

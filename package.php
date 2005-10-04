@@ -31,6 +31,7 @@ $state = 'beta';
 $notes = <<<EOT
 XML_Serializer:
 - fixed bug with doctype declaration (root tag has not been included)
+- fixed bug that prohibited the creation of mixed content tags
 - Added unit tests for all features
 XML_Unserializer:
 EOT;
