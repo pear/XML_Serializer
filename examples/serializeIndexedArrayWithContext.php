@@ -9,29 +9,29 @@
  *
  * @author Stephan Schmidt <schst@php.net>
  */
-    error_reporting(E_ALL);
-    
-    require_once 'XML/Serializer.php';
+error_reporting(E_ALL);
 
-    $options = array(
-                        XML_SERIALIZER_OPTION_INDENT       => '    ',
-                        XML_SERIALIZER_OPTION_LINEBREAKS   => "\n",
-                        XML_SERIALIZER_OPTION_DEFAULT_TAG  => array(),
-                        XML_SERIALIZER_OPTION_DEFAULT_TAG  => array('foos' => 'foo', 'bars' => 'bar')
-                    );
-    
-    $serializer = new XML_Serializer($options);
-    
-    $data = array(
-                    'foos' => array('one foo', 'two foos', 'three foos'),
-                    'bars' => array('one bar', 'two bars', 'three bars'),
+require_once 'XML/Serializer.php';
+
+$options = array(
+                    XML_SERIALIZER_OPTION_INDENT       => '    ',
+                    XML_SERIALIZER_OPTION_LINEBREAKS   => "\n",
+                    XML_SERIALIZER_OPTION_DEFAULT_TAG  => array(),
+                    XML_SERIALIZER_OPTION_DEFAULT_TAG  => array('foos' => 'foo', 'bars' => 'bar')
                 );
 
-    $result = $serializer->serialize($data);
-    
-    if( $result === true ) {
-        echo    '<pre>';
-        echo    htmlentities($serializer->getSerializedData());
-        echo    '</pre>';
-    }
+$serializer = new XML_Serializer($options);
+
+$data = array(
+                'foos' => array('one foo', 'two foos', 'three foos'),
+                'bars' => array('one bar', 'two bars', 'three bars'),
+            );
+
+$result = $serializer->serialize($data);
+
+if ($result === true) {
+    echo '<pre>';
+    echo htmlentities($serializer->getSerializedData());
+    echo '</pre>';
+}
 ?>

@@ -7,41 +7,40 @@
  *
  * @author  Stephan Schmidt <schst@php.net>
  */
-    error_reporting(E_ALL);
+error_reporting(E_ALL);
 
-    require_once 'XML/Serializer.php';
+require_once 'XML/Serializer.php';
 
-    $options = array(
-                        "indent"             => "    ",
-                        "linebreak"          => "\n",
-                        "defaultTagName"     => "unnamedItem",
-						"scalarAsAttributes" => false,
-                        "attributesArray"    => '_attributes',
-                        "contentName"        => '_content'
-                    );
+$options = array(
+                    XML_SERIALIZER_OPTION_INDENT               => '    ',
+                    XML_SERIALIZER_OPTION_LINEBREAKS           => "\n",
+                    XML_SERIALIZER_OPTION_DEFAULT_TAG          => 'unnamedItem',
+					XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES => false,
+                    XML_SERIALIZER_OPTION_ATTRIBUTES_KEY       => '_attributes',
+                    XML_SERIALIZER_OPTION_CONTENT_KEY          => '_content'
+                );
 
-    $data = array(
-                    'foo' => array(
-                                    '_attributes' => array( 'version' => '1.0', 'foo' => 'bar' ),
-                                    '_content'    => 'test'
-                                  ),
-                    'schst' => 'Stephan Schmidt'
-                );    
-    
-    $serializer = new XML_Serializer($options);
-    
-    $result = $serializer->serialize($data);
-    
-    if( $result === true ) {
-		$xml = $serializer->getSerializedData();
+$data = array(
+                'foo' => array(
+                                '_attributes' => array( 'version' => '1.0', 'foo' => 'bar' ),
+                                '_content'    => 'test'
+                              ),
+                'schst' => 'Stephan Schmidt'
+            );    
 
-	    echo	"<pre>";
-	    print_r( htmlspecialchars($xml) );
-	    echo	"</pre>";
-    } else {
-		echo	"<pre>";
-		print_r($result);
-		echo	"</pre>";
-	}
+$serializer = new XML_Serializer($options);
+
+$result = $serializer->serialize($data);
+
+if ($result === true) {
+	$xml = $serializer->getSerializedData();
+    echo '<pre>';
+    echo htmlspecialchars($xml);
+    echo '</pre>';
+} else {
+	echo '<pre>';
+	print_r($result);
+	echo '</pre>';
+}
 
 ?>

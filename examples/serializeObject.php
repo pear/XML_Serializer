@@ -36,13 +36,13 @@ require_once 'XML/Serializer.php';
 $pearError = PEAR::raiseError('This is just an error object',123);
 
 $options = array(
-                    "indent"         => "    ",
-                    "linebreak"      => "\n",
-                    "defaultTagName" => "unnamedItem",
-                    "typeHints"      => true
+                    XML_SERIALIZER_OPTION_INDENT      => '    ',
+                    XML_SERIALIZER_OPTION_LINEBREAKS  => "\n",
+                    XML_SERIALIZER_OPTION_DEFAULT_TAG => 'unnamedItem',
+                    XML_SERIALIZER_OPTION_TYPEHINTS   => true
                 );
 
-$foo    =   new stdClass;
+$foo = new stdClass();
 $foo->value = "My value";
 $foo->error = $pearError;
 $foo->xml   = "cool";
