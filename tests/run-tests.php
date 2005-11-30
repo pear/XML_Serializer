@@ -37,6 +37,8 @@ $testcases = array(
     'Serializer_Option_Mode_TestCase',
     
     'Unserializer_Scalars_TestCase',
+    'Unserializer_Arrays_TestCase',
+    'Unserializer_Objects_TestCase',
     'Unserializer_Option_GuessTypes_TestCase'
 );
 
