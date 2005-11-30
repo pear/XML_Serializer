@@ -11,6 +11,7 @@
 require_once 'System.php';
 require_once 'PHPUnit.php';
 require_once 'XML/Serializer.php';
+require_once 'XML/Unserializer.php';
 
 $testcases = array(
     'Serializer_Scalars_TestCase',
@@ -33,7 +34,10 @@ $testcases = array(
     'Serializer_Option_Comment_TestCase',
     'Serializer_Option_AttributesContent_TestCase',
     'Serializer_Option_TagMap_TestCase',
-    'Serializer_Option_Mode_TestCase'
+    'Serializer_Option_Mode_TestCase',
+    
+    'Unserializer_Scalars_TestCase',
+    'Unserializer_Option_GuessTypes_TestCase'
 );
 
 $suite =& new PHPUnit_TestSuite();
