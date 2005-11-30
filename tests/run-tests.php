@@ -39,7 +39,9 @@ $testcases = array(
     'Unserializer_Scalars_TestCase',
     'Unserializer_Arrays_TestCase',
     'Unserializer_Objects_TestCase',
-    'Unserializer_Option_GuessTypes_TestCase'
+    'Unserializer_Option_Encodings_TestCase',
+    'Unserializer_Option_GuessTypes_TestCase',
+    'Unserializer_Option_Whitespace_TestCase'
 );
 
 $suite =& new PHPUnit_TestSuite();
