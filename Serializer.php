@@ -193,7 +193,7 @@ define('XML_SERIALIZER_OPTION_ROOT_ATTRIBS', 'rootAttributes');
  * option: all values in this key will be treated as attributes
  *
  * Possible values:
- * - array
+ * - string
  */
 define('XML_SERIALIZER_OPTION_ATTRIBUTES_KEY', 'attributesArray');
 
