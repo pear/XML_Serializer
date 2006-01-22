@@ -604,6 +604,7 @@ class XML_Serializer extends PEAR
             } else {
                 $tag['qname'] = gettype($data);
             }
+            $tagName = $tag['qname'];
             if ($this->options[XML_SERIALIZER_OPTION_TYPEHINTS] === true) {
                 $rootAttributes[$this->options[XML_SERIALIZER_OPTION_ATTRIBUTE_TYPE]] = gettype($data);
             }
@@ -615,7 +616,7 @@ class XML_Serializer extends PEAR
         
         // add doctype declaration
         if ($this->options[XML_SERIALIZER_OPTION_DOCTYPE_ENABLED] === true) {
-            $this->_serializedData = XML_Util::getDoctypeDeclaration($tag['qname'], $this->options[XML_SERIALIZER_OPTION_DOCTYPE])
+            $this->_serializedData = XML_Util::getDoctypeDeclaration($tagName, $this->options[XML_SERIALIZER_OPTION_DOCTYPE])
                                    . $this->options[XML_SERIALIZER_OPTION_LINEBREAKS]
                                    . $this->_serializedData;
         }
