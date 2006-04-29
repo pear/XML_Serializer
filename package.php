@@ -12,7 +12,7 @@
 
 /**
  * uses PackageFileManager
- */ 
+ */
 require_once 'PEAR/PackageFileManager.php';
 
 /**
@@ -56,7 +56,7 @@ $package = new PEAR_PackageFileManager();
 
 $result = $package->setOptions(array(
     'package'           => 'XML_Serializer',
-    'summary'           => 'Swiss-army knive for reading and writing XML files. Creates XML files from data structures and vice versa.',
+    'summary'           => 'Swiss-army knife for reading and writing XML files. Creates XML files from data structures and vice versa.',
     'description'       => $description,
     'version'           => $version,
     'state'             => $state,
