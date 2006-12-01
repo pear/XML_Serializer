@@ -23,10 +23,10 @@ $options = array(
 $data = array(
                 'foo' => array(
                                 '_attributes' => array( 'version' => '1.0', 'foo' => 'bar' ),
-                                '_content'    => 'test'
+                                '_content'    => 'test & test'
                               ),
                 'schst' => 'Stephan Schmidt'
-            );    
+            );
 
 $serializer = new XML_Serializer($options);
 

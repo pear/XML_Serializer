@@ -35,7 +35,8 @@ XML_Serializer:
 - fixed bug that prohibited the creation of mixed content tags
 - Added unit tests for all features
 - Removed obsolete examples and adjusted CS in all remaining examples
-- fixed bug #6128 (wrong type in documentation)
+- fixed bug #6128: wrong type in documentation
+- fixed bug #8048: Entities are not replaced in tags with attributes
 XML_Unserializer:
 EOT;
 
