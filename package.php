@@ -1,48 +1,17 @@
 <?php
-/**
- * script to automate the generation of the
- * package.xml file.
- *
- * $Id$
- *
- * @author      Stephan Schmidt <schst@php-tools.net>
- * @package     XML_Serializer
- * @subpackage  Tools
- */
-
-/**
- * uses PackageFileManager
- */
 require_once 'PEAR/PackageFileManager.php';
 
-/**
- * current version
- */
-$version = '1.0.0RC1';
+$version = '0.19.0a1';
+$state = 'alpha';
 
-/**
- * current state
- */
-$state = 'beta';
-
-/**
- * release notes
- */
 $notes = <<<EOT
-XML_Serializer:
-- fixed bug with doctype declaration (root tag has not been included)
-- fixed bug with doctype declaration when using arrays or objects (root tag has not been included)
-- fixed bug that prohibited the creation of mixed content tags
-- Added unit tests for all features
-- Removed obsolete examples and adjusted CS in all remaining examples
-- fixed bug #6128: wrong type in documentation
-- fixed bug #8048: Entities are not replaced in tags with attributes
-XML_Unserializer:
+- switch to package.xml v2
+- PEAR CS cleanup
+- Req #13856:  License Change from PHP to BSD [ashnazg]
+- Bug #8048:   Entities are not replaced in tags with attributes [schst]
+- Doc #12725:  tuto link no more available
 EOT;
 
-/**
- * package description
- */
 $description = <<<EOT
 XML_Serializer serializes complex data structures like arrays or object as XML documents.
 This class helps you generating any XML document you require without the need for DOM.
@@ -61,7 +30,7 @@ $result = $package->setOptions(array(
     'description'       => $description,
     'version'           => $version,
     'state'             => $state,
-    'license'           => 'PHP License',
+    'license'           => 'BSD License',
     'filelistgenerator' => 'cvs',
     'ignore'            => array('package.php', 'package.xml', 'package2.xml'),
     'notes'             => $notes,
@@ -80,9 +49,8 @@ if (PEAR::isError($result)) {
 }
 
 $package->addMaintainer('schst', 'lead', 'Stephan Schmidt', 'schst@php-tools.net');
+$package->addMaintainer('ashnazg', 'lead', 'Chuck Burgess', 'ashnazg@php.net');
 $package->addGlobalReplacement('package-info', '@package_version@', 'version');
-
-//$package->detectDependencies();
 
 $package->addDependency('php', '4.2.0', 'ge', 'php', false);
 $package->addDependency('PEAR', '', 'has', 'pkg', false);
