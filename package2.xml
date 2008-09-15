@@ -27,15 +27,15 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
   <email>ashnazg@php.net</email>
   <active>yes</active>
  </lead>
- <date>2008-08-24</date>
- <time>19:14:51</time>
+ <date>2008-09-15</date>
+ <time>16:06:34</time>
  <version>
-  <release>0.19.0a1</release>
-  <api>0.19.0a1</api>
+  <release>0.19.0</release>
+  <api>0.19.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license>BSD License</license>
  <notes>- switch to package.xml v2
@@ -703,6 +703,25 @@ XML_Unserializer:
     <api>alpha</api>
    </stability>
    <date>2008-08-24</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- switch to package.xml v2
+- PEAR CS cleanup
+- Req #13856:  License Change from PHP to BSD [ashnazg]
+- Bug #8048:   Entities are not replaced in tags with attributes [schst]
+- Doc #12725:  tuto link no more available
+    
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.19.0</release>
+    <api>0.19.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2008-09-15</date>
    <license uri="http://www.example.com">BSD License</license>
    <notes>- switch to package.xml v2
 - PEAR CS cleanup

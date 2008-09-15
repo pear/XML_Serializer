@@ -1,8 +1,8 @@
 <?php
 require_once 'PEAR/PackageFileManager.php';
 
-$version = '0.19.0a1';
-$state = 'alpha';
+$version = '0.19.0';
+$state = 'beta';
 
 $notes = <<<EOT
 - switch to package.xml v2

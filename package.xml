@@ -26,10 +26,10 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
   </maintainer>
   </maintainers>
  <release>
-  <version>0.19.0a1</version>
-  <date>2008-08-24</date>
+  <version>0.19.0</version>
+  <date>2008-09-15</date>
   <license>BSD License</license>
-  <state>alpha</state>
+  <state>beta</state>
   <notes>- switch to package.xml v2
 - PEAR CS cleanup
 - Req #13856:  License Change from PHP to BSD [ashnazg]
@@ -513,6 +513,18 @@ XML_Unserializer:
     <date>2008-08-24</date>
     <license>BSD License</license>
     <state>alpha</state>
+    <notes>- switch to package.xml v2
+- PEAR CS cleanup
+- Req #13856:  License Change from PHP to BSD [ashnazg]
+- Bug #8048:   Entities are not replaced in tags with attributes [schst]
+- Doc #12725:  tuto link no more available
+    </notes>
+   </release>
+   <release>
+    <version>0.19.0</version>
+    <date>2008-09-15</date>
+    <license>BSD License</license>
+    <state>beta</state>
     <notes>- switch to package.xml v2
 - PEAR CS cleanup
 - Req #13856:  License Change from PHP to BSD [ashnazg]
