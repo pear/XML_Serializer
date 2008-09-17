@@ -1,16 +1,40 @@
 <?php
 /**
- * Testcase for whitespace settings
+ * Unit Tests for serializing arrays
  *
- * @author      Stephan Schmidt <schst@php-tools.net>
- * @package     XML_Serializer
- * @subpackage  Tests
+ * @package    XML_Serializer
+ * @subpackage tests
+ * @author     Stephan Schmidt <schst@php-tools.net>
+ * @author     Chuck Burgess <ashnazg@php.net>
  */
-class Unserializer_Option_Whitespace_TestCase extends PHPUnit_TestCase
-{
-    var $xml = '<xml>
+
+/**
+ * PHPUnit main() hack
+ * 
+ * "Call class::main() if this source file is executed directly."
+ */
+if (!defined('PHPUnit_MAIN_METHOD')) {
+    define('PHPUnit_MAIN_METHOD', 'XML_Unserializer_Option_Whitespace_TestCase::main');
+}
+require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'PHPUnit/Framework/TestSuite.php';
+require_once 'PHPUnit/TextUI/TestRunner.php';
+
+require_once 'XML/Unserializer.php';
+
+/**
+ * Unit Tests for serializing arrays
+ *
+ * @package    XML_Serializer
+ * @subpackage tests
+ * @author     Stephan Schmidt <schst@php-tools.net>
+ * @author     Chuck Burgess <ashnazg@php.net>
+ */
+class XML_Unserializer_Option_Whitespace_TestCase extends PHPUnit_Framework_TestCase {
+
+    private $xml = '<xml>
    <string>
-   
+
     This XML
     document
     contains
@@ -18,16 +42,20 @@ class Unserializer_Option_Whitespace_TestCase extends PHPUnit_TestCase
 
    </string>
  </xml>';
-    
-    function Serializer_Scalars_TestCase($name)
-    {
-        $this->PHPUnit_TestCase($name);
+
+    public static function main() {
+        $suite  = new PHPUnit_Framework_TestSuite('XML_Unserializer_Option_Whitespace_TestCase');
+        $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
+
+    protected function setUp() {}
+
+    protected function tearDown() {}
 
    /**
     * Test trim behaviour
     */
-    function testTrim()
+    public function testTrim()
     {
         $u = new XML_Unserializer();
         $u->setOption(XML_UNSERIALIZER_OPTION_WHITESPACE, XML_UNSERIALIZER_WHITESPACE_TRIM);
@@ -42,7 +70,7 @@ class Unserializer_Option_Whitespace_TestCase extends PHPUnit_TestCase
    /**
     * Test normalize behaviour
     */
-    function testNormalize()
+    public function testNormalize()
     {
         $u = new XML_Unserializer();
         $u->setOption(XML_UNSERIALIZER_OPTION_WHITESPACE, XML_UNSERIALIZER_WHITESPACE_NORMALIZE);
@@ -54,13 +82,13 @@ class Unserializer_Option_Whitespace_TestCase extends PHPUnit_TestCase
    /**
     * Test keep behaviour
     */
-    function testKeep()
+    public function testKeep()
     {
         $u = new XML_Unserializer();
         $u->setOption(XML_UNSERIALIZER_OPTION_WHITESPACE, XML_UNSERIALIZER_WHITESPACE_KEEP);
         $u->unserialize($this->xml);
         $expected = array('string' => '
-   
+
     This XML
     document
     contains
@@ -69,5 +97,14 @@ class Unserializer_Option_Whitespace_TestCase extends PHPUnit_TestCase
    ');
         $this->assertEquals($expected, $u->getUnserializedData());
     }
+
+}
+
+/**
+ * PHPUnit main() hack
+ * "Call class::main() if this source file is executed directly."
+ */
+if (PHPUnit_MAIN_METHOD == 'XML_Unserializer_Option_Whitespace_TestCase::main') {
+    XML_Unserializer_Option_Whitespace_TestCase::main();
 }
 ?>

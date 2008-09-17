@@ -1,32 +1,60 @@
 <?php
 /**
- * Testcase for the different modes
+ * Unit Tests for serializing arrays
  *
- * @author      Stephan Schmidt <schst@php-tools.net>
- * @package     XML_Serializer
- * @subpackage  Tests
+ * @package    XML_Serializer
+ * @subpackage tests
+ * @author     Stephan Schmidt <schst@php-tools.net>
+ * @author     Chuck Burgess <ashnazg@php.net>
  */
-class Serializer_Option_Mode_TestCase extends PHPUnit_TestCase
-{
-    var $options = array(
-                    XML_SERIALIZER_OPTION_LINEBREAKS           => '',
-                    XML_SERIALIZER_OPTION_INDENT               => '',
-                   );
 
-    var $data = array(
-                    'foo' => array(1, 2, 3),
-                    'bar' => array(1, 2, 3)
-                );
-    
-    function Serializer_Option_Mode_TestCase($name)
-    {
-        $this->PHPUnit_TestCase($name);
+/**
+ * PHPUnit main() hack
+ * 
+ * "Call class::main() if this source file is executed directly."
+ */
+if (!defined('PHPUnit_MAIN_METHOD')) {
+    define('PHPUnit_MAIN_METHOD', 'XML_Serializer_Option_Mode_TestCase::main');
+}
+require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'PHPUnit/Framework/TestSuite.php';
+require_once 'PHPUnit/TextUI/TestRunner.php';
+
+require_once 'XML/Serializer.php';
+
+/**
+ * Unit Tests for serializing arrays
+ *
+ * @package    XML_Serializer
+ * @subpackage tests
+ * @author     Stephan Schmidt <schst@php-tools.net>
+ * @author     Chuck Burgess <ashnazg@php.net>
+ */
+class XML_Serializer_Option_Mode_TestCase extends PHPUnit_Framework_TestCase {
+
+    private $options = array(
+        XML_SERIALIZER_OPTION_INDENT     => '',
+        XML_SERIALIZER_OPTION_LINEBREAKS => '',
+    );
+
+    protected $data = array(
+        'foo' => array(1, 2, 3),
+        'bar' => array(1, 2, 3)
+    );
+
+    public static function main() {
+        $suite  = new PHPUnit_Framework_TestSuite('XML_Serializer_Option_Mode_TestCase');
+        $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
+
+    protected function setUp() {}
+
+    protected function tearDown() {}
 
    /**
     * Default mode
     */
-    function testDefault()
+    public function testDefault()
     {
         $s = new XML_Serializer($this->options);
         $s->serialize($this->data);
@@ -36,11 +64,21 @@ class Serializer_Option_Mode_TestCase extends PHPUnit_TestCase
    /**
     * SimpleXML
     */
-    function testSimpleXML()
+    public function testSimpleXML()
     {
         $s = new XML_Serializer($this->options);
         $s->setOption(XML_SERIALIZER_OPTION_MODE, XML_SERIALIZER_MODE_SIMPLEXML);
         $s->serialize($this->data);
         $this->assertEquals('<array><foo>1</foo><foo>2</foo><foo>3</foo><bar>1</bar><bar>2</bar><bar>3</bar></array>', $s->getSerializedData());
     }
+
 }
+
+/**
+ * PHPUnit main() hack
+ * "Call class::main() if this source file is executed directly."
+ */
+if (PHPUnit_MAIN_METHOD == 'XML_Serializer_Option_Mode_TestCase::main') {
+    XML_Serializer_Option_Mode_TestCase::main();
+}
+?>

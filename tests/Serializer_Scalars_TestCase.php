@@ -1,22 +1,50 @@
 <?php
 /**
- * Testcase for serializing scalar values
+ * Unit Tests for serializing arrays
  *
- * @author      Stephan Schmidt <schst@php-tools.net>
- * @package     XML_Serializer
- * @subpackage  Tests
+ * @package    XML_Serializer
+ * @subpackage tests
+ * @author     Stephan Schmidt <schst@php-tools.net>
+ * @author     Chuck Burgess <ashnazg@php.net>
  */
-class Serializer_Scalars_TestCase extends PHPUnit_TestCase
-{
-    function Serializer_Scalars_TestCase($name)
-    {
-        $this->PHPUnit_TestCase($name);
+
+/**
+ * PHPUnit main() hack
+ * 
+ * "Call class::main() if this source file is executed directly."
+ */
+if (!defined('PHPUnit_MAIN_METHOD')) {
+    define('PHPUnit_MAIN_METHOD', 'XML_Serializer_Scalars_TestCase::main');
+}
+require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'PHPUnit/Framework/TestSuite.php';
+require_once 'PHPUnit/TextUI/TestRunner.php';
+
+require_once 'XML/Serializer.php';
+
+/**
+ * Unit Tests for serializing arrays
+ *
+ * @package    XML_Serializer
+ * @subpackage tests
+ * @author     Stephan Schmidt <schst@php-tools.net>
+ * @author     Chuck Burgess <ashnazg@php.net>
+ */
+class XML_Serializer_Scalars_TestCase extends PHPUnit_Framework_TestCase {
+
+    public static function main() {
+        $suite  = new PHPUnit_Framework_TestSuite('XML_Serializer_Scalars_TestCase');
+        $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
+
+    protected function setUp() {}
+
+    protected function tearDown() {}
 
    /**
     * Test serializing a string
     */
-    function testString()
+    public function testString()
     {
         $s = new XML_Serializer();
         $s->serialize('a string');
@@ -28,7 +56,7 @@ class Serializer_Scalars_TestCase extends PHPUnit_TestCase
    /**
     * Test serializing a integer
     */
-    function testInteger()
+    public function testInteger()
     {
         $s = new XML_Serializer();
         $s->serialize(456223);
@@ -42,7 +70,7 @@ class Serializer_Scalars_TestCase extends PHPUnit_TestCase
    /**
     * Test serializing a float
     */
-    function testDouble()
+    public function testDouble()
     {
         $s = new XML_Serializer();
         $s->serialize(455.65);
@@ -54,7 +82,7 @@ class Serializer_Scalars_TestCase extends PHPUnit_TestCase
    /**
     * Test serializing a boolean
     */
-    function testBoolean()
+    public function testBoolean()
     {
         $s = new XML_Serializer();
         $s->serialize(true);
@@ -66,7 +94,7 @@ class Serializer_Scalars_TestCase extends PHPUnit_TestCase
    /**
     * Test serializing a null value
     */
-    function testNull()
+    public function testNull()
     {
         $s = new XML_Serializer();
         $s->serialize(null);
@@ -76,10 +104,20 @@ class Serializer_Scalars_TestCase extends PHPUnit_TestCase
    /**
     * Test serializing a resource
     */
-    function testResource()
+    public function testResource()
     {
         $s = new XML_Serializer();
         $s->serialize(fopen(__FILE__, 'r'));
         $this->assertRegExp('/<resource>Resource id #[0-9]+<\/resource>/', $s->getSerializedData());
     }
+
 }
+
+/**
+ * PHPUnit main() hack
+ * "Call class::main() if this source file is executed directly."
+ */
+if (PHPUnit_MAIN_METHOD == 'XML_Serializer_Scalars_TestCase::main') {
+    XML_Serializer_Scalars_TestCase::main();
+}
+?>

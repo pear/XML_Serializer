@@ -1,22 +1,50 @@
 <?php
 /**
- * Testcase for unserializing XML to objects
+ * Unit Tests for serializing arrays
  *
- * @author      Stephan Schmidt <schst@php-tools.net>
- * @package     XML_Serializer
- * @subpackage  Tests
+ * @package    XML_Serializer
+ * @subpackage tests
+ * @author     Stephan Schmidt <schst@php-tools.net>
+ * @author     Chuck Burgess <ashnazg@php.net>
  */
-class Unserializer_Objects_TestCase extends PHPUnit_TestCase
-{
-    function Serializer_Scalars_TestCase($name)
-    {
-        $this->PHPUnit_TestCase($name);
+
+/**
+ * PHPUnit main() hack
+ * 
+ * "Call class::main() if this source file is executed directly."
+ */
+if (!defined('PHPUnit_MAIN_METHOD')) {
+    define('PHPUnit_MAIN_METHOD', 'XML_Unserializer_Objects_TestCase::main');
+}
+require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'PHPUnit/Framework/TestSuite.php';
+require_once 'PHPUnit/TextUI/TestRunner.php';
+
+require_once 'XML/Unserializer.php';
+
+/**
+ * Unit Tests for serializing arrays
+ *
+ * @package    XML_Serializer
+ * @subpackage tests
+ * @author     Stephan Schmidt <schst@php-tools.net>
+ * @author     Chuck Burgess <ashnazg@php.net>
+ */
+class XML_Unserializer_Objects_TestCase extends PHPUnit_Framework_TestCase {
+
+    public static function main() {
+        $suite  = new PHPUnit_Framework_TestSuite('XML_Unserializer_Objects_TestCase');
+        $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
+
+    protected function setUp() {}
+
+    protected function tearDown() {}
 
    /**
     * Test unserializing to a stdClass object
     */
-    function testStdClass()
+    public function testStdClass()
     {
         $u = new XML_Unserializer();
         $u->setOption(XML_UNSERIALIZER_OPTION_COMPLEXTYPE, 'object');
@@ -30,7 +58,7 @@ class Unserializer_Objects_TestCase extends PHPUnit_TestCase
    /**
     * Test unserializing to a custom class
     */
-    function testDefaultClass()
+    public function testDefaultClass()
     {
         $u = new XML_Unserializer();
         $u->setOption(XML_UNSERIALIZER_OPTION_COMPLEXTYPE, 'object');
@@ -45,7 +73,7 @@ class Unserializer_Objects_TestCase extends PHPUnit_TestCase
    /**
     * Test unserializing to a class based on the tag name
     */
-    function testTagnameAsClass()
+    public function testTagnameAsClass()
     {
         $u = new XML_Unserializer();
         $u->setOption(XML_UNSERIALIZER_OPTION_COMPLEXTYPE, 'object');
@@ -61,7 +89,7 @@ class Unserializer_Objects_TestCase extends PHPUnit_TestCase
    /**
     * Test unserializing with a setter method
     */
-    function testSetterMethod()
+    public function testSetterMethod()
     {
         $u = new XML_Unserializer();
         $u->setOption(XML_UNSERIALIZER_OPTION_COMPLEXTYPE, 'object');
@@ -72,22 +100,27 @@ class Unserializer_Objects_TestCase extends PHPUnit_TestCase
         $result->setFoo('tomato');
         $this->assertEquals($result, $u->getUnserializedData());
     }
+
 }
 
-class Foo
-{
-}
+class Foo {}
 
-class Bar
-{
-}
+class Bar {}
 
 class SetterExample {
-    var $_hidden = null;
-    
-    function setFoo($foo)
+    private $_hidden = null;
+
+    public function setFoo($foo)
     {
         $this->_hidden = $foo;
     }
+}
+
+/**
+ * PHPUnit main() hack
+ * "Call class::main() if this source file is executed directly."
+ */
+if (PHPUnit_MAIN_METHOD == 'XML_Unserializer_Objects_TestCase::main') {
+    XML_Unserializer_Objects_TestCase::main();
 }
 ?>

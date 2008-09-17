@@ -1,27 +1,55 @@
 <?php
 /**
- * Testcase for serializing arrays
+ * Unit Tests for serializing arrays
  *
- * @author      Stephan Schmidt <schst@php-tools.net>
- * @package     XML_Serializer
- * @subpackage  Tests
+ * @package    XML_Serializer
+ * @subpackage tests
+ * @author     Stephan Schmidt <schst@php-tools.net>
+ * @author     Chuck Burgess <ashnazg@php.net>
  */
-class Serializer_Objects_TestCase extends PHPUnit_TestCase
-{
-    var $options = array(
-                    XML_SERIALIZER_OPTION_INDENT     => '',
-                    XML_SERIALIZER_OPTION_LINEBREAKS => '',
-                   );
-    
-    function Serializer_Objects_TestCase($name)
-    {
-        $this->PHPUnit_TestCase($name);
+
+/**
+ * PHPUnit main() hack
+ * 
+ * "Call class::main() if this source file is executed directly."
+ */
+if (!defined('PHPUnit_MAIN_METHOD')) {
+    define('PHPUnit_MAIN_METHOD', 'XML_Serializer_Objects_TestCase::main');
+}
+require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'PHPUnit/Framework/TestSuite.php';
+require_once 'PHPUnit/TextUI/TestRunner.php';
+
+require_once 'XML/Serializer.php';
+
+/**
+ * Unit Tests for serializing arrays
+ *
+ * @package    XML_Serializer
+ * @subpackage tests
+ * @author     Stephan Schmidt <schst@php-tools.net>
+ * @author     Chuck Burgess <ashnazg@php.net>
+ */
+class XML_Serializer_Objects_TestCase extends PHPUnit_Framework_TestCase {
+
+    private $options = array(
+        XML_SERIALIZER_OPTION_INDENT     => '',
+        XML_SERIALIZER_OPTION_LINEBREAKS => '',
+    );
+
+    public static function main() {
+        $suite  = new PHPUnit_Framework_TestSuite('XML_Serializer_Objects_TestCase');
+        $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
-    
+
+    protected function setUp() {}
+
+    protected function tearDown() {}
+
    /**
     * Test serializing an object without any properties
     */
-    function testEmptyObject()
+    public function testEmptyObject()
     {
         $s = new XML_Serializer($this->options);
         $s->serialize(new stdClass());
@@ -31,7 +59,7 @@ class Serializer_Objects_TestCase extends PHPUnit_TestCase
    /**
     * Test serializing a simple object
     */
-    function testSimpleObject()
+    public function testSimpleObject()
     {
         $obj = new stdClass();
         $obj->foo = 'bar';
@@ -43,7 +71,7 @@ class Serializer_Objects_TestCase extends PHPUnit_TestCase
    /**
     * Test serializing a nested object
     */
-    function testNestedObject()
+    public function testNestedObject()
     {
         $obj = new stdClass();
         $obj->foo = new stdClass();
@@ -56,28 +84,38 @@ class Serializer_Objects_TestCase extends PHPUnit_TestCase
    /**
     * Test serializing an object, that supports __sleep
     */
-    function testSleep()
+    public function testSleep()
     {
         $obj = new MyClass('foo', 'bar');
         $s = new XML_Serializer($this->options);
         $s->serialize($obj);
-        $this->assertEquals('<myclass><foo>foo</foo></myclass>', $s->getSerializedData());
+        $this->assertEquals('<MyClass><foo>foo</foo></MyClass>', $s->getSerializedData());
     }
+
 }
 
-class myclass
+class MyClass
 {
     var $foo;
     var $bar;
-    
-    function myclass($foo, $bar)
+
+    public function MyClass($foo, $bar)
     {
         $this->foo = $foo;
         $this->bar = $bar;
     }
-    
-    function __sleep()
+
+    public function __sleep()
     {
         return array('foo');
     }
 }
+
+/**
+ * PHPUnit main() hack
+ * "Call class::main() if this source file is executed directly."
+ */
+if (PHPUnit_MAIN_METHOD == 'XML_Serializer_Objects_TestCase::main') {
+    XML_Serializer_Objects_TestCase::main();
+}
+?>

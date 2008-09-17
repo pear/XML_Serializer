@@ -1,29 +1,56 @@
 <?php
 /**
- * Testcase for ignoring null values
+ * Unit Tests for serializing arrays
  *
- * @author      Stephan Schmidt <schst@php-tools.net>
- * @package     XML_Serializer
- * @subpackage  Tests
+ * @package    XML_Serializer
+ * @subpackage tests
+ * @author     Stephan Schmidt <schst@php-tools.net>
+ * @author     Chuck Burgess <ashnazg@php.net>
  */
-class Serializer_Option_IgnoreNull_TestCase extends PHPUnit_TestCase
-{
-    var $options = array(
-                    XML_SERIALIZER_OPTION_LINEBREAKS           => '',
-                    XML_SERIALIZER_OPTION_INDENT               => '',
-                    XML_SERIALIZER_OPTION_IGNORE_NULL          => true
-                   );
 
-    
-    function Serializer_Option_IgnoreNull_TestCase($name)
-    {
-        $this->PHPUnit_TestCase($name);
+/**
+ * PHPUnit main() hack
+ * 
+ * "Call class::main() if this source file is executed directly."
+ */
+if (!defined('PHPUnit_MAIN_METHOD')) {
+    define('PHPUnit_MAIN_METHOD', 'XML_Serializer_Option_IgnoreNull_TestCase::main');
+}
+require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'PHPUnit/Framework/TestSuite.php';
+require_once 'PHPUnit/TextUI/TestRunner.php';
+
+require_once 'XML/Serializer.php';
+
+/**
+ * Unit Tests for serializing arrays
+ *
+ * @package    XML_Serializer
+ * @subpackage tests
+ * @author     Stephan Schmidt <schst@php-tools.net>
+ * @author     Chuck Burgess <ashnazg@php.net>
+ */
+class XML_Serializer_Option_IgnoreNull_TestCase extends PHPUnit_Framework_TestCase {
+
+    private $options = array(
+        XML_SERIALIZER_OPTION_INDENT      => '',
+        XML_SERIALIZER_OPTION_LINEBREAKS  => '',
+        XML_SERIALIZER_OPTION_IGNORE_NULL => true
+    );
+
+    public static function main() {
+        $suite  = new PHPUnit_Framework_TestSuite('XML_Serializer_Option_IgnoreNull_TestCase');
+        $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
-    
+
+    protected function setUp() {}
+
+    protected function tearDown() {}
+
    /**
     * Array with null value
     */
-    function testArray()
+    public function testArray()
     {
         $s = new XML_Serializer($this->options);
         $s->serialize(array('foo' => 'bar', 'null' => null));
@@ -33,7 +60,7 @@ class Serializer_Option_IgnoreNull_TestCase extends PHPUnit_TestCase
    /**
     * Object with null value
     */
-    function testObject()
+    public function testObject()
     {
         $obj = new stdClass();
         $obj->foo = 'bar';
@@ -42,4 +69,14 @@ class Serializer_Option_IgnoreNull_TestCase extends PHPUnit_TestCase
         $s->serialize($obj);
         $this->assertEquals('<stdClass><foo>bar</foo></stdClass>', $s->getSerializedData());
     }
+
 }
+
+/**
+ * PHPUnit main() hack
+ * "Call class::main() if this source file is executed directly."
+ */
+if (PHPUnit_MAIN_METHOD == 'XML_Serializer_Option_IgnoreNull_TestCase::main') {
+    XML_Serializer_Option_IgnoreNull_TestCase::main();
+}
+?>
