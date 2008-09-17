@@ -137,7 +137,7 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
      </file>
     </dir> <!-- /examples -->
     <dir name="tests">
-     <file role="test" name="run-tests.php">
+     <file role="test" name="AllTests.php">
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
      <file role="test" name="bug-12139.phpt" />
