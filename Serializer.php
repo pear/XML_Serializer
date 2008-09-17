@@ -958,10 +958,6 @@ class XML_Serializer extends PEAR
                         $this->_tagDepth);
                 }
 
-                if (isset($this->options[XML_SERIALIZER_OPTION_TAGMAP][$key])) {
-                    $key = $this->options[XML_SERIALIZER_OPTION_TAGMAP][$key];
-                }
-
                 // copy key
                 $origKey = $key;
                 $this->expectError('*');
@@ -977,6 +973,12 @@ class XML_Serializer extends PEAR
                         $key = $this->_getDefaultTagname($tagName);
                     }
                 }
+
+                // once we've established the true $key, is there a tagmap for it?
+                if (isset($this->options[XML_SERIALIZER_OPTION_TAGMAP][$key])) {
+                    $key = $this->options[XML_SERIALIZER_OPTION_TAGMAP][$key];
+                }
+
                 $atts = array();
                 if ($this->options[XML_SERIALIZER_OPTION_TYPEHINTS] === true) {
                     $atts[$this->options[XML_SERIALIZER_OPTION_ATTRIBUTE_TYPE]] = 
