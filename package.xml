@@ -141,6 +141,7 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
      <file role="test" name="bug-12139.phpt" />
+     <file role="test" name="bug-13896.phpt" />
      <file role="test" name="show_ScalarAsAttributes_usage.phpt" />
      <file role="test" name="Serializer_Arrays_TestCase.php">
       <replace type="package-info" from="@package_version@" to="version"/>
