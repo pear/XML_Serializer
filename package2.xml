@@ -142,6 +142,7 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
     <file baseinstalldir="XML" name="AllTests.php" role="test">
      <tasks:replace from="@package_version@" to="version" type="package-info" />
     </file>
+    <file baseinstalldir="XML" name="bug-9799.phpt" role="test" />
     <file baseinstalldir="XML" name="bug-12139.phpt" role="test" />
     <file baseinstalldir="XML" name="bug-13896.phpt" role="test" />
     <file baseinstalldir="XML" name="show_ScalarAsAttributes_usage.phpt" role="test" />
