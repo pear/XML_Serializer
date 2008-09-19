@@ -112,8 +112,8 @@ define('XML_SERIALIZER_OPTION_DEFAULT_TAG', 'defaultTagName');
  * option: use classname for objects in indexed arrays
  *
  * Possible values:
- * - true (default)
- * - false
+ * - true
+ * - false (default)
  */
 define('XML_SERIALIZER_OPTION_CLASSNAME_AS_TAGNAME', 'classAsTagName');
 
@@ -166,6 +166,7 @@ define('XML_SERIALIZER_OPTION_PREPEND_ATTRIBUTES', 'prependAttributes');
  * Possible values:
  * - true
  * - false (default)
+ * - '_auto'
  */
 define('XML_SERIALIZER_OPTION_INDENT_ATTRIBUTES', 'indentAttributes');
 
@@ -260,7 +261,7 @@ define('XML_SERIALIZER_OPTION_TAGMAP', 'tagMap');
 define('XML_SERIALIZER_OPTION_ENCODE_FUNC', 'encodeFunction');
 
 /**
- * option: function that will be applied before serializing
+ * option: namespace to use for the document
  *
  * Possible values:
  * - string
