@@ -1,15 +1,13 @@
 <?php
 require_once 'PEAR/PackageFileManager.php';
 
-$version = '0.19.0';
+$version = '0.19.1';
 $state = 'beta';
 
 $notes = <<<EOT
-- switch to package.xml v2
-- PEAR CS cleanup
-- Req #13856:  License Change from PHP to BSD [ashnazg]
-- Bug #8048:   Entities are not replaced in tags with attributes [schst]
-- Doc #12725:  tuto link no more available
+- Bug #14653:  testNumberedObjects testcase fails [ashnazg]
+- Doc #8650 :  Missing Information in the Manual [ashnazg]
+- Doc #13896:  Bad info in the RSS feed tutorial [ashnazg]
 EOT;
 
 $description = <<<EOT
@@ -67,4 +65,9 @@ if (PEAR::isError($result)) {
     echo $result->getMessage();
     die();
 }
+
+echo "\n\nNOTICE:\n"
+    . "  After using 'pear convert' to generate package2.xml,\n"
+    . "  you must update the developers' <active> tags\n"
+    . "  and verify the new <api> tag is correct.\n\n"
 ?>

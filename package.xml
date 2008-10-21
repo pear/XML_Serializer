@@ -26,15 +26,13 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
   </maintainer>
   </maintainers>
  <release>
-  <version>0.19.0</version>
-  <date>2008-09-15</date>
+  <version>0.19.1</version>
+  <date>2008-10-21</date>
   <license>BSD License</license>
   <state>beta</state>
-  <notes>- switch to package.xml v2
-- PEAR CS cleanup
-- Req #13856:  License Change from PHP to BSD [ashnazg]
-- Bug #8048:   Entities are not replaced in tags with attributes [schst]
-- Doc #12725:  tuto link no more available
+  <notes>- Bug #14653:  testNumberedObjects testcase fails [ashnazg]
+- Doc #8650 :  Missing Information in the Manual [ashnazg]
+- Doc #13896:  Bad info in the RSS feed tutorial [ashnazg]
   </notes>
   <deps>
    <dep type="pkg" rel="ge" version="1.1.1" optional="no">XML_Util</dep>
@@ -140,10 +138,15 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
      <file role="test" name="AllTests.php">
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
-     <file role="test" name="bug-9799.phpt" />
-     <file role="test" name="bug-12139.phpt" />
-     <file role="test" name="bug-13896.phpt" />
-     <file role="test" name="show_ScalarAsAttributes_usage.phpt" />
+     <file role="test" name="bug-9799.phpt">
+      <replace type="package-info" from="@package_version@" to="version"/>
+     </file>
+     <file role="test" name="bug-12139.phpt">
+      <replace type="package-info" from="@package_version@" to="version"/>
+     </file>
+     <file role="test" name="bug-13896.phpt">
+      <replace type="package-info" from="@package_version@" to="version"/>
+     </file>
      <file role="test" name="Serializer_Arrays_TestCase.php">
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
@@ -205,6 +208,9 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
      <file role="test" name="Serializer_Scalars_TestCase.php">
+      <replace type="package-info" from="@package_version@" to="version"/>
+     </file>
+     <file role="test" name="show_ScalarAsAttributes_usage.phpt">
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
      <file role="test" name="Unserializer_Arrays_TestCase.php">
@@ -534,6 +540,16 @@ XML_Unserializer:
 - Req #13856:  License Change from PHP to BSD [ashnazg]
 - Bug #8048:   Entities are not replaced in tags with attributes [schst]
 - Doc #12725:  tuto link no more available
+    </notes>
+   </release>
+   <release>
+    <version>0.19.1</version>
+    <date>2008-10-21</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>- Bug #14653:  testNumberedObjects testcase fails [ashnazg]
+- Doc #8650 :  Missing Information in the Manual [ashnazg]
+- Doc #13896:  Bad info in the RSS feed tutorial [ashnazg]
     </notes>
    </release>
  </changelog>
