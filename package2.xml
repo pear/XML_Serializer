@@ -27,10 +27,10 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
   <email>ashnazg@php.net</email>
   <active>yes</active>
  </lead>
- <date>2008-10-21</date>
- <time>13:07:12</time>
+ <date>2009-01-24</date>
+ <time>21:44:14</time>
  <version>
-  <release>0.19.1</release>
+  <release>0.19.2</release>
   <api>0.19.0</api>
  </version>
  <stability>
@@ -38,10 +38,7 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
   <api>beta</api>
  </stability>
  <license>BSD License</license>
- <notes>- Bug #14653:  testNumberedObjects testcase fails [ashnazg]
-- Doc #8650 :  Missing Information in the Manual [ashnazg]
-- Doc #13896:  Bad info in the RSS feed tutorial [ashnazg]
-  
+ <notes>- Bug #15602:  attributes don&apos;t get escaped sometimes [lapo]
  </notes>
  <contents>
   <dir name="/">
@@ -140,15 +137,10 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
     <file baseinstalldir="XML" name="AllTests.php" role="test">
      <tasks:replace from="@package_version@" to="version" type="package-info" />
     </file>
-    <file baseinstalldir="XML" name="bug-9799.phpt" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="bug-12139.phpt" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="bug-13896.phpt" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
+    <file baseinstalldir="XML" name="bug-9799.phpt" role="test" />
+    <file baseinstalldir="XML" name="bug-12139.phpt" role="test" />
+    <file baseinstalldir="XML" name="bug-13896.phpt" role="test" />
+    <file baseinstalldir="XML" name="bug-15602.phpt" role="test" />
     <file baseinstalldir="XML" name="Serializer_Arrays_TestCase.php" role="test">
      <tasks:replace from="@package_version@" to="version" type="package-info" />
     </file>
@@ -755,7 +747,22 @@ XML_Unserializer:
    <notes>- Bug #14653:  testNumberedObjects testcase fails [ashnazg]
 - Doc #8650 :  Missing Information in the Manual [ashnazg]
 - Doc #13896:  Bad info in the RSS feed tutorial [ashnazg]
-    
+
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.19.2</release>
+    <api>0.19.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2009-01-24</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- Bug #15602:  attributes don&apos;t get escaped sometimes [lapo]
+
    </notes>
   </release>
  </changelog>

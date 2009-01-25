@@ -1,13 +1,11 @@
 <?php
 require_once 'PEAR/PackageFileManager.php';
 
-$version = '0.19.1';
+$version = '0.19.2';
 $state = 'beta';
 
 $notes = <<<EOT
-- Bug #14653:  testNumberedObjects testcase fails [ashnazg]
-- Doc #8650 :  Missing Information in the Manual [ashnazg]
-- Doc #13896:  Bad info in the RSS feed tutorial [ashnazg]
+- Bug #15602:  attributes don't get escaped sometimes [lapo]
 EOT;
 
 $description = <<<EOT

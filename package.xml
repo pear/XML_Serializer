@@ -26,13 +26,11 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
   </maintainer>
   </maintainers>
  <release>
-  <version>0.19.1</version>
-  <date>2008-10-21</date>
+  <version>0.19.2</version>
+  <date>2009-01-24</date>
   <license>BSD License</license>
   <state>beta</state>
-  <notes>- Bug #14653:  testNumberedObjects testcase fails [ashnazg]
-- Doc #8650 :  Missing Information in the Manual [ashnazg]
-- Doc #13896:  Bad info in the RSS feed tutorial [ashnazg]
+  <notes>- Bug #15602:  attributes don&apos;t get escaped sometimes [lapo]
   </notes>
   <deps>
    <dep type="pkg" rel="ge" version="1.1.1" optional="no">XML_Util</dep>
@@ -138,15 +136,10 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
      <file role="test" name="AllTests.php">
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
-     <file role="test" name="bug-9799.phpt">
-      <replace type="package-info" from="@package_version@" to="version"/>
-     </file>
-     <file role="test" name="bug-12139.phpt">
-      <replace type="package-info" from="@package_version@" to="version"/>
-     </file>
-     <file role="test" name="bug-13896.phpt">
-      <replace type="package-info" from="@package_version@" to="version"/>
-     </file>
+     <file role="test" name="bug-9799.phpt" />
+     <file role="test" name="bug-12139.phpt" />
+     <file role="test" name="bug-13896.phpt" />
+     <file role="test" name="bug-15602.phpt" />
      <file role="test" name="Serializer_Arrays_TestCase.php">
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
@@ -550,6 +543,14 @@ XML_Unserializer:
     <notes>- Bug #14653:  testNumberedObjects testcase fails [ashnazg]
 - Doc #8650 :  Missing Information in the Manual [ashnazg]
 - Doc #13896:  Bad info in the RSS feed tutorial [ashnazg]
+    </notes>
+   </release>
+   <release>
+    <version>0.19.2</version>
+    <date>2009-01-24</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>- Bug #15602:  attributes don&apos;t get escaped sometimes [lapo]
     </notes>
    </release>
  </changelog>
