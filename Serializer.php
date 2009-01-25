@@ -1167,7 +1167,7 @@ class XML_Serializer extends PEAR
             $tag['content'] =   '';
         }
 
-        // replace XML entities (only needed, if this is not a nested call)
+        // replace XML entities
         if ($firstCall === true) {
             if ($this->options[XML_SERIALIZER_OPTION_CDATA_SECTIONS] === true) {
                 $replaceEntities = XML_UTIL_CDATA_SECTION;
@@ -1175,7 +1175,16 @@ class XML_Serializer extends PEAR
                 $replaceEntities = $this->options[XML_SERIALIZER_OPTION_ENTITIES];
             }
         } else {
+            // this is a nested call, so value is already encoded 
+            // and must not be encoded again
             $replaceEntities = XML_SERIALIZER_ENTITIES_NONE;
+            // but attributes need to be encoded anyways
+            // (done here because the rest of the code assumes the same encoding
+            // can be used both for attributes and content)
+            foreach ($tag['attributes'] as $k => &$v) {
+                $v = XML_Util::replaceEntities($v, 
+                    $this->options[XML_SERIALIZER_OPTION_ENTITIES]);
+            }
         }
         if (is_scalar($tag['content']) || is_null($tag['content'])) {
             if ($this->options[XML_SERIALIZER_OPTION_ENCODE_FUNC]) {
