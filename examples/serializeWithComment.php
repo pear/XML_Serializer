@@ -32,7 +32,7 @@ $serializer = &new XML_Serializer($options);
 $result = $serializer->serialize($foo);
 
 if ($result === true) {
-	$xml = $serializer->getSerializedData();
+    $xml = $serializer->getSerializedData();
 }
 
 echo '<pre>';

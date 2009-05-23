@@ -1188,6 +1188,8 @@ class XML_Serializer extends PEAR
             foreach ($tag['attributes'] as $k => $v) {
                 $v = XML_Util::replaceEntities($v,
                     $this->options[XML_SERIALIZER_OPTION_ENTITIES]);
+
+                $tag['attributes'][$k] = $v;
             }
         }
         if (is_scalar($tag['content']) || is_null($tag['content'])) {

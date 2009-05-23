@@ -18,12 +18,12 @@ $data = array(
            'foo' => 'This is some text...',
            'bar' => '& even more text...',
            'test' => array('Foo', 'Foo & bar')
-			);
+            );
 
 $result = $serializer->serialize($data);
 
 if( $result === true ) {
-	$xml = $serializer->getSerializedData();
+    $xml = $serializer->getSerializedData();
     echo '<pre>';
     echo htmlspecialchars($xml);
     echo '</pre>';

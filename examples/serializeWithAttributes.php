@@ -17,7 +17,7 @@ $options = array(
                     XML_SERIALIZER_OPTION_INDENT               => '    ',
                     XML_SERIALIZER_OPTION_LINEBREAKS           => "\n",
                     XML_SERIALIZER_OPTION_DEFAULT_TAG          => 'unnamedItem',
-					XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES => true,
+                    XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES => true,
                 );
 
 // this is just to get a nested object
@@ -34,14 +34,14 @@ $serializer = new XML_Serializer($options);
 $result = $serializer->serialize($foo);
 
 if ($result === true) {
-	$xml = $serializer->getSerializedData();
+    $xml = $serializer->getSerializedData();
 
     echo '<pre>';
     echo htmlspecialchars($xml);
     echo '</pre>';
 } else {
-	echo '<pre>';
-	print_r($result);
-	echo '</pre>';
+    echo '<pre>';
+    print_r($result);
+    echo '</pre>';
 }
 ?>

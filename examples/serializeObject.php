@@ -47,7 +47,7 @@ $foo->value = "My value";
 $foo->error = $pearError;
 $foo->xml   = "cool";
 
-$foo->obj	= new MyClass();
+$foo->obj    = new MyClass();
 $foo->arr   = array();
 $foo->zero  = 0;
 
@@ -57,7 +57,7 @@ $serializer = &new XML_Serializer($options);
 $result = $serializer->serialize($foo);
 
 if( $result === true ) {
-	$xml = $serializer->getSerializedData();
+    $xml = $serializer->getSerializedData();
 }
 
 echo '<pre>';

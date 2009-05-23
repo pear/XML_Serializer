@@ -30,12 +30,12 @@
     $result = $serializer->serialize($foo);
     
     if ($result === true) {
-		$xml = $serializer->getSerializedData();
+        $xml = $serializer->getSerializedData();
     }
 
-    echo	"<pre>";
+    echo    "<pre>";
     print_r( htmlspecialchars($xml) );
-    echo	"</pre>";
+    echo    "</pre>";
 
     $unserializer = &new XML_Unserializer();
     $unserializer->setOption('parseAttributes', true);

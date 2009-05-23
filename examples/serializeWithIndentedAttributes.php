@@ -25,7 +25,7 @@
     
     // this is just to get a nested object
     $pearError = PEAR::raiseError('This is just an error object',123);
-	
+    
     $foo    =   new stdClass;
     
     $foo->value = "My value";
@@ -37,15 +37,15 @@
     $result = $serializer->serialize($foo);
     
     if( $result === true ) {
-		$xml = $serializer->getSerializedData();
+        $xml = $serializer->getSerializedData();
 
-	    echo	"<pre>";
-	    print_r( htmlspecialchars($xml) );
-	    echo	"</pre>";
+        echo    "<pre>";
+        print_r( htmlspecialchars($xml) );
+        echo    "</pre>";
     } else {
-		echo	"<pre>";
-		print_r($result);
-		echo	"</pre>";
-	}
+        echo    "<pre>";
+        print_r($result);
+        echo    "</pre>";
+    }
 
 ?>

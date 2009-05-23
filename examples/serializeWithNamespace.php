@@ -19,7 +19,7 @@ $foo    =   new stdClass;
 $foo->value = 'My value';
 $foo->xml   = 'cool';
 
-$foo->obj	= new stdClass;
+$foo->obj    = new stdClass;
 $foo->arr   = array();
 $foo->zero  = 0;
 
@@ -28,12 +28,12 @@ $serializer = &new XML_Serializer($options);
 $result = $serializer->serialize($foo);
 
 if( $result === true ) {
-	$xml = $serializer->getSerializedData();
+    $xml = $serializer->getSerializedData();
 }
 
-echo	'<pre>';
+echo    '<pre>';
 print_r( htmlspecialchars($xml) );
-echo	'</pre>';
+echo    '</pre>';
 
 // also pass the URI
 $serializer->setOption('namespace', array('bar', 'http://pear.php.net/package/XML_Serializer'));
@@ -41,10 +41,10 @@ $serializer->setOption('namespace', array('bar', 'http://pear.php.net/package/XM
 $result = $serializer->serialize($foo);
 
 if( $result === true ) {
-	$xml = $serializer->getSerializedData();
+    $xml = $serializer->getSerializedData();
 }
 
-echo	'<pre>';
+echo    '<pre>';
 print_r( htmlspecialchars($xml) );
-echo	'</pre>';
+echo    '</pre>';
 ?>

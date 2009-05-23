@@ -67,7 +67,7 @@ class XML_Serializer_Option_Indent_TestCase extends PHPUnit_Framework_TestCase {
         $s->setOption(XML_SERIALIZER_OPTION_INDENT, "\t");
         $s->serialize(array('foo' => 'bar'));
         $this->assertEquals('<array>
-	<foo>bar</foo>
+    <foo>bar</foo>
 </array>', $s->getSerializedData());
     }
 
