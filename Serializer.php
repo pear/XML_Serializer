@@ -1185,7 +1185,7 @@ class XML_Serializer extends PEAR
             // but attributes need to be encoded anyways
             // (done here because the rest of the code assumes the same encoding
             // can be used both for attributes and content)
-            foreach ($tag['attributes'] as $k => &$v) {
+            foreach ($tag['attributes'] as $k => $v) {
                 $v = XML_Util::replaceEntities($v,
                     $this->options[XML_SERIALIZER_OPTION_ENTITIES]);
             }
