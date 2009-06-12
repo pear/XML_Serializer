@@ -1,11 +1,11 @@
 <?php
 require_once 'PEAR/PackageFileManager.php';
 
-$version = '0.19.2';
+$version = '0.20.0';
 $state = 'beta';
 
 $notes = <<<EOT
-- Bug #15602:  attributes don't get escaped sometimes [lapo]
+- Request #13564:  bool(false) is converted to empty string
 EOT;
 
 $description = <<<EOT

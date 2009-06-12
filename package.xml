@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<package version="1.0" packagerversion="1.7.2">
+<package version="1.0" packagerversion="1.7.1">
  <name>XML_Serializer</name>
  <summary>Swiss-army knife for reading and writing XML files. Creates XML files from data structures and vice versa.</summary>
  <description>XML_Serializer serializes complex data structures like arrays or object as XML documents.
@@ -26,11 +26,11 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
   </maintainer>
   </maintainers>
  <release>
-  <version>0.19.2</version>
-  <date>2009-01-24</date>
+  <version>0.20.0</version>
+  <date>2009-06-11</date>
   <license>BSD License</license>
   <state>beta</state>
-  <notes>- Bug #15602:  attributes don&apos;t get escaped sometimes [lapo]
+  <notes>- Request #13564:  bool(false) is converted to empty string
   </notes>
   <deps>
    <dep type="pkg" rel="ge" version="1.1.1" optional="no">XML_Util</dep>
@@ -136,10 +136,21 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
      <file role="test" name="AllTests.php">
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
-     <file role="test" name="bug-9799.phpt" />
-     <file role="test" name="bug-12139.phpt" />
-     <file role="test" name="bug-13896.phpt" />
-     <file role="test" name="bug-15602.phpt" />
+     <file role="test" name="bug-9799.phpt">
+      <replace type="package-info" from="@package_version@" to="version"/>
+     </file>
+     <file role="test" name="bug-12139.phpt">
+      <replace type="package-info" from="@package_version@" to="version"/>
+     </file>
+     <file role="test" name="req-13564.phpt">
+      <replace type="package-info" from="@package_version@" to="version"/>
+     </file>
+     <file role="test" name="bug-13896.phpt">
+      <replace type="package-info" from="@package_version@" to="version"/>
+     </file>
+     <file role="test" name="bug-15602.phpt">
+      <replace type="package-info" from="@package_version@" to="version"/>
+     </file>
      <file role="test" name="Serializer_Arrays_TestCase.php">
       <replace type="package-info" from="@package_version@" to="version"/>
      </file>
@@ -551,6 +562,14 @@ XML_Unserializer:
     <license>BSD License</license>
     <state>beta</state>
     <notes>- Bug #15602:  attributes don&apos;t get escaped sometimes [lapo]
+    </notes>
+   </release>
+   <release>
+    <version>0.20.0</version>
+    <date>2009-06-11</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>- Request #13564:  bool(false) is converted to empty string
     </notes>
    </release>
  </changelog>
