@@ -307,6 +307,16 @@ define('XML_SERIALIZER_OPTION_IGNORE_NULL', 'ignoreNull');
  */
 define('XML_SERIALIZER_OPTION_CDATA_SECTIONS', 'cdata');
 
+/**
+ * option: whether a boolean FALSE value should become a string
+ *
+ * Possible values:
+ * - true
+ * - false (default)
+ *
+ * @since 0.20.0
+ */
+define('XML_SERIALIZER_OPTION_FALSE_AS_STRING', 'falseAsString');
 
 /**
  * default mode
@@ -551,7 +561,10 @@ class XML_Serializer extends PEAR
         XML_SERIALIZER_OPTION_IGNORE_NULL => false,
 
         // Whether to use cdata sections for plain character data
-        XML_SERIALIZER_OPTION_CDATA_SECTIONS => false
+        XML_SERIALIZER_OPTION_CDATA_SECTIONS => false,
+
+        // Whether to convert a boolean FALSE into a string
+        XML_SERIALIZER_OPTION_FALSE_AS_STRING => false,
     );
 
     /**
@@ -724,8 +737,20 @@ class XML_Serializer extends PEAR
                 $rootAttributes[$this->
                     options[XML_SERIALIZER_OPTION_ATTRIBUTE_TYPE]] = gettype($data);
             }
+
+            if (!is_bool($data)) {
+                $tag['content'] = $data;
+            } elseif ($data === false) {
+                if ($this->options[XML_SERIALIZER_OPTION_FALSE_AS_STRING] === true) {
+                    $tag['content'] = '0';
+                } else {
+                    $tag['content'] = '';
+                }
+            } else {
+                $tag['content'] = $data;
+            }
+
             @settype($data, 'string');
-            $tag['content']        = $data;
             $tag['attributes']     = $rootAttributes;
             $this->_serializedData = $this->_createXMLTag($tag);
         }
@@ -1167,6 +1192,8 @@ class XML_Serializer extends PEAR
             if (empty($tag['content'])) {
                 $tag['content'] =   '';
             }
+} elseif (XML_SERIALIZER_OPTION_FALSE_AS_STRING && $tag['content'] === false) {
+$tag['content'] = '0';
         } elseif (is_scalar($tag['content']) && (string)$tag['content'] == '') {
             $tag['content'] =   '';
         }
