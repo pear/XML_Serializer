@@ -262,7 +262,7 @@ define('XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION', 151);
  * $unserializer->unserialize($xml);
  *
  * $data = $unserializer->getUnserializedData();
- * <code>
+ * </code>
  *
  * @category  XML
  * @package   XML_Serializer
