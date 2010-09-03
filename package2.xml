@@ -23,7 +23,7 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
   <active>yes</active>
  </lead>
  <date>2010-09-04</date>
- <time>01:47:01</time>
+ <time>01:52:07</time>
  <version>
   <release>0.20.0</release>
   <api>0.20.0</api>
@@ -37,7 +37,7 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
 - Request #13564:  bool(false) is converted to empty string
  </notes>
  <contents>
-  <dir baseinstalldir="XML" name="/">
+  <dir baseinstalldir="/" name="/">
    <file baseinstalldir="XML" md5sum="38b25708edc72ee4b55e5729f45d13d5" name="doc/todo.txt" role="data">
     <tasks:replace from="@package_version@" to="version" type="package-info" />
    </file>
