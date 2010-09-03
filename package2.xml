@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>XML_Serializer</name>
  <channel>pear.php.net</channel>
  <summary>Swiss-army knife for reading and writing XML files. Creates XML files from data structures and vice versa.</summary>
@@ -12,9 +9,7 @@ Furthermore this package can be used as a replacement to serialize() and unseria
 If you use the XML_Unserializer on standard XML files, it will try to guess how it has to be unserialized. In most cases it does exactly what you expect it to do.
 Try reading a RSS file with XML_Unserializer and you have the whole RSS file in a structured array or even a collection of objects, similar to XML_RSS.
 
-Since version 0.8.0 the package is able to treat XML documents similar to the simplexml extension of PHP 5.
- 
- </description>
+Since version 0.8.0 the package is able to treat XML documents similar to the simplexml extension of PHP 5.</description>
  <lead>
   <name>Stephan Schmidt</name>
   <user>schst</user>
@@ -27,8 +22,8 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
   <email>ashnazg@php.net</email>
   <active>yes</active>
  </lead>
- <date>2009-06-11</date>
- <time>20:03:37</time>
+ <date>2010-09-04</date>
+ <time>01:47:01</time>
  <version>
   <release>0.20.0</release>
   <api>0.20.0</api>
@@ -38,213 +33,204 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
   <api>beta</api>
  </stability>
  <license>BSD License</license>
- <notes>- Request #13564:  bool(false) is converted to empty string
-  
+ <notes>
+- Request #13564:  bool(false) is converted to empty string
  </notes>
  <contents>
-  <dir name="/">
-   <dir name="doc">
-    <file baseinstalldir="XML" name="todo.txt" role="data">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-   </dir> <!-- /doc -->
-   <dir name="examples">
-    <file baseinstalldir="XML" name="example.xml" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeAndEncode.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeAndReturn.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeCData.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeIndexedArray.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeIndexedArrayWithContext.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeNullProperties.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeObject.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeRDF.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Bug7112.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeSelectiveAttributes.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeWithAttributes.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeWithAttributes2.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeWithComment.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeWithDtd.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeWithIndentedAttributes.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeWithNamespace.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="serializeWithTagMap.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="unserializeAnyXML.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="unserializeClassNames.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="unserializeEncoded.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="unserializeEnum.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="unserializeObject.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="unserializeRDF.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="unserializeWhitespace.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="unserializeWithAttributes.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="unserializeWithTagMap.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="unserializeWithTypeGuessing.php" role="doc">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-   </dir> <!-- /examples -->
-   <dir name="tests">
-    <file baseinstalldir="XML" name="AllTests.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="bug-9799.phpt" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="bug-12139.phpt" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="req-13564.phpt" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="bug-13896.phpt" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="bug-15602.phpt" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Arrays_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Objects_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_AttributesContent_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_CDataSections_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_ClassName_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_Comment_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_DefaultTag_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_DocType_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_EncodeFunc_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_IgnoreNull_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_Indent_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_Linebreaks_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_Mode_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_Namespace_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_ReturnResult_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_RootAttributes_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_RootName_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_TagMap_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_TypeHints_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Option_XmlDeclaration_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Serializer_Scalars_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="show_ScalarAsAttributes_usage.phpt" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Unserializer_Arrays_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Unserializer_Objects_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Unserializer_Option_Encodings_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Unserializer_Option_GuessTypes_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Unserializer_Option_Whitespace_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-    <file baseinstalldir="XML" name="Unserializer_Scalars_TestCase.php" role="test">
-     <tasks:replace from="@package_version@" to="version" type="package-info" />
-    </file>
-   </dir> <!-- /tests -->
-   <file baseinstalldir="XML" name="Serializer.php" role="php">
+  <dir baseinstalldir="XML" name="/">
+   <file baseinstalldir="XML" md5sum="38b25708edc72ee4b55e5729f45d13d5" name="doc/todo.txt" role="data">
     <tasks:replace from="@package_version@" to="version" type="package-info" />
    </file>
-   <file baseinstalldir="XML" name="Unserializer.php" role="php">
+   <file baseinstalldir="XML" md5sum="c1472503cbf6c35221dc8e37c7e58049" name="examples/example.xml" role="doc">
     <tasks:replace from="@package_version@" to="version" type="package-info" />
    </file>
-  </dir> <!-- / -->
+   <file baseinstalldir="XML" md5sum="fa8136a2ea26f61a82802751cc1778ea" name="examples/serializeAndEncode.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="d450d6dd9a06b2f1a0d2ef6da5e46e82" name="examples/serializeAndReturn.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="a19ccf524155b8caa93e887882f4595a" name="examples/serializeCData.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="55711570cbb9259cd88bb0dc081ee19b" name="examples/serializeIndexedArray.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="43c4536aec4f2c0cf024355d84319e40" name="examples/serializeIndexedArrayWithContext.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="0ba2cf6adcb9cba396b5997b8a7bcc06" name="examples/serializeNullProperties.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="a16721a09450265c7f41c10fd4f0e651" name="examples/serializeObject.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="75c50f5ad587ff8a9ca588b82f3af46b" name="examples/serializeRDF.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="a0baf3361aaff1e30b17805688a04044" name="examples/Serializer_Bug7112.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="ab46918564e3e442db6891acab29250a" name="examples/serializeSelectiveAttributes.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="c79e309c98c5e9c8c66ccafd063caad4" name="examples/serializeWithAttributes.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="a40382eda5e2f7c9c424780f56c60413" name="examples/serializeWithAttributes2.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="b4f2765b948581e4ed8f0c5ac30e424c" name="examples/serializeWithComment.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="95518df600c9c5eaf90a21f6f3cad69c" name="examples/serializeWithDtd.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="de366f8970f65be9313be20d1a5446be" name="examples/serializeWithIndentedAttributes.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="5d169143ee88159b4a172d34a6381bda" name="examples/serializeWithNamespace.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="d992946ee3b332f48f60bffbf3219b74" name="examples/serializeWithTagMap.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="78f6861118d168f55adf0c8c744a068d" name="examples/unserializeAnyXML.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="a51652d21c44353377ed4a71c992b54d" name="examples/unserializeClassNames.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="abe46fb437edd1549ae8cb25bc45a7e2" name="examples/unserializeEncoded.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="25419e079ae92d71293aa2caa90d0485" name="examples/unserializeEnum.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="758597f64be3f6132c58f59e4355032d" name="examples/unserializeObject.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="9fd1be0b5689fdae672e862d8b80b132" name="examples/unserializeRDF.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="f6785d5df9aa96c6bc45a7837c9bf7e2" name="examples/unserializeWhitespace.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="0016f26a5debc380cd52ccb909db69c5" name="examples/unserializeWithAttributes.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="99b0734f65e69d2c238bd264e907c8ad" name="examples/unserializeWithTagMap.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="654d663a079b527b2f28bff7367c38f4" name="examples/unserializeWithTypeGuessing.php" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="4e223031db1cea6e5ad476c57bd5599e" name="tests/AllTests.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="fe84d63063f8584c124e7b325e2a9c83" name="tests/bug-9799.phpt" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="31f3d9ddc5d60d18ef10435deb6edd8f" name="tests/bug-12139.phpt" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="ddfbacabff784b57b84b4324ed94c8fb" name="tests/bug-13896.phpt" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="7515f3ea793d395a44dc39616992361b" name="tests/bug-15602.phpt" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="151d0b757625a46a64c80f5fb311fd26" name="tests/req-13564.phpt" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="e94377f6baa0ff7f2f910750009a4675" name="tests/Serializer_Arrays_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="e8e1205cbbf9c470fc6421081320fb4c" name="tests/Serializer_Objects_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="eb1df5fbaa06ae3aa5749b192ef0866b" name="tests/Serializer_Option_AttributesContent_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="15c922cfada7c8bbb6df8b504977f7c6" name="tests/Serializer_Option_CDataSections_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="07ef147eea7bee9bda47f16822efba2f" name="tests/Serializer_Option_ClassName_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="666a8d882a362a9abbf736a5331f8940" name="tests/Serializer_Option_Comment_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="8dd9821d47ffe73a1a338a3f5f62691d" name="tests/Serializer_Option_DefaultTag_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="1d51640b54d1ded7b8e172888f415646" name="tests/Serializer_Option_DocType_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="2fcfd47f0872fb59466254bc2f0e3db7" name="tests/Serializer_Option_EncodeFunc_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="111d423084abc0c5bc1f2a01c387f45d" name="tests/Serializer_Option_IgnoreNull_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="33f1038e0f99e895886ccc25dd874758" name="tests/Serializer_Option_Indent_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="d18d9b9603044fa44e52d4a589db5a6e" name="tests/Serializer_Option_Linebreaks_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="310dfcb469480bbe765e161428562828" name="tests/Serializer_Option_Mode_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="eb1032346f01abb8700bacf79dbbcf11" name="tests/Serializer_Option_Namespace_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="80868ad1001921a07c6725b41de9ffa9" name="tests/Serializer_Option_ReturnResult_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="4fc9be5ffcfa29fc74a071dd6a340322" name="tests/Serializer_Option_RootAttributes_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="f4550f4f7850c69a6612057906efa21c" name="tests/Serializer_Option_RootName_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="ccffdc7864d626be22c85df9074c4aa9" name="tests/Serializer_Option_TagMap_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="f6ddf39d0adbea4be9d6916b484696a8" name="tests/Serializer_Option_TypeHints_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="e372abbd6b7f3c6fbd7ed76ae6d49d17" name="tests/Serializer_Option_XmlDeclaration_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="00b6a69181dfa0f74c749cf92d61f07d" name="tests/Serializer_Scalars_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="e35514b92b388e857ccce8d21a0a8098" name="tests/show_ScalarAsAttributes_usage.phpt" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="4beb88ac950e16d8bb7c3c6272629058" name="tests/Unserializer_Arrays_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="9718f1d439b7b91a98e07298f47eb579" name="tests/Unserializer_Objects_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="707b8beaca9a27211841a9f6213975a9" name="tests/Unserializer_Option_Encodings_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="5b4179917c408b18cd91c47954d09170" name="tests/Unserializer_Option_GuessTypes_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="275c6329215a2973bf632b148ee838fc" name="tests/Unserializer_Option_Whitespace_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="4fc92edba435655ca4ac794f4f1fc107" name="tests/Unserializer_Scalars_TestCase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="52450b5abdf59d31805a32cab084ee96" name="XML/Serializer.php" role="php" />
+   <file baseinstalldir="XML" md5sum="b61b176624de42fee329b0c75f09f03c" name="XML/Unserializer.php" role="php" />
+   <file baseinstalldir="XML" md5sum="0cb11d0e3d537d5df3e6fb8471a3c286" name="package.php" role="php" />
+  </dir>
  </contents>
  <dependencies>
   <required>
@@ -286,8 +272,8 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
    </stability>
    <date>2003-08-03</date>
    <license>BSD License</license>
-   <notes>inital release
-    
+   <notes>
+inital release
    </notes>
   </release>
   <release>
@@ -301,13 +287,13 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
    </stability>
    <date>2003-08-12</date>
    <license>BSD License</license>
-   <notes>added Unserializer
+   <notes>
+added Unserializer
 removed bug with object typehint
 removed bug with unnameditem w/o _originalKey attribute
 uses XML_Util to validate tagname
 serializer does not break on resources anymore
 added support for __sleep() and __wakeup()
-    
    </notes>
   </release>
   <release>
@@ -321,9 +307,9 @@ added support for __sleep() and __wakeup()
    </stability>
    <date>2003-08-14</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Unserializer is now able to unserialize XML files w/o type hints by automatically transforming multiple occurences of the same tag to an indexed array
+   <notes>
+Unserializer is now able to unserialize XML files w/o type hints by automatically transforming multiple occurences of the same tag to an indexed array
 This is now similar to ext/simpleXML in PHP5 that means it can be used to parse any XML file, try it with your favorite RSS feed
-    
    </notes>
   </release>
   <release>
@@ -337,14 +323,14 @@ This is now similar to ext/simpleXML in PHP5 that means it can be used to parse 
    </stability>
    <date>2003-08-21</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Unserializer is able to return the name of the root tag,
+   <notes>
+Unserializer is able to return the name of the root tag,
 added &apos;complexType&apos; option to XML_Unserializer,
 added possibility to create nested objects from any XML file,
 tagname is used as classname if no other class is specified,
 added &apos;overrideOptions&apos; option that can be used to restore the default options for a serialization,
 added &apos;keyAttribute&apos; option to XML_Unserializer,
 added Todo list
-    
    </notes>
   </release>
   <release>
@@ -358,7 +344,8 @@ added Todo list
    </stability>
    <date>2003-09-23</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>XML_Serializer:
+   <notes>
+XML_Serializer:
 * added option: scalarAsAttribute to create tags with attributes from an array or object,
 * added option: prependAttributes to enable a prepend string for attributes (ensure they are different from type hints),
 * added option: attributeIndent to allow multiline tags, if a tag has several attributes; this makes it easier to read (requested by Yavor Shahpasov),
@@ -379,7 +366,6 @@ Both:
 * added setOption(),
 * added option: overrideOptions that allows you to reset to defaults for one call of serialize or unserialize,
 * added some very small docs to defaultOptions arrays
-    
    </notes>
   </release>
   <release>
@@ -393,7 +379,8 @@ Both:
    </stability>
    <date>2003-09-23</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
+   <notes>
+Bugfix release
                                         
 XML_Serializer:
 * removed bug when using mode =&gt; simplexml and indexed arrays contained only scalar values,
@@ -401,7 +388,6 @@ XML_Serializer:
 
 XML_Unserializer:
 * added check for set{$propName} method to use methods to set properties in Unserializer instead of direct access
-    
    </notes>
   </release>
   <release>
@@ -415,7 +401,8 @@ XML_Unserializer:
    </stability>
    <date>2003-10-13</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>XML_Serializer:
+   <notes>
+XML_Serializer:
 + added support for doctype declaration (requested by Lapo &apos;Raist&apos; Luchini),
 * changed tagName option to rootName option (tagName is still supported but deprecated),
 + added rootAttributes option (thanks to Lapo &apos;Raist&apos; Luchini),
@@ -423,7 +410,6 @@ XML_Unserializer:
 
 XML_Unserializer:
 * removed bug with unserializing aggregated objects
-    
    </notes>
   </release>
   <release>
@@ -437,8 +423,8 @@ XML_Unserializer:
    </stability>
    <date>2003-10-26</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>fixed bug #105
-    
+   <notes>
+fixed bug #105
    </notes>
   </release>
   <release>
@@ -452,8 +438,8 @@ XML_Unserializer:
    </stability>
    <date>2004-04-23</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>fixed invalid multiple call to XML_Parser constructor
-    
+   <notes>
+fixed invalid multiple call to XML_Parser constructor
    </notes>
   </release>
   <release>
@@ -467,10 +453,10 @@ XML_Unserializer:
    </stability>
    <date>2004-05-24</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>- fixed bug #1478 (Array to string conversion)
+   <notes>
+- fixed bug #1478 (Array to string conversion)
 - fixed bug #170 (RDF examples produce incorrect code)
 - added new options to XML_Serializer: attributesArray and contentName to match XML_Unserializer
-    
    </notes>
   </release>
   <release>
@@ -484,8 +470,8 @@ XML_Unserializer:
    </stability>
    <date>2004-07-12</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>fixed bug #1846 (unserialization bug with empty arrays)
-    
+   <notes>
+fixed bug #1846 (unserialization bug with empty arrays)
    </notes>
   </release>
   <release>
@@ -499,7 +485,8 @@ XML_Unserializer:
    </stability>
    <date>2004-08-24</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Serializer:
+   <notes>
+Serializer:
 - Request #2019 (use classname as tagname in indexed arrays)
 - replaced double quotes with single quotes
 - some CS fixes
@@ -507,7 +494,6 @@ XML_Unserializer:
 Unserializer:
 - added new option &apos;forceEnum&apos;
 - replaced double quotes with single quotes
-    
    </notes>
   </release>
   <release>
@@ -521,9 +507,9 @@ Unserializer:
    </stability>
    <date>2004-08-25</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Serializer:
+   <notes>
+Serializer:
 - fixed bug with default line endings
-    
    </notes>
   </release>
   <release>
@@ -537,11 +523,11 @@ Unserializer:
    </stability>
    <date>2004-11-03</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Serializer:
+   <notes>
+Serializer:
 - added new option tagMap (requested by Toby)
 Unserializer:
 - added encoding option (thanks to mc[at]glouglou[dot]net)
-    
    </notes>
   </release>
   <release>
@@ -555,11 +541,11 @@ Unserializer:
    </stability>
    <date>2004-11-06</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Serializer:
+   <notes>
+Serializer:
 - fixed bug #2688: in simplexml mode $array needs to be non-empty (thanks to demian[at]phpkitchen[dot]com and derek[at]hostbaby[dot]com)
 Unserializer:
 - implemented Request #2650: Multiple key attributes
-    
    </notes>
   </release>
   <release>
@@ -573,10 +559,10 @@ Unserializer:
    </stability>
    <date>2004-11-26</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Serializer:
+   <notes>
+Serializer:
 - fixed error handling (suppress error handling, when XML_Util returns an error) (patch by Lukas Smith)
 - replaced some left-over tabs with spaces
-    
    </notes>
   </release>
   <release>
@@ -590,7 +576,8 @@ Unserializer:
    </stability>
    <date>2004-12-22</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Serializer:
+   <notes>
+Serializer:
 - new option &apos;encodeFunction&apos; to apply a PHP function to character data and attributes before serializing the data
 Unserializer:
 - Does no longer extend XML_Parser (allows to change encoding at runtime), this could break some scripts
@@ -599,7 +586,6 @@ Unserializer:
 - some tiny whitespace fixes
 Global:
 - new requires XML_Parser 1.2.2 and XML_Util 1.1.0
-    
    </notes>
   </release>
   <release>
@@ -613,9 +599,9 @@ Global:
    </stability>
    <date>2004-12-27</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release:
+   <notes>
+Bugfix release:
 - XML_Unserializer now again extends PEAR to use PEAR error management
-    
    </notes>
   </release>
   <release>
@@ -629,14 +615,14 @@ Global:
    </stability>
    <date>2005-02-12</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>XML_Serializer:
+   <notes>
+XML_Serializer:
 - added option to return the result directly from serialize()
 XML_Unserializer:
 - added option to return the result directly from unserialize(),
 - added defaultClass option
 - added tagAsClass option (fixes Bug #3303)
 - fixed bug (tag name was not used as classname when tag was empty)
-    
    </notes>
   </release>
   <release>
@@ -650,7 +636,8 @@ XML_Unserializer:
    </stability>
    <date>2005-06-05</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>XML_Serializer:
+   <notes>
+XML_Serializer:
 - introduced constants for all options (this helps avoiding typos in the option names)
 - deprecated option &apos;tagName&apos; is no longer supported, use XML_SERIALIZER_OPTION_ROOT_NAME (or rootName) instead
 - implement Request #3762: added new ignoreNull option to ignore properties that are set to null when serializing objects or arrays
@@ -658,7 +645,6 @@ XML_Unserializer:
 - use new header comment blocks
 XML_Unserializer:
 - fix bug #4075 (allow tagMap option to influence any kind of value)
-    
    </notes>
   </release>
   <release>
@@ -672,7 +658,8 @@ XML_Unserializer:
    </stability>
    <date>2005-09-24</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>XML_Serializer:
+   <notes>
+XML_Serializer:
 - fixed bug #4575: use the return values of __sleep() when serializing objects
 - allow XML_SERIALIZER_OPTION_DEFAULT_TAG to be set as array to set different default tags based on the surrounding tag
 - allow XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES to be set as array to selectively use scalar values as attributes
@@ -682,7 +669,6 @@ XML_Unserializer:
 - added constants for all options
 - fixed bug #5187: decode function should decode cdata instead of the element name
 - implemented request #3700: Treatment of whitespace can be influenced via an option
-    
    </notes>
   </release>
   <release>
@@ -696,7 +682,8 @@ XML_Unserializer:
    </stability>
    <date>2005-10-02</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>XML_Serializer:
+   <notes>
+XML_Serializer:
 - Allow the use of &apos;#default&apos; whenever one wants to specify an option for any other key
 - fixed bug #4575 for real: XML_Serializer now expects __sleep() to return an array of property names
 XML_Unserializer:
@@ -704,7 +691,6 @@ XML_Unserializer:
 - Added new GUESS_TYPE option to automatically convert the data to the best matching type
 - Allow COMPLEXTYPE to be an array to be able to unserialize to arrays or objects
 - Allow the use of &apos;#default&apos; whenever one wants to specify an option for any other tag
-    
    </notes>
   </release>
   <release>
@@ -718,12 +704,12 @@ XML_Unserializer:
    </stability>
    <date>2008-08-24</date>
    <license uri="http://www.example.com">BSD License</license>
-   <notes>- switch to package.xml v2
+   <notes>
+- switch to package.xml v2
 - PEAR CS cleanup
 - Req #13856:  License Change from PHP to BSD [ashnazg]
 - Bug #8048:   Entities are not replaced in tags with attributes [schst]
 - Doc #12725:  tuto link no more available
-    
    </notes>
   </release>
   <release>
@@ -737,12 +723,12 @@ XML_Unserializer:
    </stability>
    <date>2008-09-15</date>
    <license uri="http://www.example.com">BSD License</license>
-   <notes>- switch to package.xml v2
+   <notes>
+- switch to package.xml v2
 - PEAR CS cleanup
 - Req #13856:  License Change from PHP to BSD [ashnazg]
 - Bug #8048:   Entities are not replaced in tags with attributes [schst]
 - Doc #12725:  tuto link no more available
-    
    </notes>
   </release>
   <release>
@@ -756,10 +742,10 @@ XML_Unserializer:
    </stability>
    <date>2008-10-21</date>
    <license uri="http://www.example.com">BSD License</license>
-   <notes>- Bug #14653:  testNumberedObjects testcase fails [ashnazg]
+   <notes>
+- Bug #14653:  testNumberedObjects testcase fails [ashnazg]
 - Doc #8650 :  Missing Information in the Manual [ashnazg]
 - Doc #13896:  Bad info in the RSS feed tutorial [ashnazg]
-    
    </notes>
   </release>
   <release>
@@ -773,8 +759,8 @@ XML_Unserializer:
    </stability>
    <date>2009-01-24</date>
    <license uri="http://www.example.com">BSD License</license>
-   <notes>- Bug #15602:  attributes don&apos;t get escaped sometimes [lapo]
-    
+   <notes>
+- Bug #15602:  attributes don&apos;t get escaped sometimes [lapo]
    </notes>
   </release>
   <release>
@@ -786,10 +772,10 @@ XML_Unserializer:
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2009-06-11</date>
-   <license uri="http://www.example.com">BSD License</license>
-   <notes>- Request #13564:  bool(false) is converted to empty string
-    
+   <date>2010-09-04</date>
+   <license>BSD License</license>
+   <notes>
+- Request #13564:  bool(false) is converted to empty string
    </notes>
   </release>
  </changelog>
