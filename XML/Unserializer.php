@@ -798,7 +798,7 @@ class XML_Unserializer extends PEAR
             if ($this->options[XML_UNSERIALIZER_OPTION_TAG_AS_CLASSNAME] === true
                 && class_exists($classname)
             ) {
-                $value['value'] = &new $classname;
+                $value['value'] = new $classname;
             } else {
                 $value['value'] =
                     &new $this->options[XML_UNSERIALIZER_OPTION_DEFAULT_CLASS];
