@@ -22,10 +22,10 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
   <email>ashnazg@php.net</email>
   <active>yes</active>
  </lead>
- <date>2010-10-25</date>
- <time>22:41:59</time>
+ <date>2010-10-26</date>
+ <time>08:07:23</time>
  <version>
-  <release>0.20.1</release>
+  <release>0.20.2</release>
   <api>0.20.0</api>
  </version>
  <stability>
@@ -34,77 +34,75 @@ Since version 0.8.0 the package is able to treat XML documents similar to the si
  </stability>
  <license>BSD License</license>
  <notes>
-Automatically built QA release
-Bug #17848 XML_Serializer uses deprecated return new as reference - zigo
+Bug #17994 	Installed into wrong path
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <file baseinstalldir="XML" md5sum="38b25708edc72ee4b55e5729f45d13d5" name="doc/todo.txt" role="data" />
-   <file baseinstalldir="XML" md5sum="c1472503cbf6c35221dc8e37c7e58049" name="examples/example.xml" role="doc" />
-   <file baseinstalldir="XML" md5sum="fa8136a2ea26f61a82802751cc1778ea" name="examples/serializeAndEncode.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="d450d6dd9a06b2f1a0d2ef6da5e46e82" name="examples/serializeAndReturn.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="a19ccf524155b8caa93e887882f4595a" name="examples/serializeCData.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="55711570cbb9259cd88bb0dc081ee19b" name="examples/serializeIndexedArray.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="43c4536aec4f2c0cf024355d84319e40" name="examples/serializeIndexedArrayWithContext.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="0ba2cf6adcb9cba396b5997b8a7bcc06" name="examples/serializeNullProperties.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="a16721a09450265c7f41c10fd4f0e651" name="examples/serializeObject.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="75c50f5ad587ff8a9ca588b82f3af46b" name="examples/serializeRDF.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="a0baf3361aaff1e30b17805688a04044" name="examples/Serializer_Bug7112.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="ab46918564e3e442db6891acab29250a" name="examples/serializeSelectiveAttributes.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="c79e309c98c5e9c8c66ccafd063caad4" name="examples/serializeWithAttributes.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="a40382eda5e2f7c9c424780f56c60413" name="examples/serializeWithAttributes2.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="b4f2765b948581e4ed8f0c5ac30e424c" name="examples/serializeWithComment.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="95518df600c9c5eaf90a21f6f3cad69c" name="examples/serializeWithDtd.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="de366f8970f65be9313be20d1a5446be" name="examples/serializeWithIndentedAttributes.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="5d169143ee88159b4a172d34a6381bda" name="examples/serializeWithNamespace.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="d992946ee3b332f48f60bffbf3219b74" name="examples/serializeWithTagMap.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="78f6861118d168f55adf0c8c744a068d" name="examples/unserializeAnyXML.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="a51652d21c44353377ed4a71c992b54d" name="examples/unserializeClassNames.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="abe46fb437edd1549ae8cb25bc45a7e2" name="examples/unserializeEncoded.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="25419e079ae92d71293aa2caa90d0485" name="examples/unserializeEnum.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="758597f64be3f6132c58f59e4355032d" name="examples/unserializeObject.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="9fd1be0b5689fdae672e862d8b80b132" name="examples/unserializeRDF.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="f6785d5df9aa96c6bc45a7837c9bf7e2" name="examples/unserializeWhitespace.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="0016f26a5debc380cd52ccb909db69c5" name="examples/unserializeWithAttributes.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="99b0734f65e69d2c238bd264e907c8ad" name="examples/unserializeWithTagMap.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="654d663a079b527b2f28bff7367c38f4" name="examples/unserializeWithTypeGuessing.php" role="doc" />
-   <file baseinstalldir="XML" md5sum="4e223031db1cea6e5ad476c57bd5599e" name="tests/AllTests.php" role="test" />
-   <file baseinstalldir="XML" md5sum="fe84d63063f8584c124e7b325e2a9c83" name="tests/bug-9799.phpt" role="test" />
-   <file baseinstalldir="XML" md5sum="31f3d9ddc5d60d18ef10435deb6edd8f" name="tests/bug-12139.phpt" role="test" />
-   <file baseinstalldir="XML" md5sum="ddfbacabff784b57b84b4324ed94c8fb" name="tests/bug-13896.phpt" role="test" />
-   <file baseinstalldir="XML" md5sum="7515f3ea793d395a44dc39616992361b" name="tests/bug-15602.phpt" role="test" />
-   <file baseinstalldir="XML" md5sum="151d0b757625a46a64c80f5fb311fd26" name="tests/req-13564.phpt" role="test" />
-   <file baseinstalldir="XML" md5sum="e94377f6baa0ff7f2f910750009a4675" name="tests/Serializer_Arrays_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="e8e1205cbbf9c470fc6421081320fb4c" name="tests/Serializer_Objects_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="eb1df5fbaa06ae3aa5749b192ef0866b" name="tests/Serializer_Option_AttributesContent_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="15c922cfada7c8bbb6df8b504977f7c6" name="tests/Serializer_Option_CDataSections_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="07ef147eea7bee9bda47f16822efba2f" name="tests/Serializer_Option_ClassName_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="666a8d882a362a9abbf736a5331f8940" name="tests/Serializer_Option_Comment_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="8dd9821d47ffe73a1a338a3f5f62691d" name="tests/Serializer_Option_DefaultTag_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="1d51640b54d1ded7b8e172888f415646" name="tests/Serializer_Option_DocType_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="2fcfd47f0872fb59466254bc2f0e3db7" name="tests/Serializer_Option_EncodeFunc_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="111d423084abc0c5bc1f2a01c387f45d" name="tests/Serializer_Option_IgnoreNull_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="33f1038e0f99e895886ccc25dd874758" name="tests/Serializer_Option_Indent_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="d18d9b9603044fa44e52d4a589db5a6e" name="tests/Serializer_Option_Linebreaks_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="310dfcb469480bbe765e161428562828" name="tests/Serializer_Option_Mode_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="eb1032346f01abb8700bacf79dbbcf11" name="tests/Serializer_Option_Namespace_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="80868ad1001921a07c6725b41de9ffa9" name="tests/Serializer_Option_ReturnResult_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="4fc9be5ffcfa29fc74a071dd6a340322" name="tests/Serializer_Option_RootAttributes_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="f4550f4f7850c69a6612057906efa21c" name="tests/Serializer_Option_RootName_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="ccffdc7864d626be22c85df9074c4aa9" name="tests/Serializer_Option_TagMap_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="f6ddf39d0adbea4be9d6916b484696a8" name="tests/Serializer_Option_TypeHints_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="e372abbd6b7f3c6fbd7ed76ae6d49d17" name="tests/Serializer_Option_XmlDeclaration_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="00b6a69181dfa0f74c749cf92d61f07d" name="tests/Serializer_Scalars_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="e35514b92b388e857ccce8d21a0a8098" name="tests/show_ScalarAsAttributes_usage.phpt" role="test" />
-   <file baseinstalldir="XML" md5sum="4beb88ac950e16d8bb7c3c6272629058" name="tests/Unserializer_Arrays_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="9718f1d439b7b91a98e07298f47eb579" name="tests/Unserializer_Objects_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="707b8beaca9a27211841a9f6213975a9" name="tests/Unserializer_Option_Encodings_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="5b4179917c408b18cd91c47954d09170" name="tests/Unserializer_Option_GuessTypes_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="275c6329215a2973bf632b148ee838fc" name="tests/Unserializer_Option_Whitespace_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="4fc92edba435655ca4ac794f4f1fc107" name="tests/Unserializer_Scalars_TestCase.php" role="test" />
-   <file baseinstalldir="XML" md5sum="52450b5abdf59d31805a32cab084ee96" name="XML/Serializer.php" role="php" />
-   <file baseinstalldir="XML" md5sum="eb1be30d13262a5f84a3f39ffb8d0578" name="XML/Unserializer.php" role="php" />
-   <file baseinstalldir="XML" md5sum="0cb11d0e3d537d5df3e6fb8471a3c286" name="package.php" role="php" />
+   <file baseinstalldir="/" md5sum="38b25708edc72ee4b55e5729f45d13d5" name="doc/todo.txt" role="data" />
+   <file baseinstalldir="/" md5sum="c1472503cbf6c35221dc8e37c7e58049" name="examples/example.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="fa8136a2ea26f61a82802751cc1778ea" name="examples/serializeAndEncode.php" role="doc" />
+   <file baseinstalldir="/" md5sum="d450d6dd9a06b2f1a0d2ef6da5e46e82" name="examples/serializeAndReturn.php" role="doc" />
+   <file baseinstalldir="/" md5sum="a19ccf524155b8caa93e887882f4595a" name="examples/serializeCData.php" role="doc" />
+   <file baseinstalldir="/" md5sum="55711570cbb9259cd88bb0dc081ee19b" name="examples/serializeIndexedArray.php" role="doc" />
+   <file baseinstalldir="/" md5sum="43c4536aec4f2c0cf024355d84319e40" name="examples/serializeIndexedArrayWithContext.php" role="doc" />
+   <file baseinstalldir="/" md5sum="0ba2cf6adcb9cba396b5997b8a7bcc06" name="examples/serializeNullProperties.php" role="doc" />
+   <file baseinstalldir="/" md5sum="a16721a09450265c7f41c10fd4f0e651" name="examples/serializeObject.php" role="doc" />
+   <file baseinstalldir="/" md5sum="75c50f5ad587ff8a9ca588b82f3af46b" name="examples/serializeRDF.php" role="doc" />
+   <file baseinstalldir="/" md5sum="a0baf3361aaff1e30b17805688a04044" name="examples/Serializer_Bug7112.php" role="doc" />
+   <file baseinstalldir="/" md5sum="ab46918564e3e442db6891acab29250a" name="examples/serializeSelectiveAttributes.php" role="doc" />
+   <file baseinstalldir="/" md5sum="c79e309c98c5e9c8c66ccafd063caad4" name="examples/serializeWithAttributes.php" role="doc" />
+   <file baseinstalldir="/" md5sum="a40382eda5e2f7c9c424780f56c60413" name="examples/serializeWithAttributes2.php" role="doc" />
+   <file baseinstalldir="/" md5sum="b4f2765b948581e4ed8f0c5ac30e424c" name="examples/serializeWithComment.php" role="doc" />
+   <file baseinstalldir="/" md5sum="95518df600c9c5eaf90a21f6f3cad69c" name="examples/serializeWithDtd.php" role="doc" />
+   <file baseinstalldir="/" md5sum="de366f8970f65be9313be20d1a5446be" name="examples/serializeWithIndentedAttributes.php" role="doc" />
+   <file baseinstalldir="/" md5sum="5d169143ee88159b4a172d34a6381bda" name="examples/serializeWithNamespace.php" role="doc" />
+   <file baseinstalldir="/" md5sum="d992946ee3b332f48f60bffbf3219b74" name="examples/serializeWithTagMap.php" role="doc" />
+   <file baseinstalldir="/" md5sum="78f6861118d168f55adf0c8c744a068d" name="examples/unserializeAnyXML.php" role="doc" />
+   <file baseinstalldir="/" md5sum="a51652d21c44353377ed4a71c992b54d" name="examples/unserializeClassNames.php" role="doc" />
+   <file baseinstalldir="/" md5sum="abe46fb437edd1549ae8cb25bc45a7e2" name="examples/unserializeEncoded.php" role="doc" />
+   <file baseinstalldir="/" md5sum="25419e079ae92d71293aa2caa90d0485" name="examples/unserializeEnum.php" role="doc" />
+   <file baseinstalldir="/" md5sum="758597f64be3f6132c58f59e4355032d" name="examples/unserializeObject.php" role="doc" />
+   <file baseinstalldir="/" md5sum="9fd1be0b5689fdae672e862d8b80b132" name="examples/unserializeRDF.php" role="doc" />
+   <file baseinstalldir="/" md5sum="f6785d5df9aa96c6bc45a7837c9bf7e2" name="examples/unserializeWhitespace.php" role="doc" />
+   <file baseinstalldir="/" md5sum="0016f26a5debc380cd52ccb909db69c5" name="examples/unserializeWithAttributes.php" role="doc" />
+   <file baseinstalldir="/" md5sum="99b0734f65e69d2c238bd264e907c8ad" name="examples/unserializeWithTagMap.php" role="doc" />
+   <file baseinstalldir="/" md5sum="654d663a079b527b2f28bff7367c38f4" name="examples/unserializeWithTypeGuessing.php" role="doc" />
+   <file baseinstalldir="/" md5sum="4e223031db1cea6e5ad476c57bd5599e" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="/" md5sum="fe84d63063f8584c124e7b325e2a9c83" name="tests/bug-9799.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="31f3d9ddc5d60d18ef10435deb6edd8f" name="tests/bug-12139.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="ddfbacabff784b57b84b4324ed94c8fb" name="tests/bug-13896.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="7515f3ea793d395a44dc39616992361b" name="tests/bug-15602.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="151d0b757625a46a64c80f5fb311fd26" name="tests/req-13564.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e94377f6baa0ff7f2f910750009a4675" name="tests/Serializer_Arrays_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="e8e1205cbbf9c470fc6421081320fb4c" name="tests/Serializer_Objects_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="eb1df5fbaa06ae3aa5749b192ef0866b" name="tests/Serializer_Option_AttributesContent_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="15c922cfada7c8bbb6df8b504977f7c6" name="tests/Serializer_Option_CDataSections_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="07ef147eea7bee9bda47f16822efba2f" name="tests/Serializer_Option_ClassName_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="666a8d882a362a9abbf736a5331f8940" name="tests/Serializer_Option_Comment_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="8dd9821d47ffe73a1a338a3f5f62691d" name="tests/Serializer_Option_DefaultTag_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="1d51640b54d1ded7b8e172888f415646" name="tests/Serializer_Option_DocType_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="2fcfd47f0872fb59466254bc2f0e3db7" name="tests/Serializer_Option_EncodeFunc_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="111d423084abc0c5bc1f2a01c387f45d" name="tests/Serializer_Option_IgnoreNull_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="33f1038e0f99e895886ccc25dd874758" name="tests/Serializer_Option_Indent_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="d18d9b9603044fa44e52d4a589db5a6e" name="tests/Serializer_Option_Linebreaks_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="310dfcb469480bbe765e161428562828" name="tests/Serializer_Option_Mode_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="eb1032346f01abb8700bacf79dbbcf11" name="tests/Serializer_Option_Namespace_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="80868ad1001921a07c6725b41de9ffa9" name="tests/Serializer_Option_ReturnResult_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="4fc9be5ffcfa29fc74a071dd6a340322" name="tests/Serializer_Option_RootAttributes_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="f4550f4f7850c69a6612057906efa21c" name="tests/Serializer_Option_RootName_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="ccffdc7864d626be22c85df9074c4aa9" name="tests/Serializer_Option_TagMap_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="f6ddf39d0adbea4be9d6916b484696a8" name="tests/Serializer_Option_TypeHints_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="e372abbd6b7f3c6fbd7ed76ae6d49d17" name="tests/Serializer_Option_XmlDeclaration_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="00b6a69181dfa0f74c749cf92d61f07d" name="tests/Serializer_Scalars_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="e35514b92b388e857ccce8d21a0a8098" name="tests/show_ScalarAsAttributes_usage.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4beb88ac950e16d8bb7c3c6272629058" name="tests/Unserializer_Arrays_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="9718f1d439b7b91a98e07298f47eb579" name="tests/Unserializer_Objects_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="707b8beaca9a27211841a9f6213975a9" name="tests/Unserializer_Option_Encodings_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="5b4179917c408b18cd91c47954d09170" name="tests/Unserializer_Option_GuessTypes_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="275c6329215a2973bf632b148ee838fc" name="tests/Unserializer_Option_Whitespace_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="4fc92edba435655ca4ac794f4f1fc107" name="tests/Unserializer_Scalars_TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="52450b5abdf59d31805a32cab084ee96" name="XML/Serializer.php" role="php" />
+   <file baseinstalldir="/" md5sum="eb1be30d13262a5f84a3f39ffb8d0578" name="XML/Unserializer.php" role="php" />
   </dir>
  </contents>
  <dependencies>
@@ -667,6 +665,21 @@ XML_Unserializer:
    <notes>
 Automatically built QA release
 Bug #17848 XML_Serializer uses deprecated return new as reference - zigo
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.20.2</release>
+    <api>0.20.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-10-26</date>
+   <license>BSD License</license>
+   <notes>
+Bug #17994 	Installed into wrong path
    </notes>
   </release>
  </changelog>
