@@ -38,7 +38,7 @@ Bug #17994 	Installed into wrong path
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <file baseinstalldir="/" md5sum="38b25708edc72ee4b55e5729f45d13d5" name="doc/todo.txt" role="data" />
+   <file baseinstalldir="/" md5sum="38b25708edc72ee4b55e5729f45d13d5" name="doc/todo.txt" role="doc" />
    <file baseinstalldir="/" md5sum="c1472503cbf6c35221dc8e37c7e58049" name="examples/example.xml" role="doc" />
    <file baseinstalldir="/" md5sum="fa8136a2ea26f61a82802751cc1778ea" name="examples/serializeAndEncode.php" role="doc" />
    <file baseinstalldir="/" md5sum="d450d6dd9a06b2f1a0d2ef6da5e46e82" name="examples/serializeAndReturn.php" role="doc" />
