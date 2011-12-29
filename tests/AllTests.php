@@ -45,40 +45,15 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 /*
  * Files needed by PhpUnit
  */
-require_once 'PHPUnit/Framework.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
-require_once 'PHPUnit/Extensions/PhptTestSuite.php';
-
-/*
- * You must add each additional class-level test suite file here
- */
-require_once 'Serializer_Arrays_TestCase.php';
-require_once 'Serializer_Objects_TestCase.php';
-require_once 'Serializer_Option_AttributesContent_TestCase.php';
-require_once 'Serializer_Option_CDataSections_TestCase.php';
-require_once 'Serializer_Option_ClassName_TestCase.php';
-require_once 'Serializer_Option_Comment_TestCase.php';
-require_once 'Serializer_Option_DefaultTag_TestCase.php';
-require_once 'Serializer_Option_DocType_TestCase.php';
-require_once 'Serializer_Option_EncodeFunc_TestCase.php';
-require_once 'Serializer_Option_IgnoreNull_TestCase.php';
-require_once 'Serializer_Option_Indent_TestCase.php';
-require_once 'Serializer_Option_Linebreaks_TestCase.php';
-require_once 'Serializer_Option_Mode_TestCase.php';
-require_once 'Serializer_Option_Namespace_TestCase.php';
-require_once 'Serializer_Option_ReturnResult_TestCase.php';
-require_once 'Serializer_Option_RootAttributes_TestCase.php';
-require_once 'Serializer_Option_RootName_TestCase.php';
-require_once 'Serializer_Option_TagMap_TestCase.php';
-require_once 'Serializer_Option_TypeHints_TestCase.php';
-require_once 'Serializer_Option_XmlDeclaration_TestCase.php';
-require_once 'Serializer_Scalars_TestCase.php';
-require_once 'Unserializer_Arrays_TestCase.php';
-require_once 'Unserializer_Objects_TestCase.php';
-require_once 'Unserializer_Option_Encodings_TestCase.php';
-require_once 'Unserializer_Option_GuessTypes_TestCase.php';
-require_once 'Unserializer_Option_Whitespace_TestCase.php';
-require_once 'Unserializer_Scalars_TestCase.php';
+if ($fp = @fopen('PHPUnit/Autoload.php', 'r', true)) {
+    require_once 'PHPUnit/Autoload.php';
+} elseif ($fp = @fopen('PHPUnit/Framework.php', 'r', true)) {
+    require_once 'PHPUnit/Framework.php';
+    require_once 'PHPUnit/TextUI/TestRunner.php';
+} else {
+    die('skip could not find PHPUnit');
+}
+fclose($fp);
 
 /**
  * directory where PHPT tests are located
@@ -129,37 +104,9 @@ class XML_Serializer_AllTests
         $suite = new PHPUnit_Framework_TestSuite(
             'XML_Serializer Full Suite of Unit Tests');
 
-        /*
-         * You must add each additional class-level test suite name here
-         */
-        $suite->addTestSuite('XML_Serializer_Arrays_TestCase');
-        $suite->addTestSuite('XML_Serializer_Objects_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_AttributesContent_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_CDataSections_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_ClassName_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_Comment_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_DefaultTag_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_DocType_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_EncodeFunc_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_IgnoreNull_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_Indent_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_Linebreaks_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_Mode_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_Namespace_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_ReturnResult_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_RootAttributes_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_RootName_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_TagMap_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_TypeHints_TestCase');
-        $suite->addTestSuite('XML_Serializer_Option_XmlDeclaration_TestCase');
-        $suite->addTestSuite('XML_Serializer_Scalars_TestCase');
-        $suite->addTestSuite('XML_Unserializer_Arrays_TestCase');
-        $suite->addTestSuite('XML_Unserializer_Objects_TestCase');
-        $suite->addTestSuite('XML_Unserializer_Option_Encodings_TestCase');
-        $suite->addTestSuite('XML_Unserializer_Option_GuessTypes_TestCase');
-        $suite->addTestSuite('XML_Unserializer_Option_Whitespace_TestCase');
-        $suite->addTestSuite('XML_Unserializer_Scalars_TestCase');
-
+        // Gather PHPUnit tests.
+        $dir = new GlobIterator(dirname(__FILE__) . '/*TestCase.php');
+        $suite->addTestFiles($dir);
 
         /*
          * add PHPT tests
