@@ -1,0 +1,36 @@
+{
+    "authors": [
+        {
+            "email": "schst@php-tools.net",
+            "name": "Stephan Schmidt",
+            "role": "Lead"
+        },
+        {
+            "email": "ashnazg@php.net",
+            "name": "Chuck Burgess",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "XML_Serializer": "./"
+        }
+    },
+    "description": "More info available on: http://pear.php.net/package/XML_Serializer",
+    "include-path": [
+        "./"
+    ],
+    "license": "BSD License",
+    "name": "pear/xml_serializer",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=XML_Serializer",
+        "source": "https://github.com/pear/XML_Serializer"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
