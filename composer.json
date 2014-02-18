@@ -13,14 +13,14 @@
     ],
     "autoload": {
         "psr-0": {
-            "XML_Serializer": "./"
+            "XML": "./"
         }
     },
     "description": "More info available on: http://pear.php.net/package/XML_Serializer",
     "include-path": [
         "./"
     ],
-    "license": "BSD License",
+    "license": "BSD-2-Clause",
     "name": "pear/xml_serializer",
     "support": {
         "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=XML_Serializer",
@@ -28,7 +28,10 @@
     },
     "type": "library",
     "require": {
-        "pear/pear_exception": "*"
+        "ext-xml": "*",
+        "pear/pear": "*",
+        "pear/xml_parser": "*",
+        "pear/xml_util": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "*"
