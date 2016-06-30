@@ -598,7 +598,7 @@ class XML_Serializer extends PEAR
      *
      * @access public
      */
-    function XML_Serializer( $options = null )
+    function __construct($options = null)
     {
         $this->PEAR();
         if (is_array($options)) {
@@ -606,6 +606,18 @@ class XML_Serializer extends PEAR
         } else {
             $this->options = $this->_defaultOptions;
         }
+    }
+
+    /**
+     * Constructor
+     *
+     * @param mixed $options array containing options for the serialization
+     *
+     * @access public
+     */
+    function XML_Serializer($options = null)
+    {
+        self::__construct($options);
     }
 
     /**

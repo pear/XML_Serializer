@@ -432,13 +432,25 @@ class XML_Unserializer extends PEAR
      *
      * @access public
      */
-    function XML_Unserializer($options = null)
+    function __construct($options = null)
     {
         if (is_array($options)) {
             $this->options = array_merge($this->_defaultOptions, $options);
         } else {
             $this->options = $this->_defaultOptions;
         }
+    }
+
+    /**
+     * constructor
+     *
+     * @param mixed $options array containing options for the unserialization
+     *
+     * @access public
+     */
+    function XML_Unserializer($options = null)
+    {
+        self::__construct($options);
     }
 
     /**
