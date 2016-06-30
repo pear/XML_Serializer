@@ -440,18 +440,18 @@ class XML_Unserializer extends PEAR
             $this->options = $this->_defaultOptions;
         }
     }
-	
-	/**
+
+    /**
      * constructor
      *
      * @param mixed $options array containing options for the unserialization
      *
      * @access public
      */
-	function XML_Unserializer($options = null)
-	{
-		self::__construct($options);
-	}
+    function XML_Unserializer($options = null)
+    {
+        self::__construct($options);
+    }
 
     /**
      * return API version
