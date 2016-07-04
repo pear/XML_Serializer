@@ -78,7 +78,7 @@ class MyClass
     var $foo;
     var $bar;
 
-    public function MyClass($foo, $bar)
+    public function __construct($foo, $bar)
     {
         $this->foo = $foo;
         $this->bar = $bar;
