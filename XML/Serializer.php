@@ -1192,8 +1192,8 @@ class XML_Serializer extends PEAR
             if (empty($tag['content'])) {
                 $tag['content'] =   '';
             }
-} elseif (XML_SERIALIZER_OPTION_FALSE_AS_STRING && $tag['content'] === false) {
-$tag['content'] = '0';
+        } elseif (XML_SERIALIZER_OPTION_FALSE_AS_STRING && $tag['content'] === false) {
+            $tag['content'] = '0';
         } elseif (is_scalar($tag['content']) && (string)$tag['content'] == '') {
             $tag['content'] =   '';
         }
