@@ -8,18 +8,6 @@
  * @author     Chuck Burgess <ashnazg@php.net>
  */
 
-/**
- * PHPUnit main() hack
- * 
- * "Call class::main() if this source file is executed directly."
- */
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'XML_Serializer_Option_RootName_TestCase::main');
-}
-require_once 'PHPUnit/Framework/TestCase.php';
-require_once 'PHPUnit/Framework/TestSuite.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
-
 require_once 'XML/Serializer.php';
 
 /**
@@ -37,15 +25,6 @@ class XML_Serializer_Option_RootName_TestCase extends PHPUnit_Framework_TestCase
         XML_SERIALIZER_OPTION_LINEBREAKS => '',
         XML_SERIALIZER_OPTION_ROOT_NAME  => 'root'
     );
-
-    public static function main() {
-        $suite  = new PHPUnit_Framework_TestSuite('XML_Serializer_Option_RootName_TestCase');
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
-
-    protected function setUp() {}
-
-    protected function tearDown() {}
 
    /**
     * Array
@@ -67,13 +46,5 @@ class XML_Serializer_Option_RootName_TestCase extends PHPUnit_Framework_TestCase
         $this->assertEquals('<root><foo>bar</foo></root>', $s->getSerializedData());
     }
 
-}
-
-/**
- * PHPUnit main() hack
- * "Call class::main() if this source file is executed directly."
- */
-if (PHPUnit_MAIN_METHOD == 'XML_Serializer_Option_RootName_TestCase::main') {
-    XML_Serializer_Option_RootName_TestCase::main();
 }
 ?>

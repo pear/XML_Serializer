@@ -4,7 +4,7 @@ XML Serializer - show proper usages of SCALAR_AS_ATTRIBUTES option
 <?php
 require_once 'XML/Serializer.php';
 
-$ser = &new XML_Serializer();
+$ser = new XML_Serializer();
 
 
 /**

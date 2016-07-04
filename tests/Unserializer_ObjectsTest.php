@@ -8,18 +8,6 @@
  * @author     Chuck Burgess <ashnazg@php.net>
  */
 
-/**
- * PHPUnit main() hack
- * 
- * "Call class::main() if this source file is executed directly."
- */
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'XML_Unserializer_Objects_TestCase::main');
-}
-require_once 'PHPUnit/Framework/TestCase.php';
-require_once 'PHPUnit/Framework/TestSuite.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
-
 require_once 'XML/Unserializer.php';
 
 /**
@@ -31,15 +19,6 @@ require_once 'XML/Unserializer.php';
  * @author     Chuck Burgess <ashnazg@php.net>
  */
 class XML_Unserializer_Objects_TestCase extends PHPUnit_Framework_TestCase {
-
-    public static function main() {
-        $suite  = new PHPUnit_Framework_TestSuite('XML_Unserializer_Objects_TestCase');
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
-
-    protected function setUp() {}
-
-    protected function tearDown() {}
 
    /**
     * Test unserializing to a stdClass object
@@ -114,13 +93,5 @@ class SetterExample {
     {
         $this->_hidden = $foo;
     }
-}
-
-/**
- * PHPUnit main() hack
- * "Call class::main() if this source file is executed directly."
- */
-if (PHPUnit_MAIN_METHOD == 'XML_Unserializer_Objects_TestCase::main') {
-    XML_Unserializer_Objects_TestCase::main();
 }
 ?>

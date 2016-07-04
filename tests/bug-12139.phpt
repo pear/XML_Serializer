@@ -10,7 +10,7 @@ $xml = <<<EOF
 </stdClass>
 EOF;
 
-$unserializer = &new XML_Unserializer();
+$unserializer = new XML_Unserializer();
 $status = $unserializer->unserialize($xml);
 if (PEAR::isError($status)) {
     echo $status->getMessage();

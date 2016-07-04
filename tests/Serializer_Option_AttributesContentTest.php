@@ -8,18 +8,6 @@
  * @author     Chuck Burgess <ashnazg@php.net>
  */
 
-/**
- * PHPUnit main() hack
- * 
- * "Call class::main() if this source file is executed directly."
- */
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'XML_Serializer_Option_AttributesContent_TestCase::main');
-}
-require_once 'PHPUnit/Framework/TestCase.php';
-require_once 'PHPUnit/Framework/TestSuite.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
-
 require_once 'XML/Serializer.php';
 
 /**
@@ -38,16 +26,6 @@ class XML_Serializer_Option_AttributesContent_TestCase extends PHPUnit_Framework
         XML_SERIALIZER_OPTION_ATTRIBUTES_KEY => 'atts',
         XML_SERIALIZER_OPTION_CONTENT_KEY    => 'content'
     );
-
-    public static function main() {
-        $suite  = new PHPUnit_Framework_TestSuite('XML_Serializer_Option_AttributesContent_TestCase');
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
-
-    protected function setUp() {}
-
-    protected function tearDown() {}
-
 
    /**
     * Test attributes
@@ -127,13 +105,5 @@ class XML_Serializer_Option_AttributesContent_TestCase extends PHPUnit_Framework
         );
     }
 
-}
-
-/**
- * PHPUnit main() hack
- * "Call class::main() if this source file is executed directly."
- */
-if (PHPUnit_MAIN_METHOD == 'XML_Serializer_Option_AttributesContent_TestCase::main') {
-    XML_Serializer_Option_AttributesContent_TestCase::main();
 }
 ?>

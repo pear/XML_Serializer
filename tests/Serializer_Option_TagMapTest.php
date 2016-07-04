@@ -8,18 +8,6 @@
  * @author     Chuck Burgess <ashnazg@php.net>
  */
 
-/**
- * PHPUnit main() hack
- * 
- * "Call class::main() if this source file is executed directly."
- */
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'XML_Serializer_Option_TagMap_TestCase::main');
-}
-require_once 'PHPUnit/Framework/TestCase.php';
-require_once 'PHPUnit/Framework/TestSuite.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
-
 require_once 'XML/Serializer.php';
 
 /**
@@ -37,16 +25,6 @@ class XML_Serializer_Option_TagMap_TestCase extends PHPUnit_Framework_TestCase {
         XML_SERIALIZER_OPTION_LINEBREAKS => '',
         XML_SERIALIZER_OPTION_TAGMAP     => array('foo' => 'bar')
     );
-
-    public static function main() {
-        $suite  = new PHPUnit_Framework_TestSuite('XML_Serializer_Option_TagMap_TestCase');
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
-
-    protected function setUp() {}
-
-    protected function tearDown() {}
-
 
    /**
     * Test array
@@ -86,13 +64,5 @@ class XML_Serializer_Option_TagMap_TestCase extends PHPUnit_Framework_TestCase {
         $this->assertEquals('<array><foo /><foo /></array>', strtolower($s->getSerializedData()));
     }
 
-}
-
-/**
- * PHPUnit main() hack
- * "Call class::main() if this source file is executed directly."
- */
-if (PHPUnit_MAIN_METHOD == 'XML_Serializer_Option_TagMap_TestCase::main') {
-    XML_Serializer_Option_TagMap_TestCase::main();
 }
 ?>

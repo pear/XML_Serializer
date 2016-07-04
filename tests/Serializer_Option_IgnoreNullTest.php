@@ -8,18 +8,6 @@
  * @author     Chuck Burgess <ashnazg@php.net>
  */
 
-/**
- * PHPUnit main() hack
- * 
- * "Call class::main() if this source file is executed directly."
- */
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'XML_Serializer_Option_IgnoreNull_TestCase::main');
-}
-require_once 'PHPUnit/Framework/TestCase.php';
-require_once 'PHPUnit/Framework/TestSuite.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
-
 require_once 'XML/Serializer.php';
 
 /**
@@ -37,15 +25,6 @@ class XML_Serializer_Option_IgnoreNull_TestCase extends PHPUnit_Framework_TestCa
         XML_SERIALIZER_OPTION_LINEBREAKS  => '',
         XML_SERIALIZER_OPTION_IGNORE_NULL => true
     );
-
-    public static function main() {
-        $suite  = new PHPUnit_Framework_TestSuite('XML_Serializer_Option_IgnoreNull_TestCase');
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
-
-    protected function setUp() {}
-
-    protected function tearDown() {}
 
    /**
     * Array with null value
@@ -70,13 +49,5 @@ class XML_Serializer_Option_IgnoreNull_TestCase extends PHPUnit_Framework_TestCa
         $this->assertEquals('<stdClass><foo>bar</foo></stdClass>', $s->getSerializedData());
     }
 
-}
-
-/**
- * PHPUnit main() hack
- * "Call class::main() if this source file is executed directly."
- */
-if (PHPUnit_MAIN_METHOD == 'XML_Serializer_Option_IgnoreNull_TestCase::main') {
-    XML_Serializer_Option_IgnoreNull_TestCase::main();
 }
 ?>
