@@ -2,7 +2,7 @@ language: php
 
 before_install:
   - pear upgrade pear
-  - pear upgrade XML_Util
+  - pear upgrade --force XML_Util
 
 install:
   - pear install package.xml
