@@ -29,7 +29,7 @@
     "type": "library",
     "require": {
         "ext-xml": "*",
-        "pear/pear": "*",
+        "pear/pear-core-minimal": "*",
         "pear/xml_parser": "*",
         "pear/xml_util": "*"
     },
