@@ -48,16 +48,6 @@
  */
 
 /**
- * uses PEAR error management
- */
-require_once 'PEAR.php';
-
-/**
- * uses XML_Util to create XML tags
- */
-require_once 'XML/Util.php';
-
-/**
  * option: string used for indentation
  *
  * Possible values:
