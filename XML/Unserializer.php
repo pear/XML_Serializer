@@ -48,11 +48,6 @@
  */
 
 /**
- * uses XML_Parser to unserialize document
- */
-require_once 'XML/Parser.php';
-
-/**
  * option: Convert nested tags to array or object
  *
  * Possible values:
